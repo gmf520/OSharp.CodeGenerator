@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CE0E16CA-6943-43F6-A041-D12D11C1405D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{87C5555B-87C3-46FE-9BF0-ACA575890EC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.CodeGenerator", "src\OSharp.CodeGenerator\OSharp.CodeGenerator.csproj", "{5AF55A1E-7A19-4886-B4B0-D840694AA997}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AF55A1E-7A19-4886-B4B0-D840694AA997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF55A1E-7A19-4886-B4B0-D840694AA997}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF55A1E-7A19-4886-B4B0-D840694AA997}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF55A1E-7A19-4886-B4B0-D840694AA997}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5AF55A1E-7A19-4886-B4B0-D840694AA997} = {87C5555B-87C3-46FE-9BF0-ACA575890EC6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFCE6A5E-D5ED-4BAA-8CCF-45A229EF3405}
+	EndGlobalSection
+EndGlobal
