@@ -31,7 +31,7 @@ namespace OSharp.CodeGenerator.Views
         protected override void Load()
         {
             // Validator
-            Bind(typeof(IValidator<>)).ToAllImplementations();
+            Bind(typeof(IValidator<>)).ToAllImplementations(true);
             Bind(typeof(IModelValidator<>)).To(typeof(FluentModelValidator<>));
 
             // ViewModels

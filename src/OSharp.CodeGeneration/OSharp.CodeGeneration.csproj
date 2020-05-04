@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RazorEngine.NetCore" Version="3.1.2" />
+    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="3.1.2" />
+    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+    <PackageReference Include="OSharpNS.Wpf" Version="3.1.2" />
+  </ItemGroup>
+
+</Project>

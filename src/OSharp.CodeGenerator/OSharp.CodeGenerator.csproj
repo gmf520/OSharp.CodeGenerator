@@ -4,17 +4,44 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <AssemblyName>OsharpCodeGenerator</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="HandyControl" Version="2.4.0" />
-    <PackageReference Include="OSharpNS.Wpf" Version="3.1.2" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="OSharpNS.Log4Net" Version="3.1.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.2.8" />
-    <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Hubs\" />
+    <None Remove="Resources\osharp128-2.ico" />
+    <None Remove="Resources\osharp128-2.png" />
+    <None Remove="Resources\osharp128.ico" />
+    <None Remove="Resources\osharp128.png" />
+    <None Remove="Resources\osharp128.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OSharp.CodeGeneration\OSharp.CodeGeneration.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\osharp128-2.ico" />
+    <Resource Include="Resources\osharp128-2.png" />
+    <Resource Include="Resources\osharp128.ico" />
+    <Resource Include="Resources\osharp128.png" />
+    <Resource Include="Resources\osharp128.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

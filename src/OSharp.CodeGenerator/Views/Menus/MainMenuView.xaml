@@ -1,0 +1,43 @@
+<Grid
+  x:Class="OSharp.CodeGenerator.Views.MainMenuView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:local="clr-namespace:OSharp.CodeGenerator.Views"
+  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:s="https://github.com/canton7/Stylet"
+  mc:Ignorable="d"
+  d:DataContext="{d:DesignInstance local:MainMenuViewModel}"
+  d:DesignHeight="29" d:DesignWidth="800">
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition/>
+    <ColumnDefinition Width="Auto"/>
+  </Grid.ColumnDefinitions>
+  <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+    <Menu Background="Transparent">
+      <MenuItem Header="文件(_F)" Height="29" >
+        <MenuItem Header="新建项目(_N)" s:View.ActionTarget="{Binding}" Command="{s:Action New}" Icon="{iconPacks:Material Kind=NewBox}"/>
+        <MenuItem Header="打开项目(_)" s:View.ActionTarget="{Binding}" Command="{s:Action Open}" Icon="{iconPacks:Typicons Kind=FolderOpen}"/>
+        <MenuItem Header="保存项目(_S)" s:View.ActionTarget="{Binding}" Command="{s:Action Save}" Icon="{iconPacks:Material Kind=ContentSave}"/>
+        <MenuItem Header="项目另存为(_A)" s:View.ActionTarget="{Binding}" Command="{s:Action SaveAs}" Icon="{iconPacks:Material Kind=ContentSaveMove}"/>
+        <MenuItem Header="退出(_X)" s:View.ActionTarget="{Binding}" Command="{s:Action Exit}" Icon="{iconPacks:Unicons Kind=Exit}"/>
+      </MenuItem>
+      <MenuItem Header="项目(_P)">
+        <MenuItem Header="项目信息(_P)" s:View.ActionTarget="{Binding}" Command="{s:Action Project}" Icon="{iconPacks:Octicons Kind=Project}"/>
+        <MenuItem Header="项目模块管理(_M)" s:View.ActionTarget="{Binding}" Command="{s:Action Module}" Icon="{iconPacks:MaterialDesign Kind=ViewModule}"/>
+        <MenuItem Header="项目模板管理(_T)" s:View.ActionTarget="{Binding}" Command="{s:Action Template}" Icon="{iconPacks:Material Kind=AlphaTBox}"/>
+      </MenuItem>
+      <MenuItem Header="设置(_S)">
+        <MenuItem Header="全局模板管理(_T)" s:View.ActionTarget="{Binding}" Command="{s:Action GlobalTemplate}" Icon="{iconPacks:Material Kind=AlphaTBoxOutline}"/>
+      </MenuItem>
+      <MenuItem Header="帮助(_H)">
+        <MenuItem Header="OSharp on Github(_G)" s:View.ActionTarget="{Binding}" Command="{s:Action Github}" Icon="{iconPacks:Modern Kind=SocialGithubOctocat}"/>
+        <MenuItem Header="关于(_A)" s:View.ActionTarget="{Binding}" Command="{s:Action About}" Icon="{iconPacks:SimpleIcons Kind=AboutMe}"/>
+      </MenuItem>
+    </Menu>
+  </StackPanel>
+  <StackPanel Grid.Column="1" Orientation="Horizontal">
+    <!--<Button Content="登录"/>-->
+  </StackPanel>
+</Grid>

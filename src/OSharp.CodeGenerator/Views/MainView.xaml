@@ -8,12 +8,17 @@
   xmlns:views="clr-namespace:OSharp.CodeGenerator.Views"
   mc:Ignorable="d"
   d:DataContext="{d:DesignInstance views:MainViewModel}"
-  WindowStartupLocation="Manual"
+  WindowStartupLocation="Manual" Icon="../Resources/osharp128-2.ico"
   Title="{Binding DisplayName}" Height="800" Width="1280">
   <hc:Window.NonClientAreaContent>
-    <StackPanel Orientation="Horizontal">
-      <Button Content="{Binding DisplayName}"/>
-    </StackPanel>
+    <views:MainMenuView DataContext="{Binding MainMenu}" Margin="20 0 0 0"/>
   </hc:Window.NonClientAreaContent>
-  <Grid />
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="30"/>
+    </Grid.RowDefinitions>
+    <Grid Background="WhiteSmoke"/>
+    <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}"/>
+  </Grid>
 </hc:Window>
