@@ -15,45 +15,24 @@ using Microsoft.Extensions.Logging;
 
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views;
-using OSharp.Entity.Sqlite;
+using OSharp.Core.Builders;
+using OSharp.Log4Net;
 using OSharp.Wpf.Data;
+using OSharp.Wpf.FluentValidation;
 using OSharp.Wpf.Stylet;
 
 using Stylet;
 
-using StyletIoC;
-
 
 namespace OSharp.CodeGenerator
 {
-    public class Bootstrapper : Bootstrapper<MainViewModel>
+    public class Bootstrapper : ServiceProviderBootstrapper<MainViewModel>
     {
-        private ILogger _logger;
-
-        /// <summary>Override to add your own types to the IoC container.</summary>
-        /// <param name="builder">StyletIoC builder to use to configure the container</param>
-        protected override void ConfigureIoC(IStyletIoCBuilder builder)
+        protected override void ConfigureIoC(IServiceCollection services)
         {
-            builder.AddModule(new ViewModelsModule());
-        }
-
-        /// <summary>Hook called after the IoC container has been set up</summary>
-        protected override void Configure()
-        {
-            IoC.Initialize(Container);
-            StatusBarViewModel statusBar = IoC.Get<StatusBarViewModel>();
-            Output.StatusBar = msg => statusBar.Message = msg;
-            OsharpInit();
-        }
-
-        #region 私有方法
-
-        private void OsharpInit()
-        {
-            IServiceCollection services = new ServiceCollection();
-            IConfigurationBuilder builder = new ConfigurationBuilder();
-            builder.AddJsonFile("appsettings.json");
-            IConfiguration configuration = builder.Build();
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
+            configurationBuilder.AddJsonFile("appsettings.json");
+            IConfiguration configuration = configurationBuilder.Build();
             services.AddSingleton(configuration);
 
             services.AddLogging(opts =>
@@ -66,13 +45,19 @@ namespace OSharp.CodeGenerator
             });
 
             services.AddOSharp()
+                .AddPack<ViewModelPack>()
+                .AddPack<Log4NetPack>()
                 .AddPack<SqliteDefaultDbContextMigrationPack>();
-
-            IServiceProvider provider = services.BuildServiceProvider();
-            provider.UseOsharp();
-            _logger = provider.GetLogger<Bootstrapper>();
         }
 
-        #endregion
+        /// <summary>Hook called after the IoC container has been set up</summary>
+        protected override void Configure()
+        {
+            IServiceProvider provider = ServiceProvider;
+            provider.UseOsharp();
+            IoC.Initialize(provider);
+            MainViewModel main = IoC.Get<MainViewModel>();
+            Output.StatusBar = msg => main.StatusBar.Message = msg;
+        }
     }
 }

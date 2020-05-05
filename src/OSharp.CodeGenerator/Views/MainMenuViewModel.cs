@@ -7,14 +7,11 @@
 //  <last-date>2020-05-03 18:09</last-date>
 // -----------------------------------------------------------------------
 
-using System.Net.Mime;
 using System.Windows;
 
 using OSharp.Wpf.Stylet;
 
 using Stylet;
-
-using StyletIoC;
 
 
 namespace OSharp.CodeGenerator.Views
@@ -22,10 +19,12 @@ namespace OSharp.CodeGenerator.Views
     [Singleton]
     public class MainMenuViewModel : Screen
     {
-        private StatusBarViewModel _statusBar;
+        private readonly IWindowManager _windowManager;
+        private readonly StatusBarViewModel _statusBar;
 
-        public MainMenuViewModel()
+        public MainMenuViewModel(IWindowManager windowManager)
         {
+            _windowManager = windowManager;
             _statusBar = IoC.Get<StatusBarViewModel>();
         }
 
@@ -33,7 +32,8 @@ namespace OSharp.CodeGenerator.Views
 
         public void New()
         {
-            _statusBar.Message = "新建项目";
+            MainViewModel main = IoC.Get<MainViewModel>();
+            main.IsProjectOpen = true;
         }
 
         public void Open()

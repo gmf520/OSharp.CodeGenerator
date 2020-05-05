@@ -20,13 +20,13 @@ namespace OSharp.CodeGenerator.Views
         /// <param name="e">包含事件数据的 <see cref="T:System.ComponentModel.CancelEventArgs" />。</param>
         protected override void OnClosing(CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("是否关闭窗口", "请选择", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.No)
-            {
-                e.Cancel = true;
-                return;
-            }
-
+            //MessageBoxResult result = MessageBox.Show("是否关闭窗口", "请选择", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //if (result == MessageBoxResult.No)
+            //{
+            //    e.Cancel = true;
+            //    return;
+            //}
+            
             base.OnClosing(e);
         }
     }

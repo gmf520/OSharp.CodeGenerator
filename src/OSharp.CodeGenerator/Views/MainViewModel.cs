@@ -11,8 +11,6 @@ using OSharp.Wpf.Stylet;
 
 using Stylet;
 
-using StyletIoC;
-
 
 namespace OSharp.CodeGenerator.Views
 {
@@ -27,8 +25,12 @@ namespace OSharp.CodeGenerator.Views
             DisplayName = "OSharp代码生成器";
         }
 
-        public MainMenuViewModel MainMenu => IoC.Get<MainMenuViewModel>();
+        public bool IsProjectOpen { get; set; } = false;
 
-        public StatusBarViewModel StatusBar => IoC.Get<StatusBarViewModel>();
+        public MainMenuViewModel MainMenu { get; set; } = IoC.Get<MainMenuViewModel>();
+
+        public StatusBarViewModel StatusBar { get; set; } = IoC.Get<StatusBarViewModel>();
+
+        public ProjectViewModel Project { get; set; } = IoC.Get<ProjectViewModel>();
     }
 }

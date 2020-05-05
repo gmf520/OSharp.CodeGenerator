@@ -5,6 +5,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:hc="https://handyorg.github.io/handycontrol" 
+  xmlns:s="https://github.com/canton7/Stylet"
   xmlns:views="clr-namespace:OSharp.CodeGenerator.Views"
   mc:Ignorable="d"
   d:DataContext="{d:DesignInstance views:MainViewModel}"
@@ -18,7 +19,24 @@
       <RowDefinition Height="*"/>
       <RowDefinition Height="30"/>
     </Grid.RowDefinitions>
-    <Grid Background="WhiteSmoke"/>
-    <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}"/>
+    <Grid Background="WhiteSmoke">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200" MinWidth="200" MaxWidth="300"/>
+        <ColumnDefinition Width="*" MinWidth="200"/>
+      </Grid.ColumnDefinitions>
+      <GroupBox Header="模块树" Margin="0 0 4 0" Style="{StaticResource GroupBoxTab}">
+
+      </GroupBox>
+      <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="4" Background="White"/>
+      <Grid Grid.Column="1">
+        <GroupBox Header="实体配置" Style="{StaticResource GroupBoxTab}">
+
+        </GroupBox>
+        <hc:Drawer IsOpen="{Binding IsProjectOpen}">
+          <views:ProjectView Width="500"/>
+        </hc:Drawer>
+      </Grid>
+    </Grid>
+    <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}" Background="DimGray"/>
   </Grid>
 </hc:Window>
