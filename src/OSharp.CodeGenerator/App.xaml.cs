@@ -9,9 +9,6 @@ using Microsoft.Extensions.Logging;
 using OSharp.Collections;
 using OSharp.Dependency;
 
-using MessageBox = HandyControl.Controls.MessageBox;
-
-
 namespace OSharp.CodeGenerator
 {
     /// <summary>

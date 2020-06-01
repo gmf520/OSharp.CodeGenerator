@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using OSharp.AutoMapper;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views;
 using OSharp.Core.Builders;
@@ -47,6 +48,7 @@ namespace OSharp.CodeGenerator
             services.AddOSharp()
                 .AddPack<ViewModelPack>()
                 .AddPack<Log4NetPack>()
+                .AddPack<AutoMapperPack>()
                 .AddPack<SqliteDefaultDbContextMigrationPack>();
         }
 

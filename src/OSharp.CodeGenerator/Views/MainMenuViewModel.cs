@@ -7,6 +7,7 @@
 //  <last-date>2020-05-03 18:09</last-date>
 // -----------------------------------------------------------------------
 
+using System;
 using System.Windows;
 
 using OSharp.Wpf.Stylet;
@@ -32,6 +33,7 @@ namespace OSharp.CodeGenerator.Views
 
         public void New()
         {
+            //_windowManager.ShowDialog(IoC.Get<MainViewModel>().Project);
             MainViewModel main = IoC.Get<MainViewModel>();
             main.IsProjectOpen = true;
         }

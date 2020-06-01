@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 //  <copyright file="CodeProject.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2020 OSharp. All rights reserved.
 //  </copyright>
@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
+using OSharp.Data;
 using OSharp.Entity;
 
 
@@ -23,6 +24,11 @@ namespace OSharp.CodeGeneration.Entities
     [TableNamePrefix("CodeGen")]
     public class CodeProject : EntityBase<Guid>
     {
+        public CodeProject()
+        {
+            Id = SequentialGuid.Create(DatabaseType.Sqlite);
+        }
+
         /// <summary>
         /// 获取或设置 项目名称
         /// </summary>
