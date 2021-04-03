@@ -9,7 +9,7 @@
 
 using System;
 using System.ComponentModel;
-
+using System.ComponentModel.DataAnnotations;
 using OSharp.Entity;
 
 
@@ -25,16 +25,19 @@ namespace OSharp.CodeGeneration.Entities
         /// <summary>
         /// 获取或设置 属性名称
         /// </summary>
+        [Required(), StringLength(200)]
         public string Name { get; set; }
 
         /// <summary>
         /// 获取或设置 属性类型名称
         /// </summary>
+        [Required(), StringLength(500)]
         public string TypeName { get; set; }
 
         /// <summary>
         /// 获取或设置 显示名称
         /// </summary>
+        [Required(), StringLength(200)]
         public string Display { get; set; }
 
         /// <summary>

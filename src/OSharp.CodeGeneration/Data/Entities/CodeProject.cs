@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.ComponentModel.DataAnnotations;
 using OSharp.Data;
 using OSharp.Entity;
 
@@ -32,31 +32,37 @@ namespace OSharp.CodeGeneration.Entities
         /// <summary>
         /// 获取或设置 项目名称
         /// </summary>
+        [Required(), StringLength(200)]
         public string Name { get; set; }
-
-        /// <summary>
-        /// 获取或设置 公司
-        /// </summary>
-        public string Company { get; set; }
 
         /// <summary>
         /// 获取或设置 项目命名空间前缀，通常形如“公司.项目”
         /// </summary>
+        [Required(), StringLength(200)]
         public string NamespacePrefix { get; set; }
+
+        /// <summary>
+        /// 获取或设置 公司
+        /// </summary>
+        [StringLength(200)]
+        public string Company { get; set; }
 
         /// <summary>
         /// 获取或设置 站点地址
         /// </summary>
+        [StringLength(500)]
         public string SiteUrl { get; set; }
 
         /// <summary>
         /// 获取或设置 创建者
         /// </summary>
+        [StringLength(200)]
         public string Creator { get; set; }
 
         /// <summary>
         /// 获取或设置 Copyright
         /// </summary>
+        [StringLength(500)]
         public string Copyright { get; set; }
 
         /// <summary>

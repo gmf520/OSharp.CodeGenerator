@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.ComponentModel.DataAnnotations;
 using OSharp.Entity;
 
 
@@ -26,11 +26,13 @@ namespace OSharp.CodeGeneration.Entities
         /// <summary>
         /// 获取或设置 模块名称
         /// </summary>
+        [Required(), StringLength(200)]
         public string Name { get; set; }
 
         /// <summary>
         /// 获取或设置 模块显示名称
         /// </summary>
+        [Required(), StringLength(200)]
         public string Display { get; set; }
 
         /// <summary>
