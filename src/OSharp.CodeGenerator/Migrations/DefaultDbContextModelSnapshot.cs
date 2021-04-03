@@ -110,6 +110,8 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Display")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDataAuth")
@@ -119,9 +121,13 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimaryKeyTypeFullName")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -138,9 +144,13 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Display")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ProjectId")
@@ -160,21 +170,29 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Company")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Copyright")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Creator")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NamespacePrefix")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SiteUrl")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -189,6 +207,8 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Display")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
@@ -219,9 +239,13 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

@@ -52,12 +52,12 @@ namespace OSharp.CodeGenerator.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Company = table.Column<string>(type: "TEXT", nullable: true),
-                    NamespacePrefix = table.Column<string>(type: "TEXT", nullable: true),
-                    SiteUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    Creator = table.Column<string>(type: "TEXT", nullable: true),
-                    Copyright = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    NamespacePrefix = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Company = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    SiteUrl = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    Creator = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Copyright = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,8 +84,8 @@ namespace OSharp.CodeGenerator.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Display = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     ProjectId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -104,9 +104,9 @@ namespace OSharp.CodeGenerator.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Display = table.Column<string>(type: "TEXT", nullable: true),
-                    PrimaryKeyTypeFullName = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    PrimaryKeyTypeFullName = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
                     IsDataAuth = table.Column<bool>(type: "INTEGER", nullable: false),
                     ModuleId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
@@ -126,9 +126,9 @@ namespace OSharp.CodeGenerator.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    TypeName = table.Column<string>(type: "TEXT", nullable: true),
-                    Display = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    TypeName = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     IsRequired = table.Column<bool>(type: "INTEGER", nullable: true),
                     MaxLength = table.Column<int>(type: "INTEGER", nullable: true),
                     MinLength = table.Column<int>(type: "INTEGER", nullable: true),

@@ -9,7 +9,7 @@ using OSharp.Entity;
 namespace OSharp.CodeGenerator.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20210403101318_Init")]
+    [Migration("20210403122046_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,8 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Display")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDataAuth")
@@ -121,9 +123,13 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimaryKeyTypeFullName")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -140,9 +146,13 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Display")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ProjectId")
@@ -162,21 +172,29 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Company")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Copyright")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Creator")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("NamespacePrefix")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SiteUrl")
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -191,6 +209,8 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Display")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("EntityId")
@@ -221,9 +241,13 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
