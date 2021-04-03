@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using OSharp.CodeGeneration.Entities;
+using OSharp.Data;
 using OSharp.Entity;
 
 namespace OSharp.CodeGeneration.Data
@@ -18,12 +19,13 @@ namespace OSharp.CodeGeneration.Data
             _serviceProvider = serviceProvider;
         }
 
-        protected IRepository<CodeProject, Guid> PeojectRepository => _serviceProvider.GetService<IRepository<CodeProject, Guid>>();
+        protected IRepository<CodeProject, Guid> ProjectRepository => _serviceProvider.GetService<IRepository<CodeProject, Guid>>();
 
         protected IRepository<CodeModule, Guid> ModuleRepository => _serviceProvider.GetService<IRepository<CodeModule, Guid>>();
 
         protected IRepository<CodeEntity, Guid> EntityRepository => _serviceProvider.GetService<IRepository<CodeEntity, Guid>>();
 
         protected IRepository<CodeProperty, Guid> CodePropertyRepository => _serviceProvider.GetService<IRepository<CodeProperty, Guid>>();
+
     }
 }
