@@ -11,11 +11,11 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "Auth_EntityInfo",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    TypeName = table.Column<string>(nullable: false),
-                    AuditEnabled = table.Column<bool>(nullable: false),
-                    PropertyJson = table.Column<string>(nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    TypeName = table.Column<string>(type: "TEXT", nullable: false),
+                    AuditEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PropertyJson = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,20 +26,21 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "Auth_Function",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Area = table.Column<string>(nullable: true),
-                    Controller = table.Column<string>(nullable: true),
-                    Action = table.Column<string>(nullable: true),
-                    IsController = table.Column<bool>(nullable: false),
-                    IsAjax = table.Column<bool>(nullable: false),
-                    AccessType = table.Column<int>(nullable: false),
-                    IsAccessTypeChanged = table.Column<bool>(nullable: false),
-                    AuditOperationEnabled = table.Column<bool>(nullable: false),
-                    AuditEntityEnabled = table.Column<bool>(nullable: false),
-                    CacheExpirationSeconds = table.Column<int>(nullable: false),
-                    IsCacheSliding = table.Column<bool>(nullable: false),
-                    IsLocked = table.Column<bool>(nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Area = table.Column<string>(type: "TEXT", nullable: true),
+                    Controller = table.Column<string>(type: "TEXT", nullable: true),
+                    Action = table.Column<string>(type: "TEXT", nullable: true),
+                    IsController = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsAjax = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessType = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsAccessTypeChanged = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AuditOperationEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AuditEntityEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CacheExpirationSeconds = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsCacheSliding = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsSlaveDatabase = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,13 +51,13 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "CodeGen_CodeProject",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Company = table.Column<string>(nullable: true),
-                    NamespacePrefix = table.Column<string>(nullable: true),
-                    SiteUrl = table.Column<string>(nullable: true),
-                    Creator = table.Column<string>(nullable: true),
-                    Copyright = table.Column<string>(nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Company = table.Column<string>(type: "TEXT", nullable: true),
+                    NamespacePrefix = table.Column<string>(type: "TEXT", nullable: true),
+                    SiteUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    Creator = table.Column<string>(type: "TEXT", nullable: true),
+                    Copyright = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,11 +68,11 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "Systems_KeyValue",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    ValueJson = table.Column<string>(nullable: true),
-                    ValueType = table.Column<string>(nullable: true),
-                    Key = table.Column<string>(nullable: false),
-                    IsLocked = table.Column<bool>(nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ValueJson = table.Column<string>(type: "TEXT", nullable: true),
+                    ValueType = table.Column<string>(type: "TEXT", nullable: true),
+                    Key = table.Column<string>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,10 +83,10 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "CodeGen_CodeModule",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Display = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Display = table.Column<string>(type: "TEXT", nullable: true),
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,12 +103,12 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "CodeGen_CodeEntity",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Display = table.Column<string>(nullable: true),
-                    PrimaryKeyTypeFullName = table.Column<string>(nullable: true),
-                    IsDataAuth = table.Column<bool>(nullable: false),
-                    ModuleId = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Display = table.Column<string>(type: "TEXT", nullable: true),
+                    PrimaryKeyTypeFullName = table.Column<string>(type: "TEXT", nullable: true),
+                    IsDataAuth = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ModuleId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,19 +125,19 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "CodeGen_CodeProperty",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    TypeName = table.Column<string>(nullable: true),
-                    Display = table.Column<string>(nullable: true),
-                    IsRequired = table.Column<bool>(nullable: true),
-                    MaxLength = table.Column<int>(nullable: true),
-                    MinLength = table.Column<int>(nullable: true),
-                    IsNullable = table.Column<bool>(nullable: false),
-                    IsVirtual = table.Column<bool>(nullable: false),
-                    IsForeignKey = table.Column<bool>(nullable: false),
-                    IsInputDto = table.Column<bool>(nullable: false),
-                    IsOutputDto = table.Column<bool>(nullable: false),
-                    EntityId = table.Column<Guid>(nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    TypeName = table.Column<string>(type: "TEXT", nullable: true),
+                    Display = table.Column<string>(type: "TEXT", nullable: true),
+                    IsRequired = table.Column<bool>(type: "INTEGER", nullable: true),
+                    MaxLength = table.Column<int>(type: "INTEGER", nullable: true),
+                    MinLength = table.Column<int>(type: "INTEGER", nullable: true),
+                    IsNullable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsVirtual = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsForeignKey = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsInputDto = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsOutputDto = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EntityId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -175,6 +176,12 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "IX_CodeGen_CodeProperty_EntityId",
                 table: "CodeGen_CodeProperty",
                 column: "EntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "KeyIndex",
+                table: "Systems_KeyValue",
+                column: "Key",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

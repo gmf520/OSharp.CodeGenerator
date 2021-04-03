@@ -9,14 +9,14 @@ using OSharp.Entity;
 namespace OSharp.CodeGenerator.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20200826024343_Init")]
+    [Migration("20210403101318_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7");
+                .HasAnnotation("ProductVersion", "5.0.4");
 
             modelBuilder.Entity("OSharp.Authorization.EntityInfos.EntityInfo", b =>
                 {
@@ -43,7 +43,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("TypeName")
                         .IsUnique()
-                        .HasName("ClassFullNameIndex");
+                        .HasDatabaseName("ClassFullNameIndex");
 
                     b.ToTable("Auth_EntityInfo");
                 });
@@ -90,6 +90,9 @@ namespace OSharp.CodeGenerator.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsSlaveDatabase")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -97,7 +100,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasIndex("Area", "Controller", "Action")
                         .IsUnique()
-                        .HasName("AreaControllerActionIndex");
+                        .HasDatabaseName("AreaControllerActionIndex");
 
                     b.ToTable("Auth_Function");
                 });
@@ -251,6 +254,10 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Key")
+                        .IsUnique()
+                        .HasDatabaseName("KeyIndex");
+
                     b.ToTable("Systems_KeyValue");
                 });
 
@@ -261,6 +268,8 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Entities.CodeModule", b =>
@@ -270,6 +279,8 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("OSharp.CodeGeneration.Entities.CodeProperty", b =>
@@ -279,6 +290,23 @@ namespace OSharp.CodeGenerator.Migrations
                         .HasForeignKey("EntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Entity");
+                });
+
+            modelBuilder.Entity("OSharp.CodeGeneration.Entities.CodeEntity", b =>
+                {
+                    b.Navigation("Properties");
+                });
+
+            modelBuilder.Entity("OSharp.CodeGeneration.Entities.CodeModule", b =>
+                {
+                    b.Navigation("Entities");
+                });
+
+            modelBuilder.Entity("OSharp.CodeGeneration.Entities.CodeProject", b =>
+                {
+                    b.Navigation("Modules");
                 });
 #pragma warning restore 612, 618
         }
