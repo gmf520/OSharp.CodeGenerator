@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 
 using OSharp.Core.Packs;
@@ -33,7 +33,7 @@ namespace OSharp.CodeGenerator.Data
         /// <returns></returns>
         protected override DefaultDbContext CreateDbContext(IServiceProvider scopedProvider)
         {
-            return new SqliteDesignTimeDefaultDbContextFactory(scopedProvider).CreateDbContext(new string[0]);
+            return new DesignTimeDefaultDbContextFactory(scopedProvider).CreateDbContext(new string[0]);
         }
     }
 }
