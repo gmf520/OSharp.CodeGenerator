@@ -5,10 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.4" />
-    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.4" />
+    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.404" />
+    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.404" />
     <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-    <PackageReference Include="OSharpNS.Wpf" Version="5.0.4" />
+    <PackageReference Include="OSharpNS.Wpf" Version="5.0.5-preview.404" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Data/DataService.*.cs">
+      <DependentUpon>DataService.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

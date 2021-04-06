@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 using OSharp.Entity;
 
 
@@ -21,7 +22,7 @@ namespace OSharp.CodeGeneration.Entities
     /// </summary>
     [Description("代码模块信息")]
     [TableNamePrefix("CodeGen")]
-    public class CodeModule : EntityBase<Guid>
+    public class CodeModule : EntityBase<Guid>, ICreatedTime, ILockable
     {
         /// <summary>
         /// 获取或设置 模块名称
@@ -34,6 +35,12 @@ namespace OSharp.CodeGeneration.Entities
         /// </summary>
         [Required(), StringLength(200)]
         public string Display { get; set; }
+
+        /// <summary>获取或设置 创建时间</summary>
+        public DateTime CreatedTime { get; set; }
+
+        /// <summary>获取或设置 是否锁定当前信息</summary>
+        public bool IsLocked { get; set; }
 
         /// <summary>
         /// 获取或设置 所属项目编号

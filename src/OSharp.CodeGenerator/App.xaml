@@ -12,13 +12,13 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.flatbutton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/OSharp.CodeGenerator;component/Resources/SomeStyles.xaml" />
         <s:ApplicationLoader>
           <s:ApplicationLoader.Bootstrapper>
             <local:Bootstrapper/>
           </s:ApplicationLoader.Bootstrapper>
         </s:ApplicationLoader>
       </ResourceDictionary.MergedDictionaries>
-      <views:ViewModelLocator x:Key="Locator"/>
     </ResourceDictionary>
   </Application.Resources>
 </Application>

@@ -10,12 +10,13 @@
 using FluentValidation;
 
 using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGenerator.Views.Entities;
 using OSharp.Mapping;
 
 using Stylet;
 
 
-namespace OSharp.CodeGenerator.Views
+namespace OSharp.CodeGenerator.Views.Properties
 {
     [MapTo(typeof(CodeProperty))]
     public class PropertyViewModel : Screen
@@ -23,7 +24,7 @@ namespace OSharp.CodeGenerator.Views
         /// <summary>
         /// 初始化一个<see cref="PropertyViewModel"/>类型的新实例
         /// </summary>
-        public PropertyViewModel(IModelValidator<ProjectViewModel>validator) : base(validator)
+        public PropertyViewModel(IModelValidator<PropertyViewModel> validator) : base(validator)
         {
             Validate();
         }
@@ -74,7 +75,7 @@ namespace OSharp.CodeGenerator.Views
     }
 
 
-    public class PropertyViewModelValidator : AbstractValidator<ModuleViewModel>
+    public class PropertyViewModelValidator : AbstractValidator<PropertyViewModel>
     {
         public PropertyViewModelValidator()
         {

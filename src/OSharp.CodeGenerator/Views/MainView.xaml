@@ -6,6 +6,9 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:s="https://github.com/canton7/Stylet"
   xmlns:views="clr-namespace:OSharp.CodeGenerator.Views"
+  xmlns:viewsProjects="clr-namespace:OSharp.CodeGenerator.Views.Projects"
+  xmlns:viewsModules="clr-namespace:OSharp.CodeGenerator.Views.Modules"
+  xmlns:viewsEntities="clr-namespace:OSharp.CodeGenerator.Views.Entities"
   xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
   xmlns:mahwin="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
   xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -20,7 +23,7 @@
       <views:MainMenuView DataContext="{Binding MainMenu}"/>
     </mah:WindowCommands>
   </mah:MetroWindow.RightWindowCommands>
-  <mah:MetroContentControl>
+  <mah:MetroContentControl DataContext="{Binding}">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="*"/>
@@ -28,22 +31,16 @@
       </Grid.RowDefinitions>
       <Grid Grid.Row="0" Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="200" MinWidth="100" MaxWidth="400"/>
-          <ColumnDefinition Width="*" MinWidth="200"/>
+          <ColumnDefinition Width="250" MinWidth="200" MaxWidth="400"/>
+          <ColumnDefinition Width="*" MinWidth="300"/>
         </Grid.ColumnDefinitions>
-        <GroupBox Header="模块树" Margin="4 4 4 4">
-
-        </GroupBox>
+        <viewsModules:ModuleListView Grid.Column="0" DataContext="{Binding ModuleList}" Margin="4 4 4 4"/>
         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="4" Background="White"/>
-        <Grid Grid.Column="1">
-          <GroupBox Header="实体配置" Margin="0 4 4 4">
-
-          </GroupBox>
-        </Grid>
+        <viewsEntities:EntityListView Grid.Column="1" Margin="0 4 4 4"/>
       </Grid>
-      <mahwin:ChildWindow Grid.Row="0" Title="项目信息" IsOpen="{Binding IsProjectOpen}" AllowMove="True" ShowCloseButton="True">
-        <views:ProjectView DataContext="{Binding Project}"/>
-      </mahwin:ChildWindow>
+      <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
+      <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>
+      <viewsModules:ModuleEditView Grid.Row="0" DataContext="{Binding ModuleList}"/>
       <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="TopRight" MaxItems="3"/>
       <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}" Background="DimGray"/>
     </Grid>

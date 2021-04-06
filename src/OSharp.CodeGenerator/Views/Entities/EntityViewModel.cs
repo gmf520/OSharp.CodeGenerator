@@ -7,17 +7,20 @@
 //  <last-date>2020-05-07 1:11</last-date>
 // -----------------------------------------------------------------------
 
+using System;
+
 using FluentValidation;
 
 using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGenerator.Views.Modules;
+using OSharp.CodeGenerator.Views.Properties;
 using OSharp.Mapping;
 
 using Stylet;
 
 
-namespace OSharp.CodeGenerator.Views
+namespace OSharp.CodeGenerator.Views.Entities
 {
-    [MapTo(typeof(CodeEntity))]
     public class EntityViewModel : Screen
     {
         /// <summary>
@@ -33,6 +36,8 @@ namespace OSharp.CodeGenerator.Views
         public ModuleViewModel Module { get; set; }
 
         public IObservableCollection<PropertyViewModel> Properties { get; set; }
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 

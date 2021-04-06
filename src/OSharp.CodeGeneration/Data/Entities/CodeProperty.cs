@@ -10,6 +10,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 using OSharp.Entity;
 
 
@@ -20,7 +21,7 @@ namespace OSharp.CodeGeneration.Entities
     /// </summary>
     [Description("代码实体属性")]
     [TableNamePrefix("CodeGen")]
-    public class CodeProperty : EntityBase<Guid>
+    public class CodeProperty : EntityBase<Guid>, ICreatedTime, ILockable
     {
         /// <summary>
         /// 获取或设置 属性名称
@@ -80,6 +81,12 @@ namespace OSharp.CodeGeneration.Entities
         /// </summary>
         public bool IsOutputDto { get; set; } = true;
 
+        /// <summary>获取或设置 创建时间</summary>
+        public DateTime CreatedTime { get; set; }
+
+        /// <summary>获取或设置 是否锁定当前信息</summary>
+        public bool IsLocked { get; set; }
+
         /// <summary>
         /// 获取或设置 实体编号
         /// </summary>
@@ -89,5 +96,6 @@ namespace OSharp.CodeGeneration.Entities
         /// 获取或设置 所属实体信息
         /// </summary>
         public virtual CodeEntity Entity { get; set; }
+
     }
 }

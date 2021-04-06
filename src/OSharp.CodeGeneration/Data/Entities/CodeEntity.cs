@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 using OSharp.Entity;
 
 
@@ -21,7 +22,7 @@ namespace OSharp.CodeGeneration.Entities
     /// </summary>
     [Description("代码实体信息")]
     [TableNamePrefix("CodeGen")]
-    public class CodeEntity : EntityBase<Guid>
+    public class CodeEntity : EntityBase<Guid>, ILockable
     {
         /// <summary>
         /// 获取或设置 类型名称
@@ -45,6 +46,12 @@ namespace OSharp.CodeGeneration.Entities
         /// 获取或设置 是否数据权限控制
         /// </summary>
         public bool IsDataAuth { get; set; }
+
+        /// <summary>获取或设置 创建时间</summary>
+        public DateTime CreatedTime { get; set; }
+
+        /// <summary>获取或设置 是否锁定当前信息</summary>
+        public bool IsLocked { get; set; }
 
         /// <summary>
         /// 获取或设置 所属模块编号

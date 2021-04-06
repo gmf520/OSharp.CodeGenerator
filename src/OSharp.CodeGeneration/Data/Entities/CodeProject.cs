@@ -22,7 +22,7 @@ namespace OSharp.CodeGeneration.Entities
     /// </summary>
     [Description("代码项目信息")]
     [TableNamePrefix("CodeGen")]
-    public class CodeProject : EntityBase<Guid>
+    public class CodeProject : EntityBase<Guid>, ICreatedTime
     {
         public CodeProject()
         {
@@ -65,9 +65,13 @@ namespace OSharp.CodeGeneration.Entities
         [StringLength(500)]
         public string Copyright { get; set; }
 
+        /// <summary>获取或设置 创建时间</summary>
+        public DateTime CreatedTime { get; set; }
+
         /// <summary>
         /// 获取或设置 模块信息集合
         /// </summary>
         public virtual ICollection<CodeModule> Modules { get; set; } = new List<CodeModule>();
+
     }
 }

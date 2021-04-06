@@ -19,6 +19,8 @@ namespace OSharp.CodeGeneration.Data
             _serviceProvider = serviceProvider;
         }
 
+        protected IUnitOfWork UnitOfWork => _serviceProvider.GetUnitOfWork();
+
         protected IRepository<CodeProject, Guid> ProjectRepository => _serviceProvider.GetService<IRepository<CodeProject, Guid>>();
 
         protected IRepository<CodeModule, Guid> ModuleRepository => _serviceProvider.GetService<IRepository<CodeModule, Guid>>();

@@ -1,0 +1,35 @@
+<UserControl
+  x:Class="OSharp.CodeGenerator.Views.Entities.EntityListView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:s="https://github.com/canton7/Stylet"
+  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Entities"
+  mc:Ignorable="d"
+  d:DesignHeight="700" d:DesignWidth="1080"
+  d:DataContext="{d:DesignInstance local:EntityListViewModel}">
+  <GroupBox>
+    <GroupBox.Header>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
+          <iconPacks:PackIconMaterial Kind="FormatListCheckbox" Width="12" Height="12"/> 实体列表
+        </TextBlock>
+        <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="15 0 0 0" Padding="2 2" ToolTip="刷新实体列表">
+          <StackPanel Orientation="Horizontal">
+            <iconPacks:PackIconMaterial Kind="Refresh" Width="12" Height="12"/>
+            <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
+          </StackPanel>
+        </Button>
+        <Button Command="{s:Action Method=New}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="新增一个实体">
+          <StackPanel Orientation="Horizontal">
+            <iconPacks:PackIconMaterial Kind="Plus" Width="12" Height="12"/>
+            <TextBlock Text="新增" FontSize="12" Margin="2 0"/>
+          </StackPanel>
+        </Button>
+      </StackPanel>
+    </GroupBox.Header>
+    <StackPanel></StackPanel>
+  </GroupBox>
+</UserControl>

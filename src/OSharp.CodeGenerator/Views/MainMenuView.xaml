@@ -11,7 +11,7 @@
   d:DataContext="{d:DesignInstance local:MainMenuViewModel}"
   d:DesignHeight="29" d:DesignWidth="400">
   <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
-    <Button x:Name="BtnFile" Cursor="Hand" Initialized="MenuButton_OnInitialized" Click="MenuButton_OnClick">
+    <!--<Button x:Name="BtnFile" Cursor="Hand" Initialized="MenuButton_OnInitialized" Click="MenuButton_OnClick">
       <Button.Content>
         <StackPanel Orientation="Horizontal">
           <iconPacks:PackIconMaterial Kind="FileChartOutline" />
@@ -27,7 +27,7 @@
           <MenuItem Header="退出(_X)" s:View.ActionTarget="{Binding}" Command="{s:Action Exit}" Icon="{iconPacks:Material Kind=ExitToApp}"/>
         </ContextMenu>
       </Button.ContextMenu>
-    </Button>
+    </Button>-->
     <Button x:Name="BtnProject" Cursor="Hand" Initialized="MenuButton_OnInitialized" Click="MenuButton_OnClick">
       <Button.Content>
         <StackPanel Orientation="Horizontal">
@@ -37,7 +37,7 @@
       </Button.Content>
       <Button.ContextMenu>
         <ContextMenu x:Name="MenuProject" FontSize="12" Padding="5 0 0 0">
-          <MenuItem Header="项目信息(_P)" s:View.ActionTarget="{Binding}" Command="{s:Action Project}" Icon="{iconPacks:Octicons Kind=Project}"/>
+          <MenuItem Header="项目管理(_P)" s:View.ActionTarget="{Binding}" Command="{s:Action Project}" Icon="{iconPacks:Octicons Kind=Project}"/>
           <MenuItem Header="项目模块管理(_M)" s:View.ActionTarget="{Binding}" Command="{s:Action Module}" Icon="{iconPacks:Material Kind=ViewModule}"/>
           <MenuItem Header="项目模板管理(_T)" s:View.ActionTarget="{Binding}" Command="{s:Action Template}" Icon="{iconPacks:Material Kind=AlphaTBox}"/>
         </ContextMenu>
