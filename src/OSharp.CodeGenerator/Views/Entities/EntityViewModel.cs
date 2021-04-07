@@ -21,6 +21,8 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Entities
 {
+    [MapTo(typeof(CodeEntity))]
+    [MapFrom(typeof(CodeEntity))]
     public class EntityViewModel : Screen
     {
         /// <summary>

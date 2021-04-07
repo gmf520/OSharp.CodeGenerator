@@ -34,10 +34,10 @@
       <ListBox ItemsSource="{Binding Modules}" SelectionChanged="{s:Action Method=Select}" s:View.ActionTarget="{Binding}">
         <ListBox.ItemTemplate>
           <DataTemplate>
-            <Grid>
+            <Grid Margin="0 8">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="35"/>
               </Grid.ColumnDefinitions>
               <TextBlock>
                 <Run Text="{Binding Name}"/> [<Run Text="{Binding Display}"/>]

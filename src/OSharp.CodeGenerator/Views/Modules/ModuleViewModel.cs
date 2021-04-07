@@ -31,6 +31,8 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Modules
 {
+    [MapTo(typeof(CodeModule))]
+    [MapFrom(typeof(CodeModule))]
     public class ModuleViewModel : Screen
     {
         private readonly IServiceProvider _provider;
