@@ -10,6 +10,7 @@
 using Notifications.Wpf.Core;
 using Notifications.Wpf.Core.Controls;
 
+using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.Wpf.Stylet;
@@ -40,7 +41,9 @@ namespace OSharp.CodeGenerator.Views
         public ProjectListViewModel ProjectList { get; set; } = IoC.Get<ProjectListViewModel>();
 
         public ModuleListViewModel ModuleList { get; set; } = IoC.Get<ModuleListViewModel>();
-        
+
+        public EntityListViewModel EntityList { get; set; } = IoC.Get<EntityListViewModel>();
+
         public async void Notify(string message, NotificationType type = NotificationType.Information, string title = "消息提示")
         {
             NotificationContent content = new NotificationContent()

@@ -19,6 +19,7 @@
           </s:ApplicationLoader.Bootstrapper>
         </s:ApplicationLoader>
       </ResourceDictionary.MergedDictionaries>
+      <views:ViewModelLocator x:Key="Locator"/>
     </ResourceDictionary>
   </Application.Resources>
 </Application>

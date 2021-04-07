@@ -22,6 +22,7 @@ using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Data;
 using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.Data;
 using OSharp.Extensions;
@@ -92,13 +93,12 @@ namespace OSharp.CodeGenerator.Views.Projects
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 result = await contract.DeleteCodeProjects(Id);
             });
-            MainViewModel main = IoC.Get<MainViewModel>();
+            Helper.Notify(result);
             if (!result.Succeeded)
             {
-                main.Notify(result.Message, NotificationType.Error);
                 return;
             }
-            main.Notify(result.Message, NotificationType.Success);
+            MainViewModel main = IoC.Get<MainViewModel>();
             main.ProjectList.Init();
         }
 
@@ -107,7 +107,7 @@ namespace OSharp.CodeGenerator.Views.Projects
         public async void EditSave()
         {
             MainViewModel main = IoC.Get<MainViewModel>();
-            if (!Validate())
+            if (!await ValidateAsync())
             {
                 main.Notify("项目信息验证失败", NotificationType.Warning);
                 return;
@@ -122,12 +122,11 @@ namespace OSharp.CodeGenerator.Views.Projects
                     ? await contract.CreateCodeProjects(project)
                     : await contract.UpdateCodeProjects(project);
             });
+            Helper.Notify(result);
             if (!result.Succeeded)
             {
-                main.Notify(result.Message, NotificationType.Error);
                 return;
             }
-            main.Notify(result.Message, NotificationType.Success);
 
             ProjectListViewModel list = main.ProjectList;
             list.EditingModel = null;

@@ -17,6 +17,7 @@ using OSharp.CodeGeneration.Entities;
 using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Extensions;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Data
@@ -40,41 +41,7 @@ namespace OSharp.CodeGeneration.Data
         {
             return EntityRepository.CheckExistsAsync(predicate, id);
         }
-
-        /// <summary>
-        /// 添加代码实体信息信息
-        /// </summary>
-        /// <param name="entities">要添加的代码实体信息DTO信息</param>
-        /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> CreateCodeEntities(params CodeEntity[] entities)
-        {
-            List<string> names = new List<string>();
-            UnitOfWork.EnableTransaction();
-            foreach (CodeEntity entity in entities)
-            {
-                entity.Validate();
-                CodeModule module = await ModuleRepository.GetAsync(entity.ModuleId);
-                if (module == null)
-                {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{entity.ModuleId}”的模块信息不存在");
-                }
-
-                if (await CheckCodeEntityExists(m => m.Name == entity.Name && m.ModuleId == entity.ModuleId))
-                {
-                    return new OperationResult(OperationResultType.Error, $"模块“{module.Name}”中名称为“{entity.Name}”的实体信息已存在");
-                }
-
-                int count = await EntityRepository.InsertAsync(entity);
-                if (count > 0)
-                {
-                    names.Add(entity.Name);
-                }
-            }
-
-            await UnitOfWork.CommitAsync();
-            return new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”创建成功");
-        }
-
+        
         /// <summary>
         /// 更新代码实体信息信息
         /// </summary>
@@ -84,7 +51,7 @@ namespace OSharp.CodeGeneration.Data
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeEntity entity in entities)
+            foreach (var entity in entities)
             {
                 entity.Validate();
                 CodeModule module = await ModuleRepository.GetAsync(entity.ModuleId);
@@ -98,7 +65,18 @@ namespace OSharp.CodeGeneration.Data
                     return new OperationResult(OperationResultType.Error, $"模块“{module.Name}”中名称为“{entity.Name}”的实体信息已存在");
                 }
 
-                int count = await EntityRepository.UpdateAsync(entity);
+                int count;
+                if (entity.Id == default)
+                {
+                    count = await EntityRepository.InsertAsync(entity);
+                }
+                else
+                {
+                    CodeEntity entity1 = await EntityRepository.GetAsync(entity.Id);
+                    entity1 = entity.MapTo(entity1);
+                    count = await EntityRepository.UpdateAsync(entity1);
+                }
+
                 if (count > 0)
                 {
                     names.Add(entity.Name);

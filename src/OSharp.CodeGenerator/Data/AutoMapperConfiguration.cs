@@ -31,14 +31,18 @@ namespace OSharp.CodeGenerator.Data
                 .ForMember(e => e.Project, opt => opt.Ignore());
             CreateMap<CodeModule, ModuleViewModel>().ForMember(vm => vm.Namespace, opt => opt.Ignore())
                 .ForMember(vm => vm.Project, opt => opt.Ignore());
+            CreateMap<CodeModule, CodeModule>().ForMember(vm => vm.Namespace, opt => opt.Ignore())
+                .ForMember(vm => vm.Project, opt => opt.Ignore());
 
             CreateMap<EntityViewModel, CodeEntity>().ForMember(e => e.ModuleId, opt => opt.MapFrom(vm => vm.Module.Id))
                 .ForMember(e => e.Module, opt => opt.Ignore());
             CreateMap<CodeEntity, EntityViewModel>().ForMember(vm => vm.Module, opt => opt.Ignore());
+            CreateMap<CodeEntity, CodeEntity>().ForMember(vm => vm.Module, opt => opt.Ignore());
 
             CreateMap<PropertyViewModel, CodeProperty>().ForMember(e => e.EntityId, opt => opt.MapFrom(vm => vm.Entity.Id))
                 .ForMember(e=>e.Entity, opt=>opt.Ignore());
             CreateMap<CodeProperty, PropertyViewModel>().ForMember(vm => vm.Entity, opt => opt.Ignore());
+            CreateMap<CodeProperty, CodeProperty>().ForMember(vm => vm.Entity, opt => opt.Ignore());
         }
     }
 }

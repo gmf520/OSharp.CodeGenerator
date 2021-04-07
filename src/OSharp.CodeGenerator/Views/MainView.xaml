@@ -36,7 +36,7 @@
         </Grid.ColumnDefinitions>
         <viewsModules:ModuleListView Grid.Column="0" DataContext="{Binding ModuleList}" Margin="4 4 4 4"/>
         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="4" Background="White"/>
-        <viewsEntities:EntityListView Grid.Column="1" Margin="0 4 4 4"/>
+        <viewsEntities:EntityListView Grid.Column="1" DataContext="{Binding EntityList}" Margin="0 4 4 4"/>
       </Grid>
       <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
       <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>

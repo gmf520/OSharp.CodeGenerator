@@ -25,20 +25,20 @@ namespace OSharp.CodeGenerator.Views.Entities
     [MapFrom(typeof(CodeEntity))]
     public class EntityViewModel : Screen
     {
+        private readonly IServiceProvider _provider;
+
         /// <summary>
         /// 初始化一个<see cref="EntityViewModel"/>类型的新实例
         /// </summary>
-        public EntityViewModel(IModelValidator<EntityViewModel> validator)
+        public EntityViewModel(IModelValidator<EntityViewModel> validator, IServiceProvider provider)
             : base(validator)
         {
+            _provider = provider;
             Validate();
-            Properties = new BindableCollection<PropertyViewModel>();
         }
 
         public ModuleViewModel Module { get; set; }
-
-        public IObservableCollection<PropertyViewModel> Properties { get; set; }
-
+        
         public Guid Id { get; set; }
 
         public string Name { get; set; }
@@ -72,10 +72,15 @@ namespace OSharp.CodeGenerator.Views.Entities
             CodeEntity entity = this.MapTo<CodeEntity>();
             return entity;
         }
+
+        public void ForeignKey()
+        {
+
+        }
     }
 
 
-    public class EntityViewModelValidator : AbstractValidator<ModuleViewModel>
+    public class EntityViewModelValidator : AbstractValidator<EntityViewModel>
     {
         public EntityViewModelValidator()
         {

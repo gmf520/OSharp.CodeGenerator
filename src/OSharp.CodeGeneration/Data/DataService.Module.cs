@@ -17,6 +17,7 @@ using OSharp.CodeGeneration.Entities;
 using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Extensions;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Data
@@ -96,7 +97,9 @@ namespace OSharp.CodeGeneration.Data
                     return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{entity.Name}”的模块信息已存在");
                 }
 
-                int count = await ModuleRepository.UpdateAsync(entity);
+                CodeModule entity1 = await ModuleRepository.GetAsync(entity.Id);
+                entity1 = entity.MapTo(entity1);
+                int count = await ModuleRepository.UpdateAsync(entity1);
                 if (count > 0)
                 {
                     names.Add(entity.Name);

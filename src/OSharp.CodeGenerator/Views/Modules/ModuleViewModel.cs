@@ -21,6 +21,7 @@ using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Data;
 using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.Data;
 using OSharp.Mapping;
@@ -56,6 +57,12 @@ namespace OSharp.CodeGenerator.Views.Modules
 
         public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
 
+        public CodeModule ToModule()
+        {
+            CodeModule module = this.MapTo<CodeModule>();
+            return module;
+        }
+
         public void Edit()
         {
             ModuleListViewModel model = IoC.Get<ModuleListViewModel>();
@@ -78,13 +85,12 @@ namespace OSharp.CodeGenerator.Views.Modules
                 result = await contract.DeleteCodeModules(Id);
             });
             MainViewModel main = IoC.Get<MainViewModel>();
+            Helper.Notify(result);
             if (!result.Succeeded)
             {
-                main.Notify(result.Message, NotificationType.Error);
                 return;
             }
-
-            main.Notify(result.Message, NotificationType.Success);
+            
             main.ModuleList.Init();
         }
 
@@ -93,7 +99,7 @@ namespace OSharp.CodeGenerator.Views.Modules
         public async void EditSave()
         {
             MainViewModel main = IoC.Get<MainViewModel>();
-            if (!Validate())
+            if (!await ValidateAsync())
             {
                 main.Notify("项目信息验证失败", NotificationType.Warning);
                 return;
@@ -108,12 +114,11 @@ namespace OSharp.CodeGenerator.Views.Modules
                     ? await contract.CreateCodeModules(module)
                     : await contract.UpdateCodeModules(module);
             });
+            Helper.Notify(result);
             if (!result.Succeeded)
             {
-                main.Notify(result.Message, NotificationType.Error);
                 return;
             }
-            main.Notify(result.Message, NotificationType.Success);
 
             ModuleListViewModel list = main.ModuleList;
             list.EditingModel = null;
@@ -139,11 +144,6 @@ namespace OSharp.CodeGenerator.Views.Modules
             NotifyOfPropertyChange(() => CanEditSave);
         }
 
-        public CodeModule ToModule()
-        {
-            CodeModule module = this.MapTo<CodeModule>();
-            return module;
-        }
     }
 
 

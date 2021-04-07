@@ -8,7 +8,7 @@
   xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Entities"
   mc:Ignorable="d"
-  d:DesignHeight="700" d:DesignWidth="1080"
+  d:DesignHeight="700" d:DesignWidth="1280"
   d:DataContext="{d:DesignInstance local:EntityListViewModel}">
   <GroupBox>
     <GroupBox.Header>
@@ -16,7 +16,7 @@
         <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
           <iconPacks:PackIconMaterial Kind="FormatListCheckbox" Width="12" Height="12"/> 实体列表
         </TextBlock>
-        <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="15 0 0 0" Padding="2 2" ToolTip="刷新实体列表">
+        <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新实体列表">
           <StackPanel Orientation="Horizontal">
             <iconPacks:PackIconMaterial Kind="Refresh" Width="12" Height="12"/>
             <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
@@ -28,8 +28,60 @@
             <TextBlock Text="新增" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
+        <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存实体列表">
+          <StackPanel Orientation="Horizontal">
+            <iconPacks:PackIconMaterial Kind="ContentSaveOutline" Width="12" Height="14"/>
+            <TextBlock Text="保存" FontSize="12" Margin="2 0"/>
+          </StackPanel>
+        </Button>
       </StackPanel>
     </GroupBox.Header>
-    <StackPanel></StackPanel>
+    <StackPanel>
+      <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
+                SelectionMode="Single" RowDetailsVisibilityMode="Collapsed">
+        <DataGrid.Columns>
+          <DataGridTemplateColumn Header="" Width="30" IsReadOnly="True">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <Expander IsExpanded="False" Margin="0 0"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+          <DataGridTextColumn Header="代码名称" Binding="{Binding Name, ValidatesOnDataErrors=True}"/>
+          <DataGridTextColumn Header="显示名称" Binding="{Binding Display, ValidatesOnDataErrors=True}"/>
+          <DataGridTemplateColumn Header="主键类型" Width="120">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding PrimaryKeyTypeFullName, NotifyOnValidationError=True}"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+            <DataGridTemplateColumn.CellEditingTemplate>
+              <DataTemplate>
+                <ComboBox ItemsSource="{Binding EntityKeys,Source={StaticResource Locator}}" SelectedValue="{Binding PrimaryKeyTypeFullName}"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellEditingTemplate>
+          </DataGridTemplateColumn>
+          <DataGridCheckBoxColumn Header="列" Width="35" Binding="{Binding Listable}"/>
+          <DataGridCheckBoxColumn Header="增" Width="35" Binding="{Binding Addable}"/>
+          <DataGridCheckBoxColumn Header="改" Width="35" Binding="{Binding Updatable}"/>
+          <DataGridCheckBoxColumn Header="删" Width="35" Binding="{Binding Deletable}"/>
+          <DataGridCheckBoxColumn Header="数据权限" Width="70" Binding="{Binding IsDataAuth}"/>
+          <DataGridCheckBoxColumn Header="锁定" Width="50" Binding="{Binding HasLocked}"/>
+          <DataGridCheckBoxColumn Header="软删除" Width="60" Binding="{Binding HasSoftDeleted}"/>
+          <DataGridCheckBoxColumn Header="创建时间" Width="70" Binding="{Binding HasCreatedTime}"/>
+          <DataGridCheckBoxColumn Header="创建审计" Width="70" Binding="{Binding HasCreationAudited}"/>
+          <DataGridCheckBoxColumn Header="更新审计" Width="70" Binding="{Binding HasUpdateAudited}"/>
+          <DataGridTemplateColumn Header="操作" Width="60">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <Button Content="外键" Command="{s:Action Method=ForeignKey}" s:View.ActionTarget="{Binding}" Margin="2 1" Padding="5 1"/>
+                </StackPanel>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </StackPanel>
   </GroupBox>
 </UserControl>

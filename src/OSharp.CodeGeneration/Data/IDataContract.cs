@@ -114,14 +114,7 @@ namespace OSharp.CodeGeneration.Data
         /// <param name="id">更新的代码实体信息编号</param>
         /// <returns>代码实体信息是否存在</returns>
         Task<bool> CheckCodeEntityExists(Expression<Func<CodeEntity, bool>> predicate, Guid id = default);
-
-        /// <summary>
-        /// 添加代码实体信息信息
-        /// </summary>
-        /// <param name="entities">要添加的代码实体信息DTO信息</param>
-        /// <returns>业务操作结果</returns>
-        Task<OperationResult> CreateCodeEntities(params CodeEntity[] entities);
-
+        
         /// <summary>
         /// 更新代码实体信息信息
         /// </summary>

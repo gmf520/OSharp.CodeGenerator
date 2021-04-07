@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 using OSharp.Entity;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Entities
@@ -22,6 +23,7 @@ namespace OSharp.CodeGeneration.Entities
     /// </summary>
     [Description("代码实体信息")]
     [TableNamePrefix("CodeGen")]
+    [MapTo(typeof(CodeEntity))]
     public class CodeEntity : EntityBase<Guid>, ILockable
     {
         /// <summary>
