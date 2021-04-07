@@ -43,6 +43,12 @@ namespace OSharp.CodeGenerator.Views.Projects
 
         public ProjectViewModel EditingModel { get; set; }
 
+        public void Show()
+        {
+            Init();
+            IsShow = true;
+        }
+
         public void Init()
         {
             List<CodeProject> projects = new List<CodeProject>();

@@ -5,10 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.407" />
-    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.407" />
+    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.407.1" />
+    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.407.1" />
     <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
-    <PackageReference Include="OSharpNS.Wpf" Version="5.0.5-preview.407" />
+    <PackageReference Include="OSharpNS.Wpf" Version="5.0.5-preview.407.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OSharp.AutoMapper;
 using OSharp.CodeGenerator.Data;
 using OSharp.Core.Packs;
+using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 
 
@@ -31,7 +32,7 @@ namespace OSharp.CodeGenerator.Views
             services.AddViewModels(assembly);
             services.AddViews(assembly);
 
-            services.AddSingleton<IAutoMapperConfiguration, AutoMapperConfiguration>();
+            services.AddSingleton<IMapTuple, AutoMapperConfiguration>();
 
             return services;
         }

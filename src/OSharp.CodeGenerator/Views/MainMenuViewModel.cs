@@ -64,8 +64,7 @@ namespace OSharp.CodeGenerator.Views
         public void Project()
         {
             ProjectListViewModel model = IoC.Get<ProjectListViewModel>();
-            model.Init();
-            model.IsShow = true;
+            model.Show();
         }
 
         public void Module()

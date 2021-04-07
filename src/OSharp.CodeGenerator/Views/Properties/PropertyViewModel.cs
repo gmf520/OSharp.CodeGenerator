@@ -19,6 +19,7 @@ using Stylet;
 namespace OSharp.CodeGenerator.Views.Properties
 {
     [MapTo(typeof(CodeProperty))]
+    [MapFrom(typeof(CodeProperty))]
     public class PropertyViewModel : Screen
     {
         /// <summary>

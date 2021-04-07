@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.CodeGeneration.Data;
 using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.Exceptions;
@@ -67,6 +68,7 @@ namespace OSharp.CodeGenerator.Views.Modules
                 model.Project = Project;
                 Modules.Add(model);
             }
+            Helper.Output($"模块列表刷新成功，共{Modules.Count}个模块");
         }
 
         public void New()
@@ -98,6 +100,7 @@ namespace OSharp.CodeGenerator.Views.Modules
             EntityListViewModel list = IoC.Get<EntityListViewModel>();
             list.Module = module;
             list.Init();
+            Helper.Output($"切换到“{module.Name} [{module.Display}]”模块");
         }
     }
 }
