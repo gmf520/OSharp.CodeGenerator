@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{87C5555B-87C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSharp.CodeGenerator", "src\OSharp.CodeGenerator\OSharp.CodeGenerator.csproj", "{5AF55A1E-7A19-4886-B4B0-D840694AA997}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.CodeGeneration", "src\OSharp.CodeGeneration\OSharp.CodeGeneration.csproj", "{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSharp.CodeGeneration", "src\OSharp.CodeGeneration\OSharp.CodeGeneration.csproj", "{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.CodeConsoles", "src\OSharp.CodeConsoles\OSharp.CodeConsoles.csproj", "{13784656-5A4F-4083-919C-F64471F8CFBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13784656-5A4F-4083-919C-F64471F8CFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13784656-5A4F-4083-919C-F64471F8CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13784656-5A4F-4083-919C-F64471F8CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13784656-5A4F-4083-919C-F64471F8CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,6 +41,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5AF55A1E-7A19-4886-B4B0-D840694AA997} = {87C5555B-87C3-46FE-9BF0-ACA575890EC6}
 		{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA} = {87C5555B-87C3-46FE-9BF0-ACA575890EC6}
+		{13784656-5A4F-4083-919C-F64471F8CFBF} = {87C5555B-87C3-46FE-9BF0-ACA575890EC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFCE6A5E-D5ED-4BAA-8CCF-45A229EF3405}

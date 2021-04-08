@@ -43,30 +43,30 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 添加代码模块信息信息
         /// </summary>
-        /// <param name="entities">要添加的代码模块信息</param>
+        /// <param name="modules">要添加的代码模块信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> CreateCodeModules(params CodeModule[] entities)
+        public async Task<OperationResult> CreateCodeModules(params CodeModule[] modules)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeModule entity in entities)
+            foreach (CodeModule module in modules)
             {
-                entity.Validate();
-                CodeProject project = await ProjectRepository.GetAsync(entity.ProjectId);
+                module.Validate();
+                CodeProject project = await ProjectRepository.GetAsync(module.ProjectId);
                 if (project == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{entity.ProjectId}”的项目信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{module.ProjectId}”的项目信息不存在");
                 }
 
-                if (await CheckCodeModuleExists(m => m.Name == entity.Name && m.ProjectId == entity.ProjectId))
+                if (await CheckCodeModuleExists(m => m.Name == module.Name && m.ProjectId == module.ProjectId))
                 {
-                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{entity.Name}”的模块信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
                 }
 
-                int count = await ModuleRepository.InsertAsync(entity);
+                int count = await ModuleRepository.InsertAsync(module);
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(module.Name);
                 }
             }
 
@@ -79,32 +79,32 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的代码模块信息</param>
+        /// <param name="modules">包含更新信息的代码模块信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeModules(params CodeModule[] entities)
+        public async Task<OperationResult> UpdateCodeModules(params CodeModule[] modules)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeModule entity in entities)
+            foreach (CodeModule module in modules)
             {
-                entity.Validate();
-                CodeProject project = await ProjectRepository.GetAsync(entity.ProjectId);
+                module.Validate();
+                CodeProject project = await ProjectRepository.GetAsync(module.ProjectId);
                 if (project == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{entity.ProjectId}”的项目信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{module.ProjectId}”的项目信息不存在");
                 }
 
-                if (await CheckCodeModuleExists(m => m.Name == entity.Name && m.ProjectId == entity.ProjectId, entity.Id))
+                if (await CheckCodeModuleExists(m => m.Name == module.Name && m.ProjectId == module.ProjectId, module.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{entity.Name}”的模块信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
                 }
 
-                CodeModule entity1 = await ModuleRepository.GetAsync(entity.Id);
-                entity1 = entity.MapTo(entity1);
-                int count = await ModuleRepository.UpdateAsync(entity1);
+                CodeModule existing = await ModuleRepository.GetAsync(module.Id);
+                existing = module.MapTo(existing);
+                int count = await ModuleRepository.UpdateAsync(existing);
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(module.Name);
                 }
             }
 
@@ -125,22 +125,22 @@ namespace OSharp.CodeGeneration.Services
             UnitOfWork.EnableTransaction();
             foreach (var id in ids)
             {
-                var entity = ModuleRepository.Query(m => m.Id == id).Select(m => new { D = m, EntityCount = m.Entities.Count() })
+                var module = ModuleRepository.Query(m => m.Id == id).Select(m => new { D = m, EntityCount = m.Entities.Count() })
                     .FirstOrDefault();
-                if (entity == null)
+                if (module == null)
                 {
                     return null;
                 }
 
-                if (entity.EntityCount > 0)
+                if (module.EntityCount > 0)
                 {
-                    return new OperationResult(OperationResultType.Error, $"模块“{entity.D.Name}”包含着 {entity.EntityCount} 个实体，请先删除下属实体信息");
+                    return new OperationResult(OperationResultType.Error, $"模块“{module.D.Name}”包含着 {module.EntityCount} 个实体，请先删除下属实体信息");
                 }
 
-                int count = await ModuleRepository.DeleteAsync(entity.D);
+                int count = await ModuleRepository.DeleteAsync(module.D);
                 if (count > 0)
                 {
-                    names.Add(entity.D.Name);
+                    names.Add(module.D.Name);
                 }
             }
 

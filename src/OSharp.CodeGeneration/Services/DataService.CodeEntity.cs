@@ -24,8 +24,6 @@ namespace OSharp.CodeGeneration.Services
 {
     public partial class DataService
     {
-        #region Implementation of IDataContract
-
         /// <summary>
         /// 获取 代码实体信息查询数据集
         /// </summary>
@@ -72,9 +70,9 @@ namespace OSharp.CodeGeneration.Services
                 }
                 else
                 {
-                    CodeEntity entity1 = await EntityRepository.GetAsync(entity.Id);
-                    entity1 = entity.MapTo(entity1);
-                    count = await EntityRepository.UpdateAsync(entity1);
+                    CodeEntity existing = await EntityRepository.GetAsync(entity.Id);
+                    existing = entity.MapTo(existing);
+                    count = await EntityRepository.UpdateAsync(existing);
                 }
 
                 if (count > 0)
@@ -124,7 +122,5 @@ namespace OSharp.CodeGeneration.Services
                 ? new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”删除成功")
                 : OperationResult.NoChanged;
         }
-
-        #endregion
     }
 }

@@ -14,8 +14,6 @@ namespace OSharp.CodeGeneration.Services
 {
     public partial class DataService
     {
-        #region Implementation of IDataContract
-
         /// <summary>
         /// 获取 项目信息查询数据集
         /// </summary>
@@ -35,24 +33,24 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 添加项目信息信息
         /// </summary>
-        /// <param name="entities">要添加的项目信息</param>
+        /// <param name="projects">要添加的项目信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> CreateCodeProjects(params CodeProject[] entities)
+        public async Task<OperationResult> CreateCodeProjects(params CodeProject[] projects)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeProject entity in entities)
+            foreach (CodeProject project in projects)
             {
-                entity.Validate();
-                if (await CheckCodeProjectExists(m => m.Name == entity.Name))
+                project.Validate();
+                if (await CheckCodeProjectExists(m => m.Name == project.Name))
                 {
-                    return new OperationResult(OperationResultType.Error, $"名称为“{entity.Name}”的项目信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"名称为“{project.Name}”的项目信息已存在");
                 }
 
-                int count = await ProjectRepository.InsertAsync(entity);
+                int count = await ProjectRepository.InsertAsync(project);
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(project.Name);
                 }
             }
 
@@ -65,24 +63,24 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新项目信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的项目信息</param>
+        /// <param name="projects">包含更新信息的项目信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeProjects(params CodeProject[] entities)
+        public async Task<OperationResult> UpdateCodeProjects(params CodeProject[] projects)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeProject entity in entities)
+            foreach (CodeProject project in projects)
             {
-                entity.Validate();
-                if (await CheckCodeProjectExists(m => m.Name == entity.Name, entity.Id))
+                project.Validate();
+                if (await CheckCodeProjectExists(m => m.Name == project.Name, project.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"名称为“{entity.Name}”的项目信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"名称为“{project.Name}”的项目信息已存在");
                 }
 
-                int count = await ProjectRepository.UpdateAsync(entity);
+                int count = await ProjectRepository.UpdateAsync(project);
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(project.Name);
                 }
             }
 
@@ -103,22 +101,22 @@ namespace OSharp.CodeGeneration.Services
             UnitOfWork.EnableTransaction();
             foreach (var id in ids)
             {
-                var entity = ProjectRepository.Query(m => m.Id == id).Select(m => new { D = m, ModuleCount = m.Modules.Count() })
+                var project = ProjectRepository.Query(m => m.Id == id).Select(m => new { D = m, ModuleCount = m.Modules.Count() })
                     .FirstOrDefault();
-                if (entity == null)
+                if (project == null)
                 {
                     return null;
                 }
 
-                if (entity.ModuleCount > 0)
+                if (project.ModuleCount > 0)
                 {
-                    return new OperationResult(OperationResultType.Error, $"项目“{entity.D.Name}”包含着 {entity.ModuleCount} 个模块，请先删除下属模块信息");
+                    return new OperationResult(OperationResultType.Error, $"项目“{project.D.Name}”包含着 {project.ModuleCount} 个模块，请先删除下属模块信息");
                 }
 
-                int count = await ProjectRepository.DeleteAsync(entity.D);
+                int count = await ProjectRepository.DeleteAsync(project.D);
                 if (count > 0)
                 {
-                    names.Add(entity.D.Name);
+                    names.Add(project.D.Name);
                 }
             }
 
@@ -127,7 +125,5 @@ namespace OSharp.CodeGeneration.Services
                 ? new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”删除成功")
                 : OperationResult.NoChanged;
         }
-
-        #endregion
     }
 }

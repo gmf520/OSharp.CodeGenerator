@@ -1,3 +1,12 @@
+// -----------------------------------------------------------------------
+//  <copyright file="DataService.CodeProperty.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2021 OSharp. All rights reserved.
+//  </copyright>
+//  <site>http://www.osharp.org</site>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2021-04-08 23:10</last-date>
+// -----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +35,7 @@ namespace OSharp.CodeGeneration.Services
         /// <param name="predicate">检查谓语表达式</param>
         /// <param name="id">更新的实体属性信息编号</param>
         /// <returns>实体属性信息是否存在</returns>
-        public  Task<bool> CheckCodePropertyExists(Expression<Func<CodeProperty, bool>> predicate, Guid id = default)
+        public Task<bool> CheckCodePropertyExists(Expression<Func<CodeProperty, bool>> predicate, Guid id = default)
         {
             return PropertyRepository.CheckExistsAsync(predicate, id);
         }
@@ -34,41 +43,41 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新实体属性信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的实体属性信息DTO信息</param>
+        /// <param name="properties">包含更新信息的实体属性信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeProperties(params CodeProperty[] entities)
+        public async Task<OperationResult> UpdateCodeProperties(params CodeProperty[] properties)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (var entity in entities)
+            foreach (var property in properties)
             {
-                entity.Validate();
-                CodeEntity module = await EntityRepository.GetAsync(entity.EntityId);
-                if (module == null)
+                property.Validate();
+                CodeEntity entity = await EntityRepository.GetAsync(property.EntityId);
+                if (entity == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{entity.EntityId}”的实体信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{property.EntityId}”的实体信息不存在");
                 }
 
-                if (await CheckCodePropertyExists(m => m.Name == entity.Name && m.EntityId == entity.EntityId, entity.Id))
+                if (await CheckCodePropertyExists(m => m.Name == property.Name && m.EntityId == property.EntityId, property.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"实体“{module.Name}”中名称为“{entity.Name}”的属性信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"实体“{entity.Name}”中名称为“{property.Name}”的属性信息已存在");
                 }
 
                 int count;
-                if (entity.Id == default)
+                if (property.Id == default)
                 {
-                    count = await PropertyRepository.InsertAsync(entity);
+                    count = await PropertyRepository.InsertAsync(property);
                 }
                 else
                 {
-                    CodeProperty entity1 = await PropertyRepository.GetAsync(entity.Id);
-                    entity1 = entity.MapTo(entity1);
-                    count = await PropertyRepository.UpdateAsync(entity1);
+                    CodeProperty existing = await PropertyRepository.GetAsync(property.Id);
+                    existing = property.MapTo(existing);
+                    count = await PropertyRepository.UpdateAsync(existing);
                 }
 
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(property.Name);
                 }
             }
 
@@ -89,15 +98,16 @@ namespace OSharp.CodeGeneration.Services
             UnitOfWork.EnableTransaction();
             foreach (var id in ids)
             {
-                var entity = await PropertyRepository.GetAsync(id);
-                if (entity == null)
+                var property = await PropertyRepository.GetAsync(id);
+                if (property == null)
                 {
                     continue;
                 }
-                int count = await PropertyRepository.DeleteAsync(entity);
+
+                int count = await PropertyRepository.DeleteAsync(property);
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(property.Name);
                 }
             }
 

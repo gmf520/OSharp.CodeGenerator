@@ -41,16 +41,16 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 添加项目信息信息
         /// </summary>
-        /// <param name="entities">要添加的项目信息</param>
+        /// <param name="projects">要添加的项目信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> CreateCodeProjects(params CodeProject[] entities);
+        Task<OperationResult> CreateCodeProjects(params CodeProject[] projects);
 
         /// <summary>
         /// 更新项目信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的项目信息</param>
+        /// <param name="projects">包含更新信息的项目信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeProjects(params CodeProject[] entities);
+        Task<OperationResult> UpdateCodeProjects(params CodeProject[] projects);
 
         /// <summary>
         /// 删除项目信息信息
@@ -79,16 +79,16 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 添加代码模块信息信息
         /// </summary>
-        /// <param name="entities">要添加的代码模块信息</param>
+        /// <param name="modules">要添加的代码模块信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> CreateCodeModules(params CodeModule[] entities);
+        Task<OperationResult> CreateCodeModules(params CodeModule[] modules);
 
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的代码模块信息</param>
+        /// <param name="modules">包含更新信息的代码模块信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeModules(params CodeModule[] entities);
+        Task<OperationResult> UpdateCodeModules(params CodeModule[] modules);
 
         /// <summary>
         /// 删除代码模块信息信息
@@ -117,7 +117,7 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新代码实体信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的代码实体信息DTO信息</param>
+        /// <param name="entities">包含更新信息的代码实体信息</param>
         /// <returns>业务操作结果</returns>
         Task<OperationResult> UpdateCodeEntities(params CodeEntity[] entities);
 
@@ -148,9 +148,9 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新实体属性信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的实体属性信息DTO信息</param>
+        /// <param name="properties">包含更新信息的实体属性信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeProperties(params CodeProperty[] entities);
+        Task<OperationResult> UpdateCodeProperties(params CodeProperty[] properties);
 
         /// <summary>
         /// 删除实体属性信息信息
@@ -160,6 +160,70 @@ namespace OSharp.CodeGeneration.Services
         Task<OperationResult> DeleteCodeProperties(params Guid[] ids);
 
         #endregion
+
+        #region 实体外键信息业务
+
+        /// <summary>
+        /// 获取 实体外键信息查询数据集
+        /// </summary>
+        IQueryable<CodeForeign> CodeForeigns { get; }
+
+        /// <summary>
+        /// 检查实体外键信息信息是否存在
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <param name="id">更新的实体外键信息编号</param>
+        /// <returns>实体外键信息是否存在</returns>
+        Task<bool> CheckCodeForeignExists(Expression<Func<CodeForeign, bool>> predicate, Guid id = default);
+        
+        /// <summary>
+        /// 更新实体外键信息信息
+        /// </summary>
+        /// <param name="foreigns">包含更新信息的实体外键信息</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> UpdateCodeForeigns(params CodeForeign[] foreigns);
+
+        /// <summary>
+        /// 删除实体外键信息信息
+        /// </summary>
+        /// <param name="ids">要删除的实体外键信息编号</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> DeleteCodeForeigns(params Guid[] ids);
+
+        #endregion
+
+
+        #region 代码设置信息业务
+
+        /// <summary>
+        /// 获取 代码设置信息查询数据集
+        /// </summary>
+        IQueryable<CodeSetting> CodeSettings { get; }
+
+        /// <summary>
+        /// 检查代码设置信息信息是否存在
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <param name="id">更新的代码设置信息编号</param>
+        /// <returns>代码设置信息是否存在</returns>
+        Task<bool> CheckCodeSettingExists(Expression<Func<CodeSetting, bool>> predicate, Guid id = default);
+        
+        /// <summary>
+        /// 更新代码设置信息信息
+        /// </summary>
+        /// <param name="settings">包含更新信息的代码设置信息</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> UpdateCodeSettings(params CodeSetting[] settings);
+
+        /// <summary>
+        /// 删除代码设置信息信息
+        /// </summary>
+        /// <param name="ids">要删除的代码设置信息编号</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> DeleteCodeSettings(params Guid[] ids);
+
+        #endregion
+
 
     }
 }
