@@ -38,12 +38,12 @@
     </GroupBox.Header>
     <StackPanel>
       <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
-                SelectionMode="Single" RowDetailsVisibilityMode="Collapsed">
+                SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False">
         <DataGrid.Columns>
           <DataGridTemplateColumn Header="" Width="30" IsReadOnly="True">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
-                <Expander IsExpanded="False" Margin="0 0"/>
+                <Expander Expanded="{s:Action Method=Expanded}" Collapsed="{s:Action Method=Collapsed}" s:View.ActionTarget="{Binding}" IsExpanded="False" Margin="0 0"/>
               </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
           </DataGridTemplateColumn>
@@ -71,11 +71,24 @@
           <DataGridCheckBoxColumn Header="创建时间" Width="70" Binding="{Binding HasCreatedTime}"/>
           <DataGridCheckBoxColumn Header="创建审计" Width="70" Binding="{Binding HasCreationAudited}"/>
           <DataGridCheckBoxColumn Header="更新审计" Width="70" Binding="{Binding HasUpdateAudited}"/>
-          <DataGridTemplateColumn Header="操作" Width="60">
+          <DataGridTemplateColumn Header="操作" Width="100">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <StackPanel Orientation="Horizontal">
-                  <Button Content="外键" Command="{s:Action Method=ForeignKey}" s:View.ActionTarget="{Binding}" Margin="2 1" Padding="5 1"/>
+                  <Button Command="{s:Action Method=ForeignKey}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="设置外键">
+                    <StackPanel Orientation="Horizontal">
+                      <iconPacks:PackIconMaterial Kind="KeyLink"/>
+                    </StackPanel>
+                  </Button>
+                  <Button Command="{s:Action Method=Up}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序上移">
+                    <iconPacks:PackIconMaterial Kind="ChevronUp" Width="12" Height="12"/>
+                  </Button>
+                  <Button Command="{s:Action Method=Down}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序下移">
+                    <iconPacks:PackIconMaterial Kind="ChevronDown" Width="12" Height="12"/>
+                  </Button>
+                  <Button Command="{s:Action Method=Delete}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="删除实体">
+                    <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
+                  </Button>
                 </StackPanel>
               </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>

@@ -53,9 +53,11 @@ namespace OSharp.CodeGenerator.Views.Modules
 
         public string Display { get; set; }
 
-        public ProjectViewModel Project { get; set; }
+        public int Order { get; set; }
 
         public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
+
+        public ProjectViewModel Project { get; set; }
 
         public CodeModule ToModule()
         {
@@ -67,7 +69,7 @@ namespace OSharp.CodeGenerator.Views.Modules
         {
             ModuleListViewModel model = IoC.Get<ModuleListViewModel>();
             model.EditingModel = this;
-            model.EditTitle = $"项目编辑 - {Name}[{Display}]";
+            model.EditTitle = $"模块编辑 - {Name}[{Display}]";
             model.IsShowEdit = true;
         }
 

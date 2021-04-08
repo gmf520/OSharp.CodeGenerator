@@ -54,7 +54,7 @@ namespace OSharp.CodeGenerator.Views.Entities
             _provider.ExecuteScopedWork(provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
-                entities = contract.CodeEntities.Where(m => m.ModuleId == Module.Id).ToList();
+                entities = contract.CodeEntities.Where(m => m.ModuleId == Module.Id).OrderBy(m => m.Order).ToList();
             });
             Entities.Clear();
             foreach (CodeEntity entity in entities)

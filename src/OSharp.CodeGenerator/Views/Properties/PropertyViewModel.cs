@@ -54,6 +54,8 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public bool IsNullable { get; set; }
 
+        public bool IsVirtual { get; set; }
+
         public bool IsForeignKey { get; set; }
 
         public bool IsNavigation { get; set; }
@@ -68,6 +70,8 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public string DefaultValue { get; set; }
 
+        public int Order { get; set; }
+
         public CodeProperty ToProperty()
         {
             CodeProperty property = this.MapTo<CodeProperty>();
@@ -81,8 +85,9 @@ namespace OSharp.CodeGenerator.Views.Properties
         public PropertyViewModelValidator()
         {
             RuleFor(m => m.Name)
-                .NotEmpty().WithMessage("实体类名称不能为空")
-                .Matches("^[a-zA-Z_\u2E80-\u9FFF][0-9a-zA-Z_\u2E80-\u9FFF]*$").WithMessage("实体名称不符合标识符命名规则，只能是字母、数值、下划线、汉字，并且不能以数值开关");
+                .NotEmpty().WithMessage("属性名称不能为空")
+                .Matches("^[a-zA-Z_\u2E80-\u9FFF][0-9a-zA-Z_\u2E80-\u9FFF]*$").WithMessage("属性名称不符合标识符命名规则，只能是字母、数值、下划线、汉字，并且不能以数值开关");
+            RuleFor(m => m.TypeName).NotEmpty().WithMessage("属性类型名不能为空");
         }
     }
 }

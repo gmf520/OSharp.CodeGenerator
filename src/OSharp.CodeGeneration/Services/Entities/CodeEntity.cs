@@ -45,9 +45,59 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string PrimaryKeyTypeFullName { get; set; }
 
         /// <summary>
+        /// 获取或设置 是否可列表
+        /// </summary>
+        public bool Listable { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否可添加
+        /// </summary>
+        public bool Addable { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否可更新
+        /// </summary>
+        public bool Updatable { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否可删除
+        /// </summary>
+        public bool Deletable { get; set; }
+
+        /// <summary>
         /// 获取或设置 是否数据权限控制
         /// </summary>
         public bool IsDataAuth { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否有创建时间
+        /// </summary>
+        public bool HasCreatedTime { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否有锁定
+        /// </summary>
+        public bool HasLocked { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否有软删除
+        /// </summary>
+        public bool HasSoftDeleted { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否有创建审计
+        /// </summary>
+        public bool HasCreationAudited { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否有更新审计
+        /// </summary>
+        public bool HasUpdateAudited { get; set; }
+
+        /// <summary>
+        /// 获取或设置 排序号
+        /// </summary>
+        public int Order { get; set; }
 
         /// <summary>获取或设置 创建时间</summary>
         public DateTime CreatedTime { get; set; }

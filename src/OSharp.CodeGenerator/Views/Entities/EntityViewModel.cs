@@ -12,6 +12,7 @@ using System;
 using FluentValidation;
 
 using OSharp.CodeGeneration.Services.Entities;
+using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Properties;
 using OSharp.Mapping;
@@ -67,15 +68,41 @@ namespace OSharp.CodeGenerator.Views.Entities
 
         public bool HasUpdateAudited { get; set; }
 
+        public int Order { get; set; }
+
         public CodeEntity ToEntity()
         {
             CodeEntity entity = this.MapTo<CodeEntity>();
             return entity;
         }
 
+        public void Expanded()
+        {
+            Helper.Output($"“{Name}” - Expanded");
+        }
+
+        public void Collapsed()
+        {
+            Helper.Output($"“{Name}” - Collapsed");
+        }
+
         public void ForeignKey()
         {
+            Helper.Output($"“{Name}” - ForeignKey");
+        }
 
+        public void Up()
+        {
+            Helper.Output($"“{Name}” - Up");
+        }
+
+        public void Down()
+        {
+            Helper.Output($"“{Name}” - Down");
+        }
+        public void Delete()
+        {
+            Helper.Output($"“{Name}” - Delete");
         }
     }
 

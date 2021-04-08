@@ -30,16 +30,31 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string Name { get; set; }
 
         /// <summary>
+        /// 获取或设置 显示名称
+        /// </summary>
+        [StringLength(200)]
+        public string Display { get; set; }
+
+        /// <summary>
         /// 获取或设置 属性类型名称
         /// </summary>
         [Required(), StringLength(500)]
         public string TypeName { get; set; }
 
         /// <summary>
-        /// 获取或设置 显示名称
+        /// 获取或设置 是否可更新
         /// </summary>
-        [Required(), StringLength(200)]
-        public string Display { get; set; }
+        public bool Updatable { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否可排序
+        /// </summary>
+        public bool Sortable { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否可筛选
+        /// </summary>
+        public bool Filterable { get; set; }
 
         /// <summary>
         /// 获取或设置 是否必须
@@ -47,14 +62,14 @@ namespace OSharp.CodeGeneration.Services.Entities
         public bool? IsRequired { get; set; }
 
         /// <summary>
-        /// 获取或设置 最大长度
-        /// </summary>
-        public int? MaxLength { get; set; }
-
-        /// <summary>
         /// 获取或设置 最小长度
         /// </summary>
         public int? MinLength { get; set; }
+
+        /// <summary>
+        /// 获取或设置 最大长度
+        /// </summary>
+        public int? MaxLength { get; set; }
 
         /// <summary>
         /// 获取或设置 是否值类型可空
@@ -72,6 +87,21 @@ namespace OSharp.CodeGeneration.Services.Entities
         public bool IsForeignKey { get; set; }
 
         /// <summary>
+        /// 获取或设置 是否导航属性
+        /// </summary>
+        public bool IsNavigation { get; set; }
+
+        /// <summary>
+        /// 获取或设置 关联实体
+        /// </summary>
+        public string RelateEntity { get; set; }
+
+        /// <summary>
+        /// 获取或设置 数据权限标识
+        /// </summary>
+        public string DataAuthFlag { get; set; }
+
+        /// <summary>
         /// 获取或设置 是否包含在输入Dto
         /// </summary>
         public bool IsInputDto { get; set; } = true;
@@ -80,6 +110,16 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// 获取或设置 是否包含在输出Dto
         /// </summary>
         public bool IsOutputDto { get; set; } = true;
+
+        /// <summary>
+        /// 获取或设置 默认值
+        /// </summary>
+        public string DefaultValue { get; set; }
+
+        /// <summary>
+        /// 获取或设置 排序号
+        /// </summary>
+        public int Order { get; set; }
 
         /// <summary>获取或设置 创建时间</summary>
         public DateTime CreatedTime { get; set; }
