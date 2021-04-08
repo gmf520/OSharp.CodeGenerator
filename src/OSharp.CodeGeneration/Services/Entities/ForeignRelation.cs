@@ -7,7 +7,7 @@
 //  <last-date>2021-04-07 22:26</last-date>
 // -----------------------------------------------------------------------
 
-namespace OSharp.CodeGeneration.Data.Entities
+namespace OSharp.CodeGeneration.Services.Entities
 {
     /// <summary>
     /// 外键关系

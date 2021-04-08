@@ -12,7 +12,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.AutoMapper;
-using OSharp.CodeGeneration.Data;
+using OSharp.CodeGeneration.Services;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views;
 using OSharp.Log4Net;

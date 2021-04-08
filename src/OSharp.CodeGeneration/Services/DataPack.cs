@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.Core.Packs;
 
 
-namespace OSharp.CodeGeneration.Data
+namespace OSharp.CodeGeneration.Services
 {
     public class DataPack : OsharpPack
     {

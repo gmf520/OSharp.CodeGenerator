@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using OSharp.Entity;
 
 
-namespace OSharp.CodeGeneration.Entities
+namespace OSharp.CodeGeneration.Services.Entities
 {
     /// <summary>
     /// 实体类：代码实体属性信息

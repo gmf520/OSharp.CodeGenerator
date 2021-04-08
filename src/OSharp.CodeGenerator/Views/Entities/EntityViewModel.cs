@@ -11,7 +11,7 @@ using System;
 
 using FluentValidation;
 
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Properties;
 using OSharp.Mapping;

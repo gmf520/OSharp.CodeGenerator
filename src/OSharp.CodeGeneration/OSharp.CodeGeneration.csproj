@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Data/DataService.*.cs">
+    <Compile Update="Services/DataService.*.cs">
       <DependentUpon>DataService.cs</DependentUpon>
     </Compile>
   </ItemGroup>

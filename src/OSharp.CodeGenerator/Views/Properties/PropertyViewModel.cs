@@ -9,7 +9,7 @@
 
 using FluentValidation;
 
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.Mapping;
 

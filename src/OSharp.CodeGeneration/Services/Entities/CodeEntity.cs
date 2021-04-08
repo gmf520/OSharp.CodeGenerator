@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-//  <copyright file="CodeModule.cs" company="OSharp开源团队">
+//  <copyright file="CodeEntity.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2020 OSharp. All rights reserved.
 //  </copyright>
 //  <site>http://www.osharp.org</site>
@@ -13,28 +13,41 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 using OSharp.Entity;
+using OSharp.Mapping;
 
 
-namespace OSharp.CodeGeneration.Entities
+namespace OSharp.CodeGeneration.Services.Entities
 {
     /// <summary>
-    /// 实体类：代码模块信息
+    /// 实体类：代码实体信息
     /// </summary>
-    [Description("代码模块信息")]
+    [Description("代码实体信息")]
     [TableNamePrefix("CodeGen")]
-    public class CodeModule : EntityBase<Guid>, ICreatedTime, ILockable
+    [MapTo(typeof(CodeEntity))]
+    public class CodeEntity : EntityBase<Guid>, ILockable
     {
         /// <summary>
-        /// 获取或设置 模块名称
+        /// 获取或设置 类型名称
         /// </summary>
         [Required(), StringLength(200)]
         public string Name { get; set; }
 
         /// <summary>
-        /// 获取或设置 模块显示名称
+        /// 获取或设置 类型显示名称
         /// </summary>
         [Required(), StringLength(200)]
         public string Display { get; set; }
+
+        /// <summary>
+        /// 获取或设置 主键类型全名
+        /// </summary>
+        [Required(), StringLength(500)]
+        public string PrimaryKeyTypeFullName { get; set; }
+
+        /// <summary>
+        /// 获取或设置 是否数据权限控制
+        /// </summary>
+        public bool IsDataAuth { get; set; }
 
         /// <summary>获取或设置 创建时间</summary>
         public DateTime CreatedTime { get; set; }
@@ -43,23 +56,18 @@ namespace OSharp.CodeGeneration.Entities
         public bool IsLocked { get; set; }
 
         /// <summary>
-        /// 获取或设置 所属项目编号
+        /// 获取或设置 所属模块编号
         /// </summary>
-        public Guid ProjectId { get; set; }
+        public Guid ModuleId { get; set; }
 
         /// <summary>
-        /// 获取或设置 所属项目
+        /// 获取或设置 所属模块
         /// </summary>
-        public virtual CodeProject Project { get; set; }
+        public virtual CodeModule Module { get; set; }
 
         /// <summary>
-        /// 获取或设置 模块的实体集合
+        /// 获取或设置 实体的属性集合
         /// </summary>
-        public virtual ICollection<CodeEntity> Entities { get; set; } = new List<CodeEntity>();
-
-        /// <summary>
-        /// 获取 模块命名空间，由“项目命名空间前缀.模块名称”组成
-        /// </summary>
-        public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
+        public virtual ICollection<CodeProperty> Properties { get; set; } = new List<CodeProperty>();
     }
 }

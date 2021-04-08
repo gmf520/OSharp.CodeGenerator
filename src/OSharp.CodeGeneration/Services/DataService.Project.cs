@@ -2,17 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
-using OSharp.Entity;
 using OSharp.Extensions;
 
 
-namespace OSharp.CodeGeneration.Data
+namespace OSharp.CodeGeneration.Services
 {
     public partial class DataService
     {
@@ -59,7 +57,9 @@ namespace OSharp.CodeGeneration.Data
             }
 
             await UnitOfWork.CommitAsync();
-            return new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”创建成功");
+            return names.Count > 0
+                ? new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”创建成功")
+                : OperationResult.NoChanged;
         }
 
         /// <summary>
@@ -87,7 +87,9 @@ namespace OSharp.CodeGeneration.Data
             }
 
             await UnitOfWork.CommitAsync();
-            return new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”更新成功");
+            return names.Count > 0
+                ? new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”更新成功")
+                : OperationResult.NoChanged;
         }
 
         /// <summary>
@@ -121,7 +123,9 @@ namespace OSharp.CodeGeneration.Data
             }
 
             await UnitOfWork.CommitAsync();
-            return new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”删除成功");
+            return names.Count > 0
+                ? new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”删除成功")
+                : OperationResult.NoChanged;
         }
 
         #endregion

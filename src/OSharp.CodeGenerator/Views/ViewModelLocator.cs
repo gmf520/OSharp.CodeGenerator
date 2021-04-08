@@ -11,7 +11,7 @@ using System;
 
 using Microsoft.EntityFrameworkCore;
 
-using OSharp.CodeGeneration.Data.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 
 
 namespace OSharp.CodeGenerator.Views

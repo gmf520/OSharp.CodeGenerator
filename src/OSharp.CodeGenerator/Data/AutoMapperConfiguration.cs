@@ -13,7 +13,7 @@ using System.Runtime.Serialization;
 using AutoMapper.Configuration;
 
 using OSharp.AutoMapper;
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Views;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Modules;

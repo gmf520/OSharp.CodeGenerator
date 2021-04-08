@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Microsoft.Extensions.DependencyInjection;
-using OSharp.CodeGeneration.Entities;
-using OSharp.Data;
+
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Entity;
 
-namespace OSharp.CodeGeneration.Data
+
+namespace OSharp.CodeGeneration.Services
 {
     public partial class DataService : IDataContract
     {
@@ -27,7 +25,7 @@ namespace OSharp.CodeGeneration.Data
 
         protected IRepository<CodeEntity, Guid> EntityRepository => _serviceProvider.GetService<IRepository<CodeEntity, Guid>>();
 
-        protected IRepository<CodeProperty, Guid> CodePropertyRepository => _serviceProvider.GetService<IRepository<CodeProperty, Guid>>();
+        protected IRepository<CodeProperty, Guid> PropertyRepository => _serviceProvider.GetService<IRepository<CodeProperty, Guid>>();
 
     }
 }

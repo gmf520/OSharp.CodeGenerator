@@ -11,11 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+
 using OSharp.Data;
 using OSharp.Entity;
 
 
-namespace OSharp.CodeGeneration.Entities
+namespace OSharp.CodeGeneration.Services.Entities
 {
     /// <summary>
     /// 实体类：代码项目信息

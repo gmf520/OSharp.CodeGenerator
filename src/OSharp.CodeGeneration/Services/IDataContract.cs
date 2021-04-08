@@ -10,14 +10,13 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Data;
 
 
-namespace OSharp.CodeGeneration.Data
+namespace OSharp.CodeGeneration.Services
 {
     /// <summary>
     /// 数据服务契约
@@ -128,6 +127,37 @@ namespace OSharp.CodeGeneration.Data
         /// <param name="ids">要删除的代码实体信息编号</param>
         /// <returns>业务操作结果</returns>
         Task<OperationResult> DeleteCodeEntities(params Guid[] ids);
+
+        #endregion
+
+        #region 实体属性信息业务
+
+        /// <summary>
+        /// 获取 实体属性信息查询数据集
+        /// </summary>
+        IQueryable<CodeProperty> CodeProperties { get; }
+
+        /// <summary>
+        /// 检查实体属性信息信息是否存在
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <param name="id">更新的实体属性信息编号</param>
+        /// <returns>实体属性信息是否存在</returns>
+        Task<bool> CheckCodePropertyExists(Expression<Func<CodeProperty, bool>> predicate, Guid id = default);
+        
+        /// <summary>
+        /// 更新实体属性信息信息
+        /// </summary>
+        /// <param name="entities">包含更新信息的实体属性信息DTO信息</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> UpdateCodeProperties(params CodeProperty[] entities);
+
+        /// <summary>
+        /// 删除实体属性信息信息
+        /// </summary>
+        /// <param name="ids">要删除的实体属性信息编号</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> DeleteCodeProperties(params Guid[] ids);
 
         #endregion
 

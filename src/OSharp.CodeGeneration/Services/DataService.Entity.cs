@@ -13,14 +13,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Extensions;
 using OSharp.Mapping;
 
 
-namespace OSharp.CodeGeneration.Data
+namespace OSharp.CodeGeneration.Services
 {
     public partial class DataService
     {
@@ -41,7 +41,7 @@ namespace OSharp.CodeGeneration.Data
         {
             return EntityRepository.CheckExistsAsync(predicate, id);
         }
-        
+
         /// <summary>
         /// 更新代码实体信息信息
         /// </summary>
@@ -84,7 +84,9 @@ namespace OSharp.CodeGeneration.Data
             }
 
             await UnitOfWork.CommitAsync();
-            return new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”更新成功");
+            return names.Count > 0
+                ? new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”更新成功")
+                : OperationResult.NoChanged;
         }
 
         /// <summary>
@@ -118,7 +120,9 @@ namespace OSharp.CodeGeneration.Data
             }
 
             await UnitOfWork.CommitAsync();
-            return new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”删除成功");
+            return names.Count > 0
+                ? new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”删除成功")
+                : OperationResult.NoChanged;
         }
 
         #endregion

@@ -20,8 +20,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Notifications.Wpf.Core;
 
-using OSharp.CodeGeneration.Data;
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.Data;

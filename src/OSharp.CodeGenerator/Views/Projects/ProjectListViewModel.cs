@@ -13,8 +13,8 @@ using System.Linq;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using OSharp.CodeGeneration.Data;
-using OSharp.CodeGeneration.Entities;
+using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 
