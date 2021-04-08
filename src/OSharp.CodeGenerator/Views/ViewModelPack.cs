@@ -11,7 +11,10 @@ using System.Reflection;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using OSharp.AutoMapper;
+using OSharp.CodeGenerator.Data;
 using OSharp.Core.Packs;
+using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 
 
@@ -28,6 +31,8 @@ namespace OSharp.CodeGenerator.Views
             services.AddValidators(assembly);
             services.AddViewModels(assembly);
             services.AddViews(assembly);
+
+            services.AddSingleton<IMapTuple, AutoMapperConfiguration>();
 
             return services;
         }

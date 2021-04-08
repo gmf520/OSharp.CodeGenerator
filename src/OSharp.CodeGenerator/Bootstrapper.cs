@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 //  <copyright file="Bootstrapper.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2020 OSharp. All rights reserved.
 //  </copyright>
@@ -10,6 +10,8 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.CodeGenerator.Views;
+using OSharp.CodeGenerator.Views.Modules;
+using OSharp.CodeGenerator.Views.Projects;
 using OSharp.Wpf.Data;
 using OSharp.Wpf.Stylet;
 
@@ -32,6 +34,18 @@ namespace OSharp.CodeGenerator
             IoC.Initialize(ServiceProvider);
             MainViewModel main = IoC.Get<MainViewModel>();
             Output.StatusBar = msg => main.StatusBar.Message = msg;
+        }
+
+        /// <summary>Called just after the root View has been displayed</summary>
+        protected override void OnLaunch()
+        {
+            ProjectListViewModel projectList = IoC.Get<ProjectListViewModel>();
+            ModuleListViewModel moduleList = IoC.Get<ModuleListViewModel>();
+
+            if (moduleList.Project == null && !projectList.IsShow)
+            {
+                projectList.Show();
+            }
         }
     }
 }

@@ -10,6 +10,7 @@
 using System;
 using System.Windows;
 
+using OSharp.CodeGenerator.Views.Projects;
 using OSharp.Wpf.Stylet;
 
 using Stylet;
@@ -20,51 +21,50 @@ namespace OSharp.CodeGenerator.Views
     [Singleton]
     public class MainMenuViewModel : Screen
     {
-        private readonly IWindowManager _windowManager;
         private readonly StatusBarViewModel _statusBar;
 
-        public MainMenuViewModel(IWindowManager windowManager)
+        public MainMenuViewModel()
         {
-            _windowManager = windowManager;
             _statusBar = IoC.Get<StatusBarViewModel>();
         }
 
-        #region 文件
+        //#region 文件
 
-        public void New()
-        {
-            //_windowManager.ShowDialog(IoC.Get<MainViewModel>().Project);
-            MainViewModel main = IoC.Get<MainViewModel>();
-            main.IsProjectOpen = true;
-        }
+        //public void New()
+        //{
+        //    //_windowManager.ShowDialog(IoC.Get<MainViewModel>().Project);
+        //    MainViewModel main = IoC.Get<MainViewModel>();
+        //    main.IsProjectOpen = true;
+        //}
 
-        public void Open()
-        {
-            _statusBar.Message = "打开项目";
-        }
+        //public void Open()
+        //{
+        //    _statusBar.Message = "打开项目";
+        //}
 
-        public void Save()
-        {
-            _statusBar.Message = "保存项目";
-        }
+        //public void Save()
+        //{
+        //    _statusBar.Message = "保存项目";
+        //}
 
-        public void SaveAs()
-        {
-            _statusBar.Message = "项目另存为";
-        }
+        //public void SaveAs()
+        //{
+        //    _statusBar.Message = "项目另存为";
+        //}
 
-        public void Exit()
-        {
-            Application.Current.MainWindow?.Close();
-        }
+        //public void Exit()
+        //{
+        //    Application.Current.MainWindow?.Close();
+        //}
 
-        #endregion
+        //#endregion
 
         #region 项目
 
         public void Project()
         {
-            
+            ProjectListViewModel model = IoC.Get<ProjectListViewModel>();
+            model.Show();
         }
 
         public void Module()
