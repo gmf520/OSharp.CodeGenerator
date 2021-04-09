@@ -57,7 +57,8 @@ namespace OSharp.CodeGenerator.Migrations
                     Company = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     SiteUrl = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
                     Creator = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    Copyright = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true)
+                    Copyright = table.Column<string>(type: "TEXT", maxLength: 500, nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,6 +87,9 @@ namespace OSharp.CodeGenerator.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     ProjectId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -100,6 +104,32 @@ namespace OSharp.CodeGenerator.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodeGen_CodeSetting",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    MetadataType = table.Column<int>(type: "INTEGER", nullable: false),
+                    TemplateFile = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    OutputFileFormat = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false),
+                    IsOnce = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsSystem = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeGen_CodeSetting", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CodeGen_CodeSetting_CodeGen_CodeProject_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "CodeGen_CodeProject",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CodeGen_CodeEntity",
                 columns: table => new
                 {
@@ -107,7 +137,19 @@ namespace OSharp.CodeGenerator.Migrations
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     PrimaryKeyTypeFullName = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    Listable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Addable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Updatable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Deletable = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsDataAuth = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasCreatedTime = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasSoftDeleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasCreationAudited = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasUpdateAudited = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     ModuleId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -122,21 +164,56 @@ namespace OSharp.CodeGenerator.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodeGen_CodeForeign",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SelfNavigation = table.Column<string>(type: "TEXT", nullable: true),
+                    SelfForeignKey = table.Column<string>(type: "TEXT", nullable: true),
+                    OtherEntity = table.Column<string>(type: "TEXT", nullable: true),
+                    OtherNavigation = table.Column<string>(type: "TEXT", nullable: true),
+                    IsRequired = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DeleteBehavior = table.Column<int>(type: "INTEGER", nullable: true),
+                    ForeignRelation = table.Column<int>(type: "INTEGER", nullable: false),
+                    EntityId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeGen_CodeForeign", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CodeGen_CodeForeign_CodeGen_CodeEntity_EntityId",
+                        column: x => x.EntityId,
+                        principalTable: "CodeGen_CodeEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CodeGen_CodeProperty",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     TypeName = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
-                    Display = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Updatable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Sortable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Filterable = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsRequired = table.Column<bool>(type: "INTEGER", nullable: true),
-                    MaxLength = table.Column<int>(type: "INTEGER", nullable: true),
                     MinLength = table.Column<int>(type: "INTEGER", nullable: true),
+                    MaxLength = table.Column<int>(type: "INTEGER", nullable: true),
                     IsNullable = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsVirtual = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsForeignKey = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsNavigation = table.Column<bool>(type: "INTEGER", nullable: false),
+                    RelateEntity = table.Column<string>(type: "TEXT", nullable: true),
+                    DataAuthFlag = table.Column<string>(type: "TEXT", nullable: true),
                     IsInputDto = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsOutputDto = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DefaultValue = table.Column<string>(type: "TEXT", nullable: true),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
                     EntityId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -168,6 +245,11 @@ namespace OSharp.CodeGenerator.Migrations
                 column: "ModuleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CodeGen_CodeForeign_EntityId",
+                table: "CodeGen_CodeForeign",
+                column: "EntityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CodeGen_CodeModule_ProjectId",
                 table: "CodeGen_CodeModule",
                 column: "ProjectId");
@@ -176,6 +258,11 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "IX_CodeGen_CodeProperty_EntityId",
                 table: "CodeGen_CodeProperty",
                 column: "EntityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CodeGen_CodeSetting_ProjectId",
+                table: "CodeGen_CodeSetting",
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "KeyIndex",
@@ -193,7 +280,13 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "Auth_Function");
 
             migrationBuilder.DropTable(
+                name: "CodeGen_CodeForeign");
+
+            migrationBuilder.DropTable(
                 name: "CodeGen_CodeProperty");
+
+            migrationBuilder.DropTable(
+                name: "CodeGen_CodeSetting");
 
             migrationBuilder.DropTable(
                 name: "Systems_KeyValue");

@@ -9,8 +9,8 @@ using OSharp.Entity;
 namespace OSharp.CodeGenerator.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20210409015544_SettingProject")]
-    partial class SettingProject
+    [Migration("20210409024821_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
