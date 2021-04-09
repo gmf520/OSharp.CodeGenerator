@@ -67,6 +67,16 @@ namespace OSharp.CodeGeneration.Services.Entities
         public bool IsLocked { get; set; }
 
         /// <summary>
+        /// 获取或设置 所属项目编号
+        /// </summary>
+        public Guid? ProjectId { get; set; }
+
+        /// <summary>
+        /// 获取或设置 所属项目
+        /// </summary>
+        public virtual CodeProject Project { get; set; }
+
+        /// <summary>
         /// 获取项目代码输出文件名
         /// </summary>
         public string GetCodeFileName(CodeProject project)
