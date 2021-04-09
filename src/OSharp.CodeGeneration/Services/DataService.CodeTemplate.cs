@@ -28,7 +28,7 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 获取 代码设置信息查询数据集
         /// </summary>
-        public IQueryable<CodeSetting> CodeSettings => SettingRepository.QueryAsNoTracking();
+        public IQueryable<CodeTemplate> CodeTemplates => TemplateRepository.QueryAsNoTracking();
 
         /// <summary>
         /// 检查代码设置信息信息是否存在
@@ -36,9 +36,9 @@ namespace OSharp.CodeGeneration.Services
         /// <param name="predicate">检查谓语表达式</param>
         /// <param name="id">更新的代码设置信息编号</param>
         /// <returns>代码设置信息是否存在</returns>
-        public Task<bool> CheckCodeSettingExists(Expression<Func<CodeSetting, bool>> predicate, Guid id = default)
+        public Task<bool> CheckCodeTemplateExists(Expression<Func<CodeTemplate, bool>> predicate, Guid id = default)
         {
-            return SettingRepository.CheckExistsAsync(predicate, id);
+            return TemplateRepository.CheckExistsAsync(predicate, id);
         }
         
         /// <summary>
@@ -46,14 +46,14 @@ namespace OSharp.CodeGeneration.Services
         /// </summary>
         /// <param name="entities">包含更新信息的代码设置信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeSettings(params CodeSetting[] entities)
+        public async Task<OperationResult> UpdateCodeTemplates(params CodeTemplate[] entities)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
             foreach (var entity in entities)
             {
                 entity.Validate();
-                if (await CheckCodeSettingExists(m=>m.Name == entity.Name, entity.Id))
+                if (await CheckCodeTemplateExists(m=>m.Name == entity.Name, entity.Id))
                 {
                     return new OperationResult(OperationResultType.Error, $"名称为“{entity.Name}”的代码设置已存在");
                 }
@@ -61,13 +61,13 @@ namespace OSharp.CodeGeneration.Services
                 int count;
                 if (entity.Id == default)
                 {
-                    count = await SettingRepository.InsertAsync(entity);
+                    count = await TemplateRepository.InsertAsync(entity);
                 }
                 else
                 {
-                    CodeSetting entity1 = await SettingRepository.GetAsync(entity.Id);
+                    CodeTemplate entity1 = await TemplateRepository.GetAsync(entity.Id);
                     entity1 = entity.MapTo(entity1);
-                    count = await SettingRepository.UpdateAsync(entity1);
+                    count = await TemplateRepository.UpdateAsync(entity1);
                 }
 
                 if (count > 0)
@@ -87,13 +87,13 @@ namespace OSharp.CodeGeneration.Services
         /// </summary>
         /// <param name="ids">要删除的代码设置信息编号</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> DeleteCodeSettings(params Guid[] ids)
+        public async Task<OperationResult> DeleteCodeTemplates(params Guid[] ids)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
             foreach (var id in ids)
             {
-                var entity = await SettingRepository.GetAsync(id);
+                var entity = await TemplateRepository.GetAsync(id);
                 if (entity == null)
                 {
                     continue;
@@ -104,7 +104,7 @@ namespace OSharp.CodeGeneration.Services
                     throw new OsharpException($"代码设置“{entity.Name}”是系统设置，不能删除");
                 }
 
-                int count = await SettingRepository.DeleteAsync(entity);
+                int count = await TemplateRepository.DeleteAsync(entity);
                 if (count > 0)
                 {
                     names.Add(entity.Name);

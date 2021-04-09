@@ -8,6 +8,7 @@ using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Extensions;
+using OSharp.Json;
 
 
 namespace OSharp.CodeGeneration.Services
@@ -28,6 +29,37 @@ namespace OSharp.CodeGeneration.Services
         public Task<bool> CheckCodeProjectExists(Expression<Func<CodeProject, bool>> predicate, Guid id = default)
         {
             return ProjectRepository.CheckExistsAsync(predicate, id);
+        }
+
+        /// <summary>
+        /// 获取指定条件的项目信息
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <returns>项目信息集合</returns>
+        public CodeProject[] GetCodeProject(Expression<Func<CodeProject, bool>> predicate)
+        {
+            CodeProject[] projects = ProjectRepository.Query(predicate).ToArray();
+            string json = projects.ToJsonString();
+            projects = json.FromJsonString<CodeProject[]>();
+            foreach (CodeProject project in projects)
+            {
+                foreach (CodeModule module in project.Modules)
+                {
+                    foreach (CodeEntity entity in module.Entities)
+                    {
+                        foreach (CodeProperty property in entity.Properties)
+                        {
+                            property.Entity = entity;
+                        }
+
+                        entity.Module = module;
+                    }
+
+                    module.Project = project;
+                }
+            }
+
+            return projects;
         }
 
         /// <summary>

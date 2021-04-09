@@ -39,6 +39,13 @@ namespace OSharp.CodeGeneration.Services
         Task<bool> CheckCodeProjectExists(Expression<Func<CodeProject, bool>> predicate, Guid id = default);
 
         /// <summary>
+        /// 获取指定条件的项目信息
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <returns>项目信息集合</returns>
+        CodeProject[] GetCodeProject(Expression<Func<CodeProject, bool>>predicate);
+
+        /// <summary>
         /// 添加项目信息信息
         /// </summary>
         /// <param name="projects">要添加的项目信息</param>
@@ -191,36 +198,35 @@ namespace OSharp.CodeGeneration.Services
         Task<OperationResult> DeleteCodeForeigns(params Guid[] ids);
 
         #endregion
-
-
-        #region 代码设置信息业务
+        
+        #region 代码模板信息业务
 
         /// <summary>
-        /// 获取 代码设置信息查询数据集
+        /// 获取 代码模板信息查询数据集
         /// </summary>
-        IQueryable<CodeSetting> CodeSettings { get; }
+        IQueryable<CodeTemplate> CodeTemplates { get; }
 
         /// <summary>
-        /// 检查代码设置信息信息是否存在
+        /// 检查代码模板信息信息是否存在
         /// </summary>
         /// <param name="predicate">检查谓语表达式</param>
-        /// <param name="id">更新的代码设置信息编号</param>
-        /// <returns>代码设置信息是否存在</returns>
-        Task<bool> CheckCodeSettingExists(Expression<Func<CodeSetting, bool>> predicate, Guid id = default);
+        /// <param name="id">更新的代码模板信息编号</param>
+        /// <returns>代码模板信息是否存在</returns>
+        Task<bool> CheckCodeTemplateExists(Expression<Func<CodeTemplate, bool>> predicate, Guid id = default);
         
         /// <summary>
-        /// 更新代码设置信息信息
+        /// 更新代码模板信息信息
         /// </summary>
-        /// <param name="settings">包含更新信息的代码设置信息</param>
+        /// <param name="settings">包含更新信息的代码模板信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeSettings(params CodeSetting[] settings);
+        Task<OperationResult> UpdateCodeTemplates(params CodeTemplate[] settings);
 
         /// <summary>
-        /// 删除代码设置信息信息
+        /// 删除代码模板信息信息
         /// </summary>
-        /// <param name="ids">要删除的代码设置信息编号</param>
+        /// <param name="ids">要删除的代码模板信息编号</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> DeleteCodeSettings(params Guid[] ids);
+        Task<OperationResult> DeleteCodeTemplates(params Guid[] ids);
 
         #endregion
 

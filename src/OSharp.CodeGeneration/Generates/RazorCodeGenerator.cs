@@ -30,34 +30,34 @@ namespace OSharp.CodeGeneration.Generates
         /// <summary>
         /// 生成项目所有代码
         /// </summary>
-        /// <param name="codeConfigs">要处理的代码配置集合</param>
+        /// <param name="templates">要处理的代码配置集合</param>
         /// <param name="project">代码项目信息</param>
         /// <returns>输出的代码文件信息集合</returns>
-        public async Task<CodeFile[]> GenerateCodes(GenCodeConfig[] codeConfigs, CodeProject project)
+        public async Task<CodeFile[]> GenerateCodes(CodeTemplate[] templates, CodeProject project)
         {
             List<CodeFile> codeFiles = new List<CodeFile>();
             CodeModule[] modules = project.Modules.ToArray();
             CodeEntity[] entities = modules.SelectMany(m => m.Entities).ToArray();
 
-            foreach (GenCodeConfig codeConfig in codeConfigs.Where(m => m.MetadataType == MetadataType.Entity))
+            foreach (CodeTemplate template in templates.Where(m => m.MetadataType == MetadataType.Entity))
             {
                 foreach (CodeEntity entity in entities)
                 {
-                    codeFiles.Add(await GenerateCode(codeConfig, entity));
+                    codeFiles.Add(await GenerateCode(template, entity));
                 }
             }
 
-            foreach (GenCodeConfig codeConfig in codeConfigs.Where(m => m.MetadataType == MetadataType.Module))
+            foreach (CodeTemplate template in templates.Where(m => m.MetadataType == MetadataType.Module))
             {
                 foreach (CodeModule module in modules)
                 {
-                    codeFiles.Add(await GenerateCode(codeConfig, module));
+                    codeFiles.Add(await GenerateCode(template, module));
                 }
             }
 
-            foreach (GenCodeConfig codeConfig in codeConfigs.Where(m => m.MetadataType == MetadataType.Project))
+            foreach (CodeTemplate template in templates.Where(m => m.MetadataType == MetadataType.Project))
             {
-                codeFiles.Add(await GenerateCode(codeConfig, project));
+                codeFiles.Add(await GenerateCode(template, project));
             }
 
             return codeFiles.OrderBy(m => m.FileName).ToArray();
@@ -65,73 +65,74 @@ namespace OSharp.CodeGeneration.Generates
 
         /// <summary>
         /// 生成项目元数据相关代码
-        /// <param name="codeConfig">代码配置</param>
+        /// <param name="template">代码配置</param>
         /// <param name="project">项目元数据</param>
         /// </summary>
-        public Task<CodeFile> GenerateCode(GenCodeConfig codeConfig, CodeProject project)
+        public Task<CodeFile> GenerateCode(CodeTemplate template, CodeProject project)
         {
-            string fileName = codeConfig.GetCodeFileName(project);
-            return GenerateCodeCore(codeConfig, project, fileName);
+            string fileName = template.GetCodeFileName(project);
+            return GenerateCodeCore(template, project, fileName);
         }
 
         /// <summary>
         /// 生成模块元数据相关代码
-        /// <param name="codeConfig">代码配置</param>
+        /// <param name="template">代码配置</param>
         /// <param name="module">模块元数据</param>
         /// </summary>
-        public Task<CodeFile> GenerateCode(GenCodeConfig codeConfig, CodeModule module)
+        public Task<CodeFile> GenerateCode(CodeTemplate template, CodeModule module)
         {
-            string fileName = codeConfig.GetCodeFileName(module);
-            return GenerateCodeCore(codeConfig, module, fileName);
+            string fileName = template.GetCodeFileName(module);
+            return GenerateCodeCore(template, module, fileName);
         }
 
         /// <summary>
         /// 生成实体元数据相关代码
-        /// <param name="codeConfig">代码配置</param>
+        /// <param name="template">代码配置</param>
         /// <param name="entity">实体元数据</param>
         /// </summary>
-        public Task<CodeFile> GenerateCode(GenCodeConfig codeConfig, CodeEntity entity)
+        public Task<CodeFile> GenerateCode(CodeTemplate template, CodeEntity entity)
         {
-            string fileName = codeConfig.GetCodeFileName(entity);
-            return GenerateCodeCore(codeConfig, entity, fileName);
+            string fileName = template.GetCodeFileName(entity);
+            return GenerateCodeCore(template, entity, fileName);
         }
 
         /// <summary>
         /// 生成代码
         /// </summary>
-        /// <param name="codeConfig">代码配置</param>
+        /// <param name="template">代码配置</param>
         /// <param name="model">代码数据模型</param>
         /// <param name="fileName">代码输出文件</param>
         /// <returns></returns>
-        protected virtual async Task<CodeFile> GenerateCodeCore(GenCodeConfig codeConfig, object model, string fileName)
+        protected virtual async Task<CodeFile> GenerateCodeCore(CodeTemplate template, object model, string fileName)
         {
             StringBuilder sb = new StringBuilder();
             await using TextWriter writer = new StringWriter(sb);
-            if (codeConfig.TemplateType == null)
+            if (template.TemplateFile == "内置")
             {
-                if (codeConfig.TemplateFile == null || !File.Exists(codeConfig.TemplateFile))
-                {
-                    throw new OsharpException($"代码配置“{codeConfig.Name}”的模板文件“{codeConfig.TemplateFile}”不存在");
-                }
-
-                string templateSource = await File.ReadAllTextAsync(codeConfig.TemplateFile);
-                TemplateDescriptor descriptor = Razor.Compile(templateSource);
-                await descriptor.RenderAsync(writer, model);
+                Type innerTemplateType = template.GetInnerTemplateType();
+                ITemplate template2 = (ITemplate)(Activator.CreateInstance(innerTemplateType)
+                    ?? throw new OsharpException($"代码配置“{template.Name}”的模板类型实例化失败"));
+                template2.Model = model;
+                template2.Output = writer;
+                await template2.ExecuteAsync();
             }
             else
             {
-                ITemplate template = (ITemplate)(Activator.CreateInstance(codeConfig.TemplateType)
-                    ?? throw new OsharpException($"代码配置“{codeConfig.Name}”的模板类型实例化失败"));
-                template.Model = model;
-                template.Output = writer;
-                await template.ExecuteAsync();
+                if (template.TemplateFile == null || !File.Exists(template.TemplateFile))
+                {
+                    throw new OsharpException($"代码配置“{template.Name}”的模板文件“{template.TemplateFile}”不存在");
+                }
+
+                string templateSource = await File.ReadAllTextAsync(template.TemplateFile);
+                TemplateDescriptor descriptor = Razor.Compile(templateSource);
+                await descriptor.RenderAsync(writer, model);
             }
 
             string codeSource = sb.ToString();
 
             CodeFile codeFile = new CodeFile()
             {
-                CodeConfig = codeConfig,
+                Template = template,
                 SourceCode = codeSource,
                 FileName = fileName
             };

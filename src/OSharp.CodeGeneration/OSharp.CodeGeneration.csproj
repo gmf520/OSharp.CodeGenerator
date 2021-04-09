@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="MiniRazor" Version="2.1.2" />
-    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.408" />
-    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.408" />
+    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.409" />
+    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.409" />
     <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
   </ItemGroup>
 
@@ -19,6 +19,23 @@
 
   <ItemGroup>
     <AdditionalFiles Include="Templates/*.cshtml" IsRazorTemplate="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\cs_AdminController.cshtml" />
+    <None Remove="Templates\cs_AdminControllerBase.cshtml" />
+    <None Remove="Templates\cs_EntityConfiguration.cshtml" />
+    <None Remove="Templates\cs_InputDto.cshtml" />
+    <None Remove="Templates\cs_OutputDto.cshtml" />
+    <None Remove="Templates\cs_ServiceContract.cshtml" />
+    <None Remove="Templates\cs_ServiceEntityImplBase.cshtml" />
+    <None Remove="Templates\cs_ServiceMainImpl.cshtml" />
+    <None Remove="Templates\cs_ServiceMainImplBase.cshtml" />
+    <None Remove="Templates\cs_ServicePack.cshtml" />
+    <None Remove="Templates\ng_AlainComponentHtml.cshtml" />
+    <None Remove="Templates\ng_AlainModule.cshtml" />
+    <None Remove="Templates\ng_AlainOther.cshtml" />
+    <None Remove="Templates\ng_AlainRouting.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

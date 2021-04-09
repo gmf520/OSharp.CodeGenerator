@@ -119,5 +119,10 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// 获取或设置 实体的属性集合
         /// </summary>
         public virtual ICollection<CodeProperty> Properties { get; set; } = new List<CodeProperty>();
+
+        /// <summary>
+        /// 获取或设置 外键集合
+        /// </summary>
+        public virtual ICollection<CodeForeign> Foreigns { get; set; } = new List<CodeForeign>();
     }
 }

@@ -66,6 +66,25 @@ namespace OSharp.CodeGenerator.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodeGen_CodeTemplate",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    MetadataType = table.Column<int>(type: "INTEGER", nullable: false),
+                    TemplateFile = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    Order = table.Column<int>(type: "INTEGER", nullable: false),
+                    OutputFileFormat = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false),
+                    IsOnce = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsSystem = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeGen_CodeTemplate", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Systems_KeyValue",
                 columns: table => new
                 {
@@ -104,29 +123,29 @@ namespace OSharp.CodeGenerator.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CodeGen_CodeSetting",
+                name: "CodeGen_CodeProjectTemplate",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    MetadataType = table.Column<int>(type: "INTEGER", nullable: false),
-                    TemplateFile = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
-                    Order = table.Column<int>(type: "INTEGER", nullable: false),
-                    OutputFileFormat = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false),
-                    IsOnce = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsSystem = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    TemplateId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CodeGen_CodeSetting", x => x.Id);
+                    table.PrimaryKey("PK_CodeGen_CodeProjectTemplate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CodeGen_CodeSetting_CodeGen_CodeProject_ProjectId",
+                        name: "FK_CodeGen_CodeProjectTemplate_CodeGen_CodeProject_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "CodeGen_CodeProject",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CodeGen_CodeProjectTemplate_CodeGen_CodeTemplate_TemplateId",
+                        column: x => x.TemplateId,
+                        principalTable: "CodeGen_CodeTemplate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,6 +222,7 @@ namespace OSharp.CodeGenerator.Migrations
                     MinLength = table.Column<int>(type: "INTEGER", nullable: true),
                     MaxLength = table.Column<int>(type: "INTEGER", nullable: true),
                     IsNullable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsReadonly = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsVirtual = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsForeignKey = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsNavigation = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -255,14 +275,19 @@ namespace OSharp.CodeGenerator.Migrations
                 column: "ProjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CodeGen_CodeProjectTemplate_ProjectId",
+                table: "CodeGen_CodeProjectTemplate",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CodeGen_CodeProjectTemplate_TemplateId",
+                table: "CodeGen_CodeProjectTemplate",
+                column: "TemplateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CodeGen_CodeProperty_EntityId",
                 table: "CodeGen_CodeProperty",
                 column: "EntityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CodeGen_CodeSetting_ProjectId",
-                table: "CodeGen_CodeSetting",
-                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "KeyIndex",
@@ -283,13 +308,16 @@ namespace OSharp.CodeGenerator.Migrations
                 name: "CodeGen_CodeForeign");
 
             migrationBuilder.DropTable(
+                name: "CodeGen_CodeProjectTemplate");
+
+            migrationBuilder.DropTable(
                 name: "CodeGen_CodeProperty");
 
             migrationBuilder.DropTable(
-                name: "CodeGen_CodeSetting");
+                name: "Systems_KeyValue");
 
             migrationBuilder.DropTable(
-                name: "Systems_KeyValue");
+                name: "CodeGen_CodeTemplate");
 
             migrationBuilder.DropTable(
                 name: "CodeGen_CodeEntity");

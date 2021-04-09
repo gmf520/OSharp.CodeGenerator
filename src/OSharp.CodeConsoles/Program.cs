@@ -1,18 +1,35 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 using MiniRazor;
 
+using OSharp.CodeConsoles.Data;
+using OSharp.CodeGeneration.Generates;
+using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGeneration.Templates;
+using OSharp.Data;
+using OSharp.Entity;
+using OSharp.Extensions;
+using OSharp.Json;
 
 
 namespace OSharp.CodeConsoles
 {
     class Program
     {
+        private static ServiceProvider _provider;
+
         static void Main(string[] args)
         {
+            Init();
+
             bool exit = false;
             while (true)
             {
@@ -80,14 +97,18 @@ namespace OSharp.CodeConsoles
             }
         }
 
+        private static void Init()
+        {
+            IServiceCollection services = new ServiceCollection();
+            Startup startup = new Startup();
+            startup.ConfigureServices(services);
+            _provider = services.BuildServiceProvider();
+            startup.Configure(_provider);
+        }
+
         private static async void Method01()
         {
-            var model = new CodeModule { Name = "Infos" };
-            await TestTemplate.RenderAsync(Console.Out, model);
-            ITemplate tmp = new TestTemplate();
-            tmp.Model = model;
-            tmp.Output = Console.Out;
-            await tmp.ExecuteAsync();
+            
         }
 
         private static async void Method02()
@@ -139,9 +160,33 @@ namespace OSharp.CodeConsoles
             throw new NotImplementedException();
         }
 
-        private static void Method11()
+        private static async void Method11()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("请输入代码模板：");
+            string input = Console.ReadLine();
+            CodeProject project = null;
+            CodeTemplate template = null;
+            await _provider.ExecuteScopedWorkAsync(async provider =>
+            {
+                IDataContract contract = provider.GetService<IDataContract>();
+                CodeProject[] projects = contract.GetCodeProject(m => true);
+                project = projects[0];
+                template = contract.CodeTemplates.FirstOrDefault(m => m.Name == input);
+            });
+
+            if (template == null)
+            {
+                Console.WriteLine($"模板 {input} 不存在");
+                return;
+            }
+            ICodeGenerator generator = _provider.GetService<ICodeGenerator>();
+
+            //var model = project.Modules.First().Entities.First();
+            //var model = project.Modules.First();
+            var model = project;
+            CodeFile file = await generator.GenerateCode(template, model);
+            File.WriteAllText(@"D:\Temp\11.txt", file.SourceCode);
+            Console.WriteLine(file.SourceCode);
         }
     }
 }
