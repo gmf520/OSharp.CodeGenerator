@@ -109,7 +109,6 @@ namespace OSharp.CodeGeneration.Services.Entities
                     return typeof(ng_AlainComponentHtml);
                 case "ng_Alain其他数据":
                     return typeof(ng_AlainOther);
-                    return null;
                 default:
                 return null;
             }
