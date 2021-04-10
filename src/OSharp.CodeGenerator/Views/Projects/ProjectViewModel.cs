@@ -12,8 +12,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 
-using AutoMapper;
-
 using FluentValidation;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +22,6 @@ using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
-using OSharp.CodeGenerator.Views.Modules;
 using OSharp.Data;
 using OSharp.Extensions;
 using OSharp.Mapping;
@@ -35,8 +32,8 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Projects
 {
+    [MapTo(typeof(CodeProjectInputDto))]
     [MapFrom(typeof(CodeProject))]
-    [MapTo(typeof(CodeProject))]
     public class ProjectViewModel : Screen
     {
         private readonly IServiceProvider _serviceProvider;

@@ -21,30 +21,12 @@ namespace OSharp.CodeGenerator.Data
         /// <summary>创建对象映射</summary>
         public override void CreateMap()
         {
-            CreateMap<CodeProject, CodeProject>().ForMember(e => e.Modules, opt => opt.Ignore())
-                .ForMember(e => e.ProjectTemplates, opt => opt.Ignore());
-
-            CreateMap<ModuleViewModel, CodeModule>().ForMember(e => e.ProjectId, opt => opt.MapFrom(vm => vm.Project.Id))
-                .ForMember(e => e.Project, opt => opt.Ignore());
             CreateMap<CodeModule, ModuleViewModel>().ForMember(vm => vm.Namespace, opt => opt.Ignore())
                 .ForMember(vm => vm.Project, opt => opt.Ignore());
-            CreateMap<CodeModule, CodeModule>().ForMember(e => e.Namespace, opt => opt.Ignore())
-                .ForMember(e => e.Project, opt => opt.Ignore())
-                .ForMember(e => e.Entities, opt => opt.Ignore());
-
-            CreateMap<EntityViewModel, CodeEntity>().ForMember(e => e.ModuleId, opt => opt.MapFrom(vm => vm.Module.Id))
-                .ForMember(e => e.Module, opt => opt.Ignore());
+            
             CreateMap<CodeEntity, EntityViewModel>().ForMember(vm => vm.Module, opt => opt.Ignore());
-            CreateMap<CodeEntity, CodeEntity>().ForMember(e => e.Module, opt => opt.Ignore())
-                .ForMember(e => e.Properties, opt => opt.Ignore())
-                .ForMember(e => e.Foreigns, opt => opt.Ignore());
-
-            CreateMap<PropertyViewModel, CodeProperty>().ForMember(e => e.EntityId, opt => opt.MapFrom(vm => vm.Entity.Id))
-                .ForMember(e => e.Entity, opt => opt.Ignore());
+            
             CreateMap<CodeProperty, PropertyViewModel>().ForMember(vm => vm.Entity, opt => opt.Ignore());
-            CreateMap<CodeProperty, CodeProperty>().ForMember(e => e.Entity, opt => opt.Ignore());
-
-            CreateMap<CodeForeign, CodeForeign>().ForMember(e => e.Entity, opt => opt.Ignore());
         }
     }
 }
