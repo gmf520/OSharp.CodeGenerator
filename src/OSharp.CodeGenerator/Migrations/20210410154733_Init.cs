@@ -77,7 +77,8 @@ namespace OSharp.CodeGenerator.Migrations
                     OutputFileFormat = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false),
                     IsOnce = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsSystem = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false)
+                    IsLocked = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CreatedTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

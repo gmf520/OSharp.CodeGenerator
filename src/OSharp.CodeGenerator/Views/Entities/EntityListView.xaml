@@ -7,31 +7,30 @@
   xmlns:s="https://github.com/canton7/Stylet"
   xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Entities"
-  xmlns:viewsProperty="clr-namespace:OSharp.CodeGenerator.Views.Properties"
   mc:Ignorable="d"
   d:DesignHeight="700" d:DesignWidth="1280"
   d:DataContext="{d:DesignInstance local:EntityListViewModel}">
   <GroupBox>
     <GroupBox.Header>
       <StackPanel Orientation="Horizontal">
-        <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
+        <TextBlock Foreground="White" FontSize="14">
           <icons:PackIconMaterial Kind="AlphaEBoxOutline" Margin="0 -3"/> 实体列表
         </TextBlock>
         <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新实体列表">
           <StackPanel Orientation="Horizontal">
-            <icons:PackIconMaterial Kind="Refresh" Width="12" Height="12"/>
+            <icons:PackIconMaterial Kind="Refresh" Width="14" Height="14"/>
             <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
         <Button Command="{s:Action Method=New}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="新增一个实体">
           <StackPanel Orientation="Horizontal">
-            <icons:PackIconMaterial Kind="Plus" Width="12" Height="12"/>
+            <icons:PackIconMaterial Kind="Plus" Width="14" Height="14"/>
             <TextBlock Text="新增" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
         <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存实体列表">
           <StackPanel Orientation="Horizontal">
-            <icons:PackIconMaterial Kind="ContentSaveOutline" Width="12" Height="14"/>
+            <icons:PackIconMaterial Kind="ContentSaveOutline" Width="14" Height="14"/>
             <TextBlock Text="保存" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>

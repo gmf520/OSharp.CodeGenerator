@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OSharp.CodeGenerator.Views;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
+using OSharp.Dependency;
 using OSharp.Wpf.Data;
 using OSharp.Wpf.Stylet;
 

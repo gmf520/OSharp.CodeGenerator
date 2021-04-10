@@ -8,6 +8,8 @@ using Microsoft.Extensions.Logging;
 
 using OSharp.Collections;
 using OSharp.Dependency;
+using OSharp.Wpf.Stylet;
+
 
 namespace OSharp.CodeGenerator
 {
@@ -79,10 +81,7 @@ namespace OSharp.CodeGenerator
 
         private void HandleException(string msg, Exception ex)
         {
-            if (_logger == null)
-            {
-                _logger = ServiceLocator.Instance.GetLogger(typeof(App));
-            }
+            _logger ??= IoC.Get<ILoggerFactory>().CreateLogger(typeof(App));
 
             List<string> lines = new List<string>();
             Exception innerEx = ex;

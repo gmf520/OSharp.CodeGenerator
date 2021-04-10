@@ -9,7 +9,7 @@ using OSharp.Entity;
 namespace OSharp.CodeGenerator.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20210409133032_Init")]
+    [Migration("20210410154733_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -402,6 +402,9 @@ namespace OSharp.CodeGenerator.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedTime")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsLocked")

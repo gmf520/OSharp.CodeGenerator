@@ -13,10 +13,10 @@
   <GroupBox>
     <GroupBox.Header>
       <StackPanel Orientation="Horizontal">
-        <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
+        <TextBlock Foreground="White" FontSize="14">
           <icons:PackIconMaterial Kind="AlphaMBoxOutline" Margin="0 -3"/> 模块列表
         </TextBlock>
-        <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="15 0 0 0" Padding="2 2" ToolTip="刷新模块列表">
+        <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新模块列表">
           <StackPanel Orientation="Horizontal">
             <icons:PackIconMaterial Kind="Refresh" Width="14" Height="14"/>
             <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
@@ -30,7 +30,7 @@
         </Button>
         <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存实体列表">
           <StackPanel Orientation="Horizontal">
-            <icons:PackIconMaterial Kind="ContentSaveOutline" Width="12" Height="14"/>
+            <icons:PackIconMaterial Kind="ContentSaveOutline" Width="14" Height="14"/>
             <TextBlock Text="保存" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
