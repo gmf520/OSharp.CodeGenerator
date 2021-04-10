@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace OSharp.CodeGenerator.Views.Modules
+namespace OSharp.CodeGenerator.Views.Properties
 {
     /// <summary>
-    /// ModuleEditView.xaml 的交互逻辑
+    /// PropertyListView.xaml 的交互逻辑
     /// </summary>
-    public partial class ModuleEditView : UserControl
+    public partial class PropertyListView : UserControl
     {
-        public ModuleEditView()
+        public PropertyListView()
         {
             InitializeComponent();
         }

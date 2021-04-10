@@ -9,8 +9,8 @@ using OSharp.Entity;
 namespace OSharp.CodeGenerator.Migrations
 {
     [DbContext(typeof(DefaultDbContext))]
-    [Migration("20210408161331_SettingForeign")]
-    partial class SettingForeign
+    [Migration("20210409133032_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -287,6 +287,30 @@ namespace OSharp.CodeGenerator.Migrations
                     b.ToTable("CodeGen_CodeProject");
                 });
 
+            modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProjectTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("TemplateId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("TemplateId");
+
+                    b.ToTable("CodeGen_CodeProjectTemplate");
+                });
+
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProperty", b =>
                 {
                     b.Property<Guid>("Id")
@@ -330,6 +354,9 @@ namespace OSharp.CodeGenerator.Migrations
                     b.Property<bool>("IsOutputDto")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsReadonly")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool?>("IsRequired")
                         .HasColumnType("INTEGER");
 
@@ -371,7 +398,7 @@ namespace OSharp.CodeGenerator.Migrations
                     b.ToTable("CodeGen_CodeProperty");
                 });
 
-            modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeSetting", b =>
+            modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeTemplate", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -409,7 +436,7 @@ namespace OSharp.CodeGenerator.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CodeGen_CodeSetting");
+                    b.ToTable("CodeGen_CodeTemplate");
                 });
 
             modelBuilder.Entity("OSharp.Core.Systems.KeyValue", b =>
@@ -454,7 +481,7 @@ namespace OSharp.CodeGenerator.Migrations
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeForeign", b =>
                 {
                     b.HasOne("OSharp.CodeGeneration.Services.Entities.CodeEntity", "Entity")
-                        .WithMany()
+                        .WithMany("Foreigns")
                         .HasForeignKey("EntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -473,6 +500,25 @@ namespace OSharp.CodeGenerator.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProjectTemplate", b =>
+                {
+                    b.HasOne("OSharp.CodeGeneration.Services.Entities.CodeProject", "Project")
+                        .WithMany("ProjectTemplates")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OSharp.CodeGeneration.Services.Entities.CodeTemplate", "Template")
+                        .WithMany("ProjectTemplates")
+                        .HasForeignKey("TemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+
+                    b.Navigation("Template");
+                });
+
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProperty", b =>
                 {
                     b.HasOne("OSharp.CodeGeneration.Services.Entities.CodeEntity", "Entity")
@@ -486,6 +532,8 @@ namespace OSharp.CodeGenerator.Migrations
 
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeEntity", b =>
                 {
+                    b.Navigation("Foreigns");
+
                     b.Navigation("Properties");
                 });
 
@@ -497,6 +545,13 @@ namespace OSharp.CodeGenerator.Migrations
             modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeProject", b =>
                 {
                     b.Navigation("Modules");
+
+                    b.Navigation("ProjectTemplates");
+                });
+
+            modelBuilder.Entity("OSharp.CodeGeneration.Services.Entities.CodeTemplate", b =>
+                {
+                    b.Navigation("ProjectTemplates");
                 });
 #pragma warning restore 612, 618
         }

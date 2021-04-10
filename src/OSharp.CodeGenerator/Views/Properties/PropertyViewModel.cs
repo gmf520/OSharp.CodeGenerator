@@ -7,9 +7,13 @@
 //  <last-date>2020-05-07 1:27</last-date>
 // -----------------------------------------------------------------------
 
+using System;
+
 using FluentValidation;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
+using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.Mapping;
 
@@ -18,7 +22,7 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Properties
 {
-    [MapTo(typeof(CodeProperty))]
+    [MapTo(typeof(CodePropertyInputDto))]
     [MapFrom(typeof(CodeProperty))]
     public class PropertyViewModel : Screen
     {
@@ -31,6 +35,8 @@ namespace OSharp.CodeGenerator.Views.Properties
         }
 
         public EntityViewModel Entity { get; set; }
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -54,6 +60,8 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public bool IsNullable { get; set; }
 
+        public bool IsReadonly { get; set; }
+
         public bool IsVirtual { get; set; }
 
         public bool IsForeignKey { get; set; }
@@ -72,10 +80,21 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public int Order { get; set; }
 
-        public CodeProperty ToProperty()
+        public DateTime CreatedTime { get; set; }
+        
+        public void Up()
         {
-            CodeProperty property = this.MapTo<CodeProperty>();
-            return property;
+            Helper.Output($"“{Name}” - Up");
+        }
+
+        public void Down()
+        {
+            Helper.Output($"“{Name}” - Down");
+        }
+
+        public void Delete()
+        {
+            Helper.Output($"“{Name}” - Delete");
         }
     }
 

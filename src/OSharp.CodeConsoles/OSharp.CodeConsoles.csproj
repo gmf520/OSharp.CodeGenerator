@@ -7,6 +7,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OSharp.CodeGeneration\OSharp.CodeGeneration.csproj" />
+    <PackageReference Include="OSharpNS.Log4Net" Version="5.0.5-preview.409" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

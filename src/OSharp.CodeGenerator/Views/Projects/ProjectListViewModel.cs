@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -49,14 +50,15 @@ namespace OSharp.CodeGenerator.Views.Projects
             IsShow = true;
         }
 
-        public void Init()
+        public async void Init()
         {
             List<CodeProject> projects = new List<CodeProject>();
-            _provider.ExecuteScopedWork(provider =>
+            await _provider.ExecuteScopedWork(provider =>
             {
                 Projects.Clear();
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 projects = contract.CodeProjects.ToList();
+                return Task.CompletedTask;
             });
             foreach (CodeProject project in projects)
             {

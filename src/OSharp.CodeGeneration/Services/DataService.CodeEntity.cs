@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
@@ -43,50 +44,55 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新代码实体信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的代码实体信息DTO信息</param>
+        /// <param name="dtos">包含更新信息的代码实体信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeEntities(params CodeEntity[] entities)
+        public async Task<OperationResult> UpdateCodeEntities(params CodeEntityInputDto[] dtos)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (var entity in entities)
+            foreach (var dto in dtos)
             {
-                entity.Validate();
-                CodeModule module = await ModuleRepository.GetAsync(entity.ModuleId);
+                dto.Validate();
+                CodeModule module = await ModuleRepository.GetAsync(dto.ModuleId);
                 if (module == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{entity.ModuleId}”的模块信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{dto.ModuleId}”的模块信息不存在");
                 }
 
-                if (await CheckCodeEntityExists(m => m.Name == entity.Name && m.ModuleId == entity.ModuleId, entity.Id))
+                if (await CheckCodeEntityExists(m => m.Name == dto.Name && m.ModuleId == dto.ModuleId, dto.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"模块“{module.Name}”中名称为“{entity.Name}”的实体信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"模块“{module.Name}”中名称为“{dto.Name}”的实体信息已存在");
                 }
 
+                if (dto.Order == 0)
+                {
+                    dto.Order = EntityRepository.Query(m => m.ModuleId == module.Id).Count() + 1;
+                }
                 int count;
-                if (entity.Id == default)
+                if (dto.Id == default)
                 {
+                    CodeEntity entity = dto.MapTo<CodeEntity>();
                     count = await EntityRepository.InsertAsync(entity);
                 }
                 else
                 {
-                    CodeEntity existing = await EntityRepository.GetAsync(entity.Id);
-                    existing = entity.MapTo(existing);
-                    count = await EntityRepository.UpdateAsync(existing);
+                    CodeEntity entity = await EntityRepository.GetAsync(dto.Id);
+                    entity = dto.MapTo(entity);
+                    count = await EntityRepository.UpdateAsync(entity);
                 }
 
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(dto.Name);
                 }
             }
 
             await UnitOfWork.CommitAsync();
             return names.Count > 0
-                ? new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”更新成功")
+                ? new OperationResult(OperationResultType.Success, $"实体“{names.ExpandAndToString()}”保存成功")
                 : OperationResult.NoChanged;
         }
-
+        
         /// <summary>
         /// 删除代码实体信息信息
         /// </summary>

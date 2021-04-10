@@ -7,6 +7,7 @@
 //  <last-date>2021-04-08 21:39</last-date>
 // -----------------------------------------------------------------------
 
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Extensions;
 
 
@@ -22,7 +23,7 @@ namespace OSharp.CodeGeneration.Generates
         /// <summary>
         /// 获取或设置 代码配置
         /// </summary>
-        public GenCodeConfig CodeConfig { get; set; }
+        public CodeTemplate Template { get; set; }
 
         /// <summary>
         /// 获取或设置 源代码字符串

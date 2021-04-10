@@ -22,7 +22,7 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// <param name="builder">实体类型创建器</param>
         public override void Configure(EntityTypeBuilder<CodeForeign> builder)
         {
-            
+            builder.HasOne(m => m.Entity).WithMany(n => n.Foreigns).HasForeignKey(m => m.EntityId).IsRequired();
         }
     }
 }

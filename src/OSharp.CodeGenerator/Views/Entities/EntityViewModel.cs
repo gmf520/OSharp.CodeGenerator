@@ -8,9 +8,14 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Windows;
+using System.Windows.Controls;
 
 using FluentValidation;
 
+using MahApps.Metro.Controls;
+
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
@@ -22,7 +27,7 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Entities
 {
-    [MapTo(typeof(CodeEntity))]
+    [MapTo(typeof(CodeEntityInputDto))]
     [MapFrom(typeof(CodeEntity))]
     public class EntityViewModel : Screen
     {
@@ -39,7 +44,7 @@ namespace OSharp.CodeGenerator.Views.Entities
         }
 
         public ModuleViewModel Module { get; set; }
-        
+
         public Guid Id { get; set; }
 
         public string Name { get; set; }
@@ -70,22 +75,8 @@ namespace OSharp.CodeGenerator.Views.Entities
 
         public int Order { get; set; }
 
-        public CodeEntity ToEntity()
-        {
-            CodeEntity entity = this.MapTo<CodeEntity>();
-            return entity;
-        }
-
-        public void Expanded()
-        {
-            Helper.Output($"“{Name}” - Expanded");
-        }
-
-        public void Collapsed()
-        {
-            Helper.Output($"“{Name}” - Collapsed");
-        }
-
+        public DateTime CreatedTime { get; set; }
+        
         public void ForeignKey()
         {
             Helper.Output($"“{Name}” - ForeignKey");
@@ -100,6 +91,7 @@ namespace OSharp.CodeGenerator.Views.Entities
         {
             Helper.Output($"“{Name}” - Down");
         }
+
         public void Delete()
         {
             Helper.Output($"“{Name}” - Delete");

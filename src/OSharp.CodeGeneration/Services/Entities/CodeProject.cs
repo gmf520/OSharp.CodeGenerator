@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 
 using OSharp.Data;
 using OSharp.Entity;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Services.Entities
@@ -74,5 +75,9 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// </summary>
         public virtual ICollection<CodeModule> Modules { get; set; } = new List<CodeModule>();
 
+        /// <summary>
+        /// 获取或设置 项目模板集合
+        /// </summary>
+        public virtual ICollection<CodeProjectTemplate> ProjectTemplates { get; set; } = new List<CodeProjectTemplate>();
     }
 }

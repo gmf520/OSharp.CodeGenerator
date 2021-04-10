@@ -24,7 +24,7 @@ namespace OSharp.CodeGeneration.Services.Entities
     [Description("代码实体信息")]
     [TableNamePrefix("CodeGen")]
     [MapTo(typeof(CodeEntity))]
-    public class CodeEntity : EntityBase<Guid>, ILockable
+    public class CodeEntity : EntityBase<Guid>, ILockable, ICreatedTime
     {
         /// <summary>
         /// 获取或设置 类型名称
@@ -119,5 +119,10 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// 获取或设置 实体的属性集合
         /// </summary>
         public virtual ICollection<CodeProperty> Properties { get; set; } = new List<CodeProperty>();
+
+        /// <summary>
+        /// 获取或设置 外键集合
+        /// </summary>
+        public virtual ICollection<CodeForeign> Foreigns { get; set; } = new List<CodeForeign>();
     }
 }

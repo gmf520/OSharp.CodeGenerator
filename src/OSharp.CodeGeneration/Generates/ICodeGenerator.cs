@@ -25,27 +25,27 @@ namespace OSharp.CodeGeneration.Generates
         /// <param name="codeConfigs">要处理的代码配置集合</param>
         /// <param name="project">代码项目信息</param>
         /// <returns>输出的代码文件信息集合</returns>
-        Task<CodeFile[]> GenerateCodes(GenCodeConfig[] codeConfigs, CodeProject project);
+        Task<CodeFile[]> GenerateCodes(CodeTemplate[] codeConfigs, CodeProject project);
 
         /// <summary>
         /// 生成项目元数据相关代码
         /// <param name="codeConfig">代码配置</param>
         /// <param name="project">项目元数据</param>
         /// </summary>
-        Task<CodeFile> GenerateCode(GenCodeConfig codeConfig, CodeProject project);
+        Task<CodeFile> GenerateCode(CodeTemplate codeConfig, CodeProject project);
 
         /// <summary>
         /// 生成模块元数据相关代码
         /// <param name="codeConfig">代码配置</param>
         /// <param name="module">模块元数据</param>
         /// </summary>
-        Task<CodeFile> GenerateCode(GenCodeConfig codeConfig, CodeModule module);
+        Task<CodeFile> GenerateCode(CodeTemplate codeConfig, CodeModule module);
 
         /// <summary>
         /// 生成实体元数据相关代码
         /// <param name="codeConfig">代码配置</param>
         /// <param name="entity">实体元数据</param>
         /// </summary>
-        Task<CodeFile> GenerateCode(GenCodeConfig codeConfig, CodeEntity entity);
+        Task<CodeFile> GenerateCode(CodeTemplate codeConfig, CodeEntity entity);
     }
 }

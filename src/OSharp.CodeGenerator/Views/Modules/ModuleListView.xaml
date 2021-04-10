@@ -5,57 +5,65 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:s="https://github.com/canton7/Stylet"
-  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Modules"
   mc:Ignorable="d"
-  d:DesignHeight="700" d:DesignWidth="200"
+  d:DesignHeight="700" d:DesignWidth="1000"
   d:DataContext="{d:DesignInstance local:ModuleListViewModel}">
   <GroupBox>
     <GroupBox.Header>
       <StackPanel Orientation="Horizontal">
         <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
-          <iconPacks:PackIconMaterial Kind="FormatListCheckbox" Width="12" Height="12"/> 模块列表
+          <icons:PackIconMaterial Kind="AlphaMBoxOutline" Margin="0 -3"/> 模块列表
         </TextBlock>
         <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="15 0 0 0" Padding="2 2" ToolTip="刷新模块列表">
           <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="Refresh" Width="12" Height="12"/>
+            <icons:PackIconMaterial Kind="Refresh" Width="14" Height="14"/>
             <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
         <Button Command="{s:Action Method=New}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="新增一个模块">
           <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="Plus" Width="12" Height="12"/>
+            <icons:PackIconMaterial Kind="Plus" Width="14" Height="14"/>
             <TextBlock Text="新增" FontSize="12" Margin="2 0"/>
+          </StackPanel>
+        </Button>
+        <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存实体列表">
+          <StackPanel Orientation="Horizontal">
+            <icons:PackIconMaterial Kind="ContentSaveOutline" Width="12" Height="14"/>
+            <TextBlock Text="保存" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
       </StackPanel>
     </GroupBox.Header>
-    <StackPanel>
-      <ListBox ItemsSource="{Binding Modules}" SelectionChanged="{s:Action Method=Select}" s:View.ActionTarget="{Binding}">
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <Border BorderThickness="0 0 0 1" BorderBrush="LightGray">
-              <Grid Margin="0 10">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="35"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock>
-                  <Run Text="{Binding Name}"/> [<Run Text="{Binding Display}"/>]
-                </TextBlock>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                  <Button Command="{s:Action Method=Edit}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="0 0 5 0">
-                    <iconPacks:PackIconMaterial Kind="PencilOutline" Width="12" Height="12"/>
+    <Grid>
+      <DataGrid ItemsSource="{Binding Modules}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
+                SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="代码名称" Binding="{Binding Name}" MinWidth="200"/>
+          <DataGridTextColumn Header="显示名称" Binding="{Binding Display}" MinWidth="200"/>
+          <DataGridCheckBoxColumn Header="锁定" Binding="{Binding IsLocked}" MinWidth="35"/>
+          <DataGridTextColumn Header="命名空间" Binding="{Binding Namespace}" MinWidth="300" IsReadOnly="True"/>
+          <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}" MinWidth="120" IsReadOnly="True"/>
+          <DataGridTemplateColumn Header="操作" Width="85">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                  <Button Command="{s:Action Method=Up}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序上移">
+                    <icons:PackIconMaterial Kind="ChevronUp"/>
                   </Button>
-                  <Button Command="{s:Action Method=Delete}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}">
-                    <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
+                  <Button Command="{s:Action Method=Down}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序下移">
+                    <icons:PackIconMaterial Kind="ChevronDown"/>
+                  </Button>
+                  <Button Command="{s:Action Method=Delete}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="删除实体">
+                    <icons:PackIconMaterial Kind="DeleteOutline"/>
                   </Button>
                 </StackPanel>
-              </Grid>
-            </Border>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
-    </StackPanel>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+    </Grid>
   </GroupBox>
 </UserControl>

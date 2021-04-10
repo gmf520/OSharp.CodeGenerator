@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
@@ -34,8 +35,8 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Projects
 {
-    [MapTo(typeof(CodeProject))]
     [MapFrom(typeof(CodeProject))]
+    [MapTo(typeof(CodeProject))]
     public class ProjectViewModel : Screen
     {
         private readonly IServiceProvider _serviceProvider;
@@ -66,9 +67,9 @@ namespace OSharp.CodeGenerator.Views.Projects
         {
             MainViewModel main = IoC.Get<MainViewModel>();
             main.DisplayName = $"OSharp代码生成器 - {Name}";
-            ModuleListViewModel moduleList = IoC.Get<ModuleListViewModel>();
-            moduleList.Project = this;
-            moduleList.Init();
+            MenuViewModel menu = IoC.Get<MenuViewModel>();
+            menu.Project = this;
+            menu.Init();
             main.ProjectList.IsShow = false;
             main.StatusBar.Message = $"项目“{Name}”加载成功";
         }
@@ -113,14 +114,14 @@ namespace OSharp.CodeGenerator.Views.Projects
                 return;
             }
 
-            CodeProject project = ToProject();
+            CodeProjectInputDto dto = this.MapTo<CodeProjectInputDto>();
             OperationResult result = null;
             await _serviceProvider.ExecuteScopedWorkAsync(async provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
-                result = project.Id == default
-                    ? await contract.CreateCodeProjects(project)
-                    : await contract.UpdateCodeProjects(project);
+                result = dto.Id == default
+                    ? await contract.CreateCodeProjects(dto)
+                    : await contract.UpdateCodeProjects(dto);
             });
             Helper.Notify(result);
             if (!result.Succeeded)
@@ -153,12 +154,7 @@ namespace OSharp.CodeGenerator.Views.Projects
             // Fody 无法编织其他组件，所以我们必须手动提高这个值
             this.NotifyOfPropertyChange(() => CanEditSave);
         }
-
-        public CodeProject ToProject()
-        {
-            CodeProject project = this.MapTo<CodeProject>();
-            return project;
-        }
+        
     }
 
 
