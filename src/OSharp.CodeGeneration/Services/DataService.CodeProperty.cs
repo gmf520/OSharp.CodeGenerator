@@ -83,7 +83,7 @@ namespace OSharp.CodeGeneration.Services
 
             await UnitOfWork.CommitAsync();
             return names.Count > 0
-                ? new OperationResult(OperationResultType.Success, $"属性“{names.ExpandAndToString()}”更新成功")
+                ? new OperationResult(OperationResultType.Success, $"属性“{names.ExpandAndToString()}”保存成功")
                 : OperationResult.NoChanged;
         }
 

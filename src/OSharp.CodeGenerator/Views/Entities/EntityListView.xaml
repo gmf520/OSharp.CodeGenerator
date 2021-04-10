@@ -5,7 +5,7 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:s="https://github.com/canton7/Stylet"
-  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Entities"
   xmlns:viewsProperty="clr-namespace:OSharp.CodeGenerator.Views.Properties"
   mc:Ignorable="d"
@@ -15,92 +15,78 @@
     <GroupBox.Header>
       <StackPanel Orientation="Horizontal">
         <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
-          <iconPacks:PackIconMaterial Kind="FormatListCheckbox" Width="12" Height="12"/> 实体列表
+          <icons:PackIconMaterial Kind="AlphaEBoxOutline" Margin="0 -3"/> 实体列表
         </TextBlock>
         <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新实体列表">
           <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="Refresh" Width="12" Height="12"/>
+            <icons:PackIconMaterial Kind="Refresh" Width="12" Height="12"/>
             <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
         <Button Command="{s:Action Method=New}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="新增一个实体">
           <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="Plus" Width="12" Height="12"/>
+            <icons:PackIconMaterial Kind="Plus" Width="12" Height="12"/>
             <TextBlock Text="新增" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
         <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存实体列表">
           <StackPanel Orientation="Horizontal">
-            <iconPacks:PackIconMaterial Kind="ContentSaveOutline" Width="12" Height="14"/>
+            <icons:PackIconMaterial Kind="ContentSaveOutline" Width="12" Height="14"/>
             <TextBlock Text="保存" FontSize="12" Margin="2 0"/>
           </StackPanel>
         </Button>
       </StackPanel>
     </GroupBox.Header>
-    <Grid>
-      <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
-                SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False">
-        <DataGrid.Columns>
-          <DataGridTemplateColumn Header="" Width="35" IsReadOnly="True">
-            <DataGridTemplateColumn.CellTemplate>
-              <DataTemplate>
-                <Expander Expanded="{s:Action Method=Expanded}" Collapsed="{s:Action Method=Collapsed}" s:View.ActionTarget="{Binding}" IsExpanded="False" Margin="2 0"/>
-              </DataTemplate>
-            </DataGridTemplateColumn.CellTemplate>
-          </DataGridTemplateColumn>
-          <DataGridTextColumn Header="代码名称" Binding="{Binding Name, ValidatesOnDataErrors=True}"/>
-          <DataGridTextColumn Header="显示名称" Binding="{Binding Display, ValidatesOnDataErrors=True}"/>
-          <DataGridTemplateColumn Header="主键类型" Width="120">
-            <DataGridTemplateColumn.CellTemplate>
-              <DataTemplate>
-                <TextBlock Text="{Binding PrimaryKeyTypeFullName, NotifyOnValidationError=True}"/>
-              </DataTemplate>
-            </DataGridTemplateColumn.CellTemplate>
-            <DataGridTemplateColumn.CellEditingTemplate>
-              <DataTemplate>
-                <ComboBox ItemsSource="{Binding EntityKeys,Source={StaticResource Locator}}" SelectedValue="{Binding PrimaryKeyTypeFullName}"/>
-              </DataTemplate>
-            </DataGridTemplateColumn.CellEditingTemplate>
-          </DataGridTemplateColumn>
-          <DataGridCheckBoxColumn Header="列" Width="35" Binding="{Binding Listable}"/>
-          <DataGridCheckBoxColumn Header="增" Width="35" Binding="{Binding Addable}"/>
-          <DataGridCheckBoxColumn Header="改" Width="35" Binding="{Binding Updatable}"/>
-          <DataGridCheckBoxColumn Header="删" Width="35" Binding="{Binding Deletable}"/>
-          <DataGridCheckBoxColumn Header="数据权限" Width="70" Binding="{Binding IsDataAuth}"/>
-          <DataGridCheckBoxColumn Header="锁定" Width="50" Binding="{Binding HasLocked}"/>
-          <DataGridCheckBoxColumn Header="软删除" Width="60" Binding="{Binding HasSoftDeleted}"/>
-          <DataGridCheckBoxColumn Header="创建时间" Width="70" Binding="{Binding HasCreatedTime}"/>
-          <DataGridCheckBoxColumn Header="创建审计" Width="70" Binding="{Binding HasCreationAudited}"/>
-          <DataGridCheckBoxColumn Header="更新审计" Width="70" Binding="{Binding HasUpdateAudited}"/>
-          <DataGridTemplateColumn Header="操作" Width="100">
-            <DataGridTemplateColumn.CellTemplate>
-              <DataTemplate>
-                <StackPanel Orientation="Horizontal">
-                  <Button Command="{s:Action Method=ForeignKey}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="设置外键">
-                    <StackPanel Orientation="Horizontal">
-                      <iconPacks:PackIconMaterial Kind="KeyLink"/>
-                    </StackPanel>
-                  </Button>
-                  <Button Command="{s:Action Method=Up}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序上移">
-                    <iconPacks:PackIconMaterial Kind="ChevronUp" Width="12" Height="12"/>
-                  </Button>
-                  <Button Command="{s:Action Method=Down}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序下移">
-                    <iconPacks:PackIconMaterial Kind="ChevronDown" Width="12" Height="12"/>
-                  </Button>
-                  <Button Command="{s:Action Method=Delete}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="删除实体">
-                    <iconPacks:PackIconMaterial Kind="DeleteOutline" Width="12" Height="12"/>
-                  </Button>
-                </StackPanel>
-              </DataTemplate>
-            </DataGridTemplateColumn.CellTemplate>
-          </DataGridTemplateColumn>
-        </DataGrid.Columns>
-        <DataGrid.RowDetailsTemplate>
-          <DataTemplate>
-            <viewsProperty:PropertyListView DataContext="{Binding}" Margin="5"/>
-          </DataTemplate>
-        </DataGrid.RowDetailsTemplate>
-      </DataGrid>
-    </Grid>
+    <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
+                SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False" MinWidth="1000">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="代码名称" Binding="{Binding Name, ValidatesOnDataErrors=True}" MinWidth="100"/>
+        <DataGridTextColumn Header="显示名称" Binding="{Binding Display, ValidatesOnDataErrors=True}" MinWidth="100"/>
+        <DataGridTemplateColumn Header="主键类型" MinWidth="120">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding PrimaryKeyTypeFullName, NotifyOnValidationError=True}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate>
+              <ComboBox ItemsSource="{Binding EntityKeys,Source={StaticResource Locator}}" SelectedValue="{Binding PrimaryKeyTypeFullName}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
+        </DataGridTemplateColumn>
+        <DataGridCheckBoxColumn Header="列" Width="35" Binding="{Binding Listable}"/>
+        <DataGridCheckBoxColumn Header="增" Width="35" Binding="{Binding Addable}"/>
+        <DataGridCheckBoxColumn Header="改" Width="35" Binding="{Binding Updatable}"/>
+        <DataGridCheckBoxColumn Header="删" Width="35" Binding="{Binding Deletable}"/>
+        <DataGridCheckBoxColumn Header="数据权限" Width="70" Binding="{Binding IsDataAuth}"/>
+        <DataGridCheckBoxColumn Header="锁定" Width="50" Binding="{Binding HasLocked}"/>
+        <DataGridCheckBoxColumn Header="软删除" Width="60" Binding="{Binding HasSoftDeleted}"/>
+        <DataGridCheckBoxColumn Header="创建时间" Width="70" Binding="{Binding HasCreatedTime}"/>
+        <DataGridCheckBoxColumn Header="创建审计" Width="70" Binding="{Binding HasCreationAudited}"/>
+        <DataGridCheckBoxColumn Header="更新审计" Width="70" Binding="{Binding HasUpdateAudited}"/>
+        <DataGridTemplateColumn Header="操作" Width="110">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <Button Command="{s:Action Method=ForeignKey}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="设置外键">
+                  <StackPanel Orientation="Horizontal">
+                    <icons:PackIconMaterial Kind="KeyLink"/>
+                  </StackPanel>
+                </Button>
+                <Button Command="{s:Action Method=Up}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序上移">
+                  <icons:PackIconMaterial Kind="ChevronUp"/>
+                </Button>
+                <Button Command="{s:Action Method=Down}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="排序下移">
+                  <icons:PackIconMaterial Kind="ChevronDown"/>
+                </Button>
+                <Button Command="{s:Action Method=Delete}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonB}" Margin="5" ToolTip="删除实体">
+                  <icons:PackIconMaterial Kind="DeleteOutline"/>
+                </Button>
+              </StackPanel>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
   </GroupBox>
 </UserControl>

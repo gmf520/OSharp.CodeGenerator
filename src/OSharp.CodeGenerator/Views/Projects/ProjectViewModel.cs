@@ -66,9 +66,9 @@ namespace OSharp.CodeGenerator.Views.Projects
         {
             MainViewModel main = IoC.Get<MainViewModel>();
             main.DisplayName = $"OSharp代码生成器 - {Name}";
-            ModuleListViewModel moduleList = IoC.Get<ModuleListViewModel>();
-            moduleList.Project = this;
-            moduleList.Init();
+            MenuViewModel menu = IoC.Get<MenuViewModel>();
+            menu.Project = this;
+            menu.Init();
             main.ProjectList.IsShow = false;
             main.StatusBar.Message = $"项目“{Name}”加载成功";
         }

@@ -9,9 +9,10 @@
   xmlns:viewsProjects="clr-namespace:OSharp.CodeGenerator.Views.Projects"
   xmlns:viewsModules="clr-namespace:OSharp.CodeGenerator.Views.Modules"
   xmlns:viewsEntities="clr-namespace:OSharp.CodeGenerator.Views.Entities"
+  xmlns:viewsProperties="clr-namespace:OSharp.CodeGenerator.Views.Properties"
   xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
   xmlns:mahwin="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
-  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+  xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:notify="clr-namespace:Notifications.Wpf.Core.Controls;assembly=Notifications.Wpf.Core"
   mc:Ignorable="d"
   d:DataContext="{d:DesignInstance views:MainViewModel}"
@@ -34,13 +35,14 @@
           <ColumnDefinition Width="250" MinWidth="200" MaxWidth="400"/>
           <ColumnDefinition Width="*" MinWidth="300"/>
         </Grid.ColumnDefinitions>
-        <viewsModules:ModuleListView Grid.Column="0" DataContext="{Binding ModuleList}" Margin="4 4 4 4"/>
+        <views:MenuView Grid.Column="0" DataContext="{Binding Menu}" Margin="4"/>
         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" Width="4" Background="White"/>
-        <viewsEntities:EntityListView Grid.Column="1" DataContext="{Binding EntityList}" Margin="0 4 4 4"/>
+        <viewsModules:ModuleListView DataContext="{Binding ModuleList}" Visibility="{Binding IsShow, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" Margin="0 4 4 4"/>
+        <viewsEntities:EntityListView DataContext="{Binding EntityList}" Visibility="{Binding IsShow, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" Margin="0 4 4 4"/>
+        <viewsProperties:PropertyListView DataContext="{Binding PropertyList}" Visibility="{Binding IsShow, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" Margin="0 4 4 4"/>
       </Grid>
       <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
       <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>
-      <viewsModules:ModuleEditView Grid.Row="0" DataContext="{Binding ModuleList}"/>
       <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="TopRight" MaxItems="3"/>
       <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}" Background="DimGray"/>
     </Grid>

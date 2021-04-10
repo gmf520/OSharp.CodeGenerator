@@ -39,43 +39,7 @@ namespace OSharp.CodeGeneration.Services
         {
             return ModuleRepository.CheckExistsAsync(predicate, id);
         }
-
-        /// <summary>
-        /// 添加代码模块信息信息
-        /// </summary>
-        /// <param name="modules">要添加的代码模块信息</param>
-        /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> CreateCodeModules(params CodeModule[] modules)
-        {
-            List<string> names = new List<string>();
-            UnitOfWork.EnableTransaction();
-            foreach (CodeModule module in modules)
-            {
-                module.Validate();
-                CodeProject project = await ProjectRepository.GetAsync(module.ProjectId);
-                if (project == null)
-                {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{module.ProjectId}”的项目信息不存在");
-                }
-
-                if (await CheckCodeModuleExists(m => m.Name == module.Name && m.ProjectId == module.ProjectId))
-                {
-                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
-                }
-
-                int count = await ModuleRepository.InsertAsync(module);
-                if (count > 0)
-                {
-                    names.Add(module.Name);
-                }
-            }
-
-            await UnitOfWork.CommitAsync();
-            return names.Count > 0
-                ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”创建成功")
-                : OperationResult.NoChanged;
-        }
-
+        
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>
@@ -99,9 +63,17 @@ namespace OSharp.CodeGeneration.Services
                     return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
                 }
 
-                CodeModule existing = await ModuleRepository.GetAsync(module.Id);
-                existing = module.MapTo(existing);
-                int count = await ModuleRepository.UpdateAsync(existing);
+                int count;
+                if (module.Id == default)
+                {
+                    count = await ModuleRepository.InsertAsync(module);
+                }
+                else
+                {
+                    CodeModule existing = await ModuleRepository.GetAsync(module.Id);
+                    existing = module.MapTo(existing);
+                    count = await ModuleRepository.UpdateAsync(existing);
+                }
                 if (count > 0)
                 {
                     names.Add(module.Name);
@@ -110,7 +82,7 @@ namespace OSharp.CodeGeneration.Services
 
             await UnitOfWork.CommitAsync();
             return names.Count > 0
-                ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”更新成功")
+                ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”保存成功")
                 : OperationResult.NoChanged;
         }
 

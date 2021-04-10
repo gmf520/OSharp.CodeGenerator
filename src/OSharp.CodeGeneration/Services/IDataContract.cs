@@ -82,14 +82,7 @@ namespace OSharp.CodeGeneration.Services
         /// <param name="id">更新的代码模块信息编号</param>
         /// <returns>代码模块信息是否存在</returns>
         Task<bool> CheckCodeModuleExists(Expression<Func<CodeModule, bool>> predicate, Guid id = default);
-
-        /// <summary>
-        /// 添加代码模块信息信息
-        /// </summary>
-        /// <param name="modules">要添加的代码模块信息</param>
-        /// <returns>业务操作结果</returns>
-        Task<OperationResult> CreateCodeModules(params CodeModule[] modules);
-
+        
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>

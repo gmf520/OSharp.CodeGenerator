@@ -43,11 +43,11 @@ namespace OSharp.CodeGeneration.Services
             projects = json.FromJsonString<CodeProject[]>();
             foreach (CodeProject project in projects)
             {
-                foreach (CodeModule module in project.Modules)
+                foreach (CodeModule module in project.Modules.OrderBy(m => m.Order))
                 {
-                    foreach (CodeEntity entity in module.Entities)
+                    foreach (CodeEntity entity in module.Entities.OrderBy(m => m.Order))
                     {
-                        foreach (CodeProperty property in entity.Properties)
+                        foreach (CodeProperty property in entity.Properties.OrderBy(m => m.Order))
                         {
                             property.Entity = entity;
                         }

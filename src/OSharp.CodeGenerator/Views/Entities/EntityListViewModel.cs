@@ -9,7 +9,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -43,18 +45,21 @@ namespace OSharp.CodeGenerator.Views.Entities
 
         public IObservableCollection<EntityViewModel> Entities { get; } = new BindableCollection<EntityViewModel>();
 
-        public void Init()
+        public bool IsShow { get; set; }
+
+        public async void Init()
         {
             if (Module == null)
             {
                 throw new OsharpException($"当前模块为空，请点击模块列表选择一行");
             }
-
+            
             List<CodeEntity> entities = new List<CodeEntity>();
-            _provider.ExecuteScopedWork(provider =>
+            await _provider.ExecuteScopedWorkAsync(provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 entities = contract.CodeEntities.Where(m => m.ModuleId == Module.Id).OrderBy(m => m.Order).ToList();
+                return Task.CompletedTask;
             });
             Entities.Clear();
             foreach (CodeEntity entity in entities)
@@ -64,6 +69,7 @@ namespace OSharp.CodeGenerator.Views.Entities
                 model.Module = Module;
                 Entities.Add(model);
             }
+            
             Helper.Output($"模块“{Module.Display}”的实体列表刷新成功，共{Entities.Count}个实体");
         }
 
@@ -82,6 +88,11 @@ namespace OSharp.CodeGenerator.Views.Entities
             {
                 Helper.Notify("实体信息验证失败", NotificationType.Warning);
                 return;
+            }
+
+            for (int i = 0; i < Entities.Count; i++)
+            {
+                Entities[i].Order = i + 1;
             }
 
             CodeEntity[] entities = Entities.Select(m => m.ToEntity()).ToArray();

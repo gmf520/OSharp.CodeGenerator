@@ -79,27 +79,7 @@ namespace OSharp.CodeGenerator.Views.Entities
             CodeEntity entity = this.MapTo<CodeEntity>();
             return entity;
         }
-
-        public void Expanded(RoutedEventArgs args)
-        {
-            Expander expander = args.Source as Expander;
-            DataGrid grid = expander.TryFindParent<DataGrid>();
-            if (expander != null)
-            {
-                grid?.SetDetailsVisibilityForItem(this, Visibility.Hidden);
-            }
-        }
-
-        public void Collapsed(RoutedEventArgs args)
-        {
-            Expander expander = args.Source as Expander;
-            DataGrid grid = expander.TryFindParent<DataGrid>();
-            if (expander != null)
-            {
-                grid?.SetDetailsVisibilityForItem(this, Visibility.Collapsed);
-            }
-        }
-
+        
         public void ForeignKey()
         {
             Helper.Output($"“{Name}” - ForeignKey");
