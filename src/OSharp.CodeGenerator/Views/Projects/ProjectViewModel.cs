@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
@@ -113,14 +114,14 @@ namespace OSharp.CodeGenerator.Views.Projects
                 return;
             }
 
-            CodeProject project = ToProject();
+            CodeProjectInputDto dto = this.MapTo<CodeProjectInputDto>();
             OperationResult result = null;
             await _serviceProvider.ExecuteScopedWorkAsync(async provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
-                result = project.Id == default
-                    ? await contract.CreateCodeProjects(project)
-                    : await contract.UpdateCodeProjects(project);
+                result = dto.Id == default
+                    ? await contract.CreateCodeProjects(dto)
+                    : await contract.UpdateCodeProjects(dto);
             });
             Helper.Notify(result);
             if (!result.Succeeded)
@@ -153,12 +154,7 @@ namespace OSharp.CodeGenerator.Views.Projects
             // Fody 无法编织其他组件，所以我们必须手动提高这个值
             this.NotifyOfPropertyChange(() => CanEditSave);
         }
-
-        public CodeProject ToProject()
-        {
-            CodeProject project = this.MapTo<CodeProject>();
-            return project;
-        }
+        
     }
 
 

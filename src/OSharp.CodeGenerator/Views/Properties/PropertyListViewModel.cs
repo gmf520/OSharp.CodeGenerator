@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Entities;
@@ -95,12 +96,12 @@ namespace OSharp.CodeGenerator.Views.Properties
                 Properties[i].Order = i + 1;
             }
 
-            CodeProperty[] properties = Properties.Select(m => m.ToProperty()).ToArray();
+            CodePropertyInputDto[] dtos = Properties.Select(m => m.MapTo<CodePropertyInputDto>()).ToArray();
             OperationResult result = null;
             await _provider.ExecuteScopedWorkAsync(async provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
-                result = await contract.UpdateCodeProperties(properties);
+                result = await contract.UpdateCodeProperties(dtos);
             });
             Helper.Notify(result);
             if (!result.Succeeded)

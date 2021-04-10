@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
@@ -95,12 +96,12 @@ namespace OSharp.CodeGenerator.Views.Entities
                 Entities[i].Order = i + 1;
             }
 
-            CodeEntity[] entities = Entities.Select(m => m.ToEntity()).ToArray();
+            CodeEntityInputDto[] dtos = Entities.Select(m => m.MapTo<CodeEntityInputDto>()).ToArray();
             OperationResult result = null;
             await _provider.ExecuteScopedWorkAsync(async provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
-                result = await contract.UpdateCodeEntities(entities);
+                result = await contract.UpdateCodeEntities(dtos);
             });
             Helper.Notify(result);
             if (!result.Succeeded)

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
@@ -43,44 +44,45 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>
-        /// <param name="modules">包含更新信息的代码模块信息</param>
+        /// <param name="dtos">包含更新信息的代码模块信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeModules(params CodeModule[] modules)
+        public async Task<OperationResult> UpdateCodeModules(params CodeModuleInputDto[] dtos)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeModule module in modules)
+            foreach (var dto in dtos)
             {
-                module.Validate();
-                CodeProject project = await ProjectRepository.GetAsync(module.ProjectId);
+                dto.Validate();
+                CodeProject project = await ProjectRepository.GetAsync(dto.ProjectId);
                 if (project == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{module.ProjectId}”的项目信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{dto.ProjectId}”的项目信息不存在");
                 }
 
-                if (await CheckCodeModuleExists(m => m.Name == module.Name && m.ProjectId == module.ProjectId, module.Id))
+                if (await CheckCodeModuleExists(m => m.Name == dto.Name && m.ProjectId == dto.ProjectId, dto.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{dto.Name}”的模块信息已存在");
                 }
 
-                if (module.Order == 0)
+                if (dto.Order == 0)
                 {
-                    module.Order = ModuleRepository.Query(m => m.ProjectId == module.ProjectId).Count() + 1;
+                    dto.Order = ModuleRepository.Query(m => m.ProjectId == dto.ProjectId).Count() + 1;
                 }
                 int count;
-                if (module.Id == default)
+                if (dto.Id == default)
                 {
+                    CodeModule module = dto.MapTo<CodeModule>();
                     count = await ModuleRepository.InsertAsync(module);
                 }
                 else
                 {
-                    CodeModule existing = await ModuleRepository.GetAsync(module.Id);
-                    existing = module.MapTo(existing);
-                    count = await ModuleRepository.UpdateAsync(existing);
+                    CodeModule module = await ModuleRepository.GetAsync(dto.Id);
+                    module = dto.MapTo(module);
+                    count = await ModuleRepository.UpdateAsync(module);
                 }
                 if (count > 0)
                 {
-                    names.Add(module.Name);
+                    names.Add(dto.Name);
                 }
             }
 
@@ -125,5 +127,6 @@ namespace OSharp.CodeGeneration.Services
                 ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”删除成功")
                 : OperationResult.NoChanged;
         }
+
     }
 }

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Data;
 
@@ -44,20 +45,20 @@ namespace OSharp.CodeGeneration.Services
         /// <param name="predicate">检查谓语表达式</param>
         /// <returns>项目信息集合</returns>
         CodeProject[] GetCodeProject(Expression<Func<CodeProject, bool>>predicate);
-
+        
         /// <summary>
         /// 添加项目信息信息
         /// </summary>
-        /// <param name="projects">要添加的项目信息</param>
+        /// <param name="dtos">要添加的项目信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> CreateCodeProjects(params CodeProject[] projects);
+        Task<OperationResult> CreateCodeProjects(params CodeProjectInputDto[] dtos);
 
         /// <summary>
         /// 更新项目信息信息
         /// </summary>
-        /// <param name="projects">包含更新信息的项目信息</param>
+        /// <param name="dtos">包含更新信息的项目信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeProjects(params CodeProject[] projects);
+        Task<OperationResult> UpdateCodeProjects(params CodeProjectInputDto[] dtos);
 
         /// <summary>
         /// 删除项目信息信息
@@ -67,7 +68,7 @@ namespace OSharp.CodeGeneration.Services
         Task<OperationResult> DeleteCodeProjects(params Guid[] ids);
 
         #endregion
-
+        
         #region 代码模块信息业务
 
         /// <summary>
@@ -86,19 +87,19 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>
-        /// <param name="modules">包含更新信息的代码模块信息</param>
+        /// <param name="dtos">包含更新信息的代码模块信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeModules(params CodeModule[] modules);
-
+        Task<OperationResult> UpdateCodeModules(params CodeModuleInputDto[] dtos);
+        
         /// <summary>
         /// 删除代码模块信息信息
         /// </summary>
         /// <param name="ids">要删除的代码模块信息编号</param>
         /// <returns>业务操作结果</returns>
         Task<OperationResult> DeleteCodeModules(params Guid[] ids);
-
+        
         #endregion
-
+        
         #region 代码实体信息业务
 
         /// <summary>
@@ -113,13 +114,13 @@ namespace OSharp.CodeGeneration.Services
         /// <param name="id">更新的代码实体信息编号</param>
         /// <returns>代码实体信息是否存在</returns>
         Task<bool> CheckCodeEntityExists(Expression<Func<CodeEntity, bool>> predicate, Guid id = default);
-        
+
         /// <summary>
         /// 更新代码实体信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的代码实体信息</param>
+        /// <param name="dtos">包含更新信息的代码实体信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeEntities(params CodeEntity[] entities);
+        Task<OperationResult> UpdateCodeEntities(params CodeEntityInputDto[] dtos);
 
         /// <summary>
         /// 删除代码实体信息信息
@@ -129,7 +130,7 @@ namespace OSharp.CodeGeneration.Services
         Task<OperationResult> DeleteCodeEntities(params Guid[] ids);
 
         #endregion
-
+        
         #region 实体属性信息业务
 
         /// <summary>
@@ -148,9 +149,9 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新实体属性信息信息
         /// </summary>
-        /// <param name="properties">包含更新信息的实体属性信息</param>
+        /// <param name="dtos">包含更新信息的实体属性信息输入DTO</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeProperties(params CodeProperty[] properties);
+        Task<OperationResult> UpdateCodeProperties(params CodePropertyInputDto[] dtos);
 
         /// <summary>
         /// 删除实体属性信息信息
@@ -175,14 +176,14 @@ namespace OSharp.CodeGeneration.Services
         /// <param name="id">更新的实体外键信息编号</param>
         /// <returns>实体外键信息是否存在</returns>
         Task<bool> CheckCodeForeignExists(Expression<Func<CodeForeign, bool>> predicate, Guid id = default);
-        
+
         /// <summary>
         /// 更新实体外键信息信息
         /// </summary>
-        /// <param name="foreigns">包含更新信息的实体外键信息</param>
+        /// <param name="dtos">包含更新信息的实体外键信息输入DTO</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeForeigns(params CodeForeign[] foreigns);
-
+        Task<OperationResult> UpdateCodeForeigns(params CodeForeignInputDto[] dtos);
+        
         /// <summary>
         /// 删除实体外键信息信息
         /// </summary>
@@ -212,7 +213,7 @@ namespace OSharp.CodeGeneration.Services
         /// </summary>
         /// <param name="settings">包含更新信息的代码模板信息</param>
         /// <returns>业务操作结果</returns>
-        Task<OperationResult> UpdateCodeTemplates(params CodeTemplate[] settings);
+        Task<OperationResult> UpdateCodeTemplates(params CodeTemplateInputDto[] settings);
 
         /// <summary>
         /// 删除代码模板信息信息

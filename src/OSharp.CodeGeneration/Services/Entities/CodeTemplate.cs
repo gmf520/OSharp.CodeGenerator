@@ -25,7 +25,7 @@ namespace OSharp.CodeGeneration.Services.Entities
     /// </summary>
     [Description("代码模板")]
     [TableNamePrefix("CodeGen")]
-    public class CodeTemplate : EntityBase<Guid>, ILockable
+    public class CodeTemplate : EntityBase<Guid>, ILockable, ICreatedTime
     {
         /// <summary>
         /// 获取或设置 配置名称
@@ -67,6 +67,9 @@ namespace OSharp.CodeGeneration.Services.Entities
 
         /// <summary>获取或设置 是否锁定当前信息</summary>
         public bool IsLocked { get; set; }
+
+        /// <summary>获取或设置 创建时间</summary>
+        public DateTime CreatedTime { get; set; }
 
         /// <summary>
         /// 获取或设置 项目模板集合
@@ -110,7 +113,7 @@ namespace OSharp.CodeGeneration.Services.Entities
                 case "ng_Alain其他数据":
                     return typeof(ng_AlainOther);
                 default:
-                return null;
+                    return null;
             }
         }
 
@@ -147,5 +150,6 @@ namespace OSharp.CodeGeneration.Services.Entities
                 .Replace("{Module.Name}", entity.Module.Name).Replace("{Entity.Name}", entity.Name);
             return fileName;
         }
+
     }
 }

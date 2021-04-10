@@ -15,6 +15,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Projects;
@@ -27,7 +28,7 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Modules
 {
-    [MapTo(typeof(CodeModule))]
+    [MapTo(typeof(CodeModuleInputDto))]
     [MapFrom(typeof(CodeModule))]
     public class ModuleViewModel : Screen
     {
@@ -57,12 +58,6 @@ namespace OSharp.CodeGenerator.Views.Modules
         public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
 
         public ProjectViewModel Project { get; set; }
-
-        public CodeModule ToModule()
-        {
-            CodeModule module = this.MapTo<CodeModule>();
-            return module;
-        }
         
         public async void Delete()
         {
