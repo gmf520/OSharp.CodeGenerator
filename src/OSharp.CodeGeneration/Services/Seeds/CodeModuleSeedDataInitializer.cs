@@ -39,9 +39,9 @@ namespace OSharp.CodeGeneration.Services.Seeds
             CodeProject project = repository.GetFirst(m => m.Name == "示例项目");
             return new[]
             {
-                new CodeModule(){Name = "Identity", Display = "身份认证", ProjectId = project.Id},
-                new CodeModule(){Name = "Auth", Display = "权限授权", ProjectId = project.Id},
-                new CodeModule(){Name = "Infos", Display = "信息", ProjectId = project.Id},
+                new CodeModule(){Name = "Identity", Display = "身份认证", Order = 1, ProjectId = project.Id},
+                new CodeModule(){Name = "Auth", Display = "权限授权", Order = 2, ProjectId = project.Id},
+                new CodeModule(){Name = "Infos", Display = "信息", Order = 3, ProjectId = project.Id},
             };
         }
 

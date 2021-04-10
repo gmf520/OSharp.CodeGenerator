@@ -7,8 +7,11 @@
 //  <last-date>2020-05-07 1:27</last-date>
 // -----------------------------------------------------------------------
 
+using System;
+
 using FluentValidation;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Entities;
@@ -19,7 +22,7 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Properties
 {
-    [MapTo(typeof(CodeProperty))]
+    [MapTo(typeof(CodePropertyInputDto))]
     [MapFrom(typeof(CodeProperty))]
     public class PropertyViewModel : Screen
     {
@@ -32,6 +35,8 @@ namespace OSharp.CodeGenerator.Views.Properties
         }
 
         public EntityViewModel Entity { get; set; }
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -75,12 +80,8 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public int Order { get; set; }
 
-        public CodeProperty ToProperty()
-        {
-            CodeProperty property = this.MapTo<CodeProperty>();
-            return property;
-        }
-
+        public DateTime CreatedTime { get; set; }
+        
         public void Up()
         {
             Helper.Output($"“{Name}” - Up");

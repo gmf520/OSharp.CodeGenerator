@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
@@ -44,35 +45,36 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新代码设置信息信息
         /// </summary>
-        /// <param name="entities">包含更新信息的代码设置信息</param>
+        /// <param name="dtos">包含更新信息的代码设置信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeTemplates(params CodeTemplate[] entities)
+        public async Task<OperationResult> UpdateCodeTemplates(params CodeTemplateInputDto[] dtos)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (var entity in entities)
+            foreach (var dto in dtos)
             {
-                entity.Validate();
-                if (await CheckCodeTemplateExists(m=>m.Name == entity.Name, entity.Id))
+                dto.Validate();
+                if (await CheckCodeTemplateExists(m=>m.Name == dto.Name, dto.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"名称为“{entity.Name}”的代码设置已存在");
+                    return new OperationResult(OperationResultType.Error, $"名称为“{dto.Name}”的代码设置已存在");
                 }
 
                 int count;
-                if (entity.Id == default)
+                if (dto.Id == default)
                 {
-                    count = await TemplateRepository.InsertAsync(entity);
+                    CodeTemplate template = dto.MapTo<CodeTemplate>();
+                    count = await TemplateRepository.InsertAsync(template);
                 }
                 else
                 {
-                    CodeTemplate entity1 = await TemplateRepository.GetAsync(entity.Id);
-                    entity1 = entity.MapTo(entity1);
-                    count = await TemplateRepository.UpdateAsync(entity1);
+                    CodeTemplate template = await TemplateRepository.GetAsync(dto.Id);
+                    template = dto.MapTo(template);
+                    count = await TemplateRepository.UpdateAsync(template);
                 }
 
                 if (count > 0)
                 {
-                    names.Add(entity.Name);
+                    names.Add(dto.Name);
                 }
             }
 

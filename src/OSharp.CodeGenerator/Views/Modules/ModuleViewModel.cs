@@ -8,18 +8,14 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Windows;
-
-using AutoMapper;
 
 using FluentValidation;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using Notifications.Wpf.Core;
-
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Projects;
@@ -32,7 +28,7 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Modules
 {
-    [MapTo(typeof(CodeModule))]
+    [MapTo(typeof(CodeModuleInputDto))]
     [MapFrom(typeof(CodeModule))]
     public class ModuleViewModel : Screen
     {
@@ -55,24 +51,14 @@ namespace OSharp.CodeGenerator.Views.Modules
 
         public int Order { get; set; }
 
+        public bool IsLocked { get; set; }
+
+        public DateTime CreatedTime { get; set; }
+
         public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
 
         public ProjectViewModel Project { get; set; }
-
-        public CodeModule ToModule()
-        {
-            CodeModule module = this.MapTo<CodeModule>();
-            return module;
-        }
-
-        public void Edit()
-        {
-            ModuleListViewModel model = IoC.Get<ModuleListViewModel>();
-            model.EditingModel = this;
-            model.EditTitle = $"模块编辑 - {Name}[{Display}]";
-            model.IsShowEdit = true;
-        }
-
+        
         public async void Delete()
         {
             if (MessageBox.Show($"是否删除模块“{Name}[{Display}]”?", "请确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
@@ -95,57 +81,6 @@ namespace OSharp.CodeGenerator.Views.Modules
             
             main.ModuleList.Init();
         }
-
-        public bool CanEditSave => !HasErrors;
-
-        public async void EditSave()
-        {
-            MainViewModel main = IoC.Get<MainViewModel>();
-            if (!await ValidateAsync())
-            {
-                main.Notify("项目信息验证失败", NotificationType.Warning);
-                return;
-            }
-
-            CodeModule module = ToModule();
-            OperationResult result = null;
-            await _provider.ExecuteScopedWorkAsync(async provider =>
-            {
-                IDataContract contract = provider.GetRequiredService<IDataContract>();
-                result = module.Id == default
-                    ? await contract.CreateCodeModules(module)
-                    : await contract.UpdateCodeModules(module);
-            });
-            Helper.Notify(result);
-            if (!result.Succeeded)
-            {
-                return;
-            }
-
-            ModuleListViewModel list = main.ModuleList;
-            list.EditingModel = null;
-            list.IsShowEdit = false;
-            list.Init();
-        }
-
-        public void EditCancel()
-        {
-            var list = IoC.Get<ModuleListViewModel>();
-            list.EditingModel = null;
-            list.IsShowEdit = false;
-            list.Init();
-        }
-
-        /// <summary>
-        /// Called whenever the error state of any properties changes. Calls NotifyOfPropertyChange("HasErrors") by default
-        /// </summary>
-        /// <param name="changedProperties">List of property names which have changed validation state</param>
-        protected override void OnValidationStateChanged(IEnumerable<string> changedProperties)
-        {
-            base.OnValidationStateChanged(changedProperties);
-            NotifyOfPropertyChange(() => CanEditSave);
-        }
-
     }
 
 

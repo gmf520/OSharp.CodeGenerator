@@ -40,24 +40,24 @@ namespace OSharp.CodeGeneration.Services.Seeds
             CodeModule module = repository.GetFirst(m => m.Name == "Identity");
             List<CodeEntity> entities = new List<CodeEntity>()
             {
-                new CodeEntity(){Name = "User", Display = "用户", PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
-                new CodeEntity(){Name = "Role", Display = "角色", PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
-                new CodeEntity(){Name = "UserRole", Display = "用户角色", PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
+                new CodeEntity(){Name = "User", Display = "用户", Order = 1, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
+                new CodeEntity(){Name = "Role", Display = "角色", Order = 2, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
+                new CodeEntity(){Name = "UserRole", Display = "用户角色", Order = 3, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
             };
 
             module = repository.GetFirst(m => m.Name == "Auth");
             entities.AddRange(new List<CodeEntity>()
             {
-                new CodeEntity(){Name = "Module", Display = "模块", PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
-                new CodeEntity(){Name = "Function", Display = "功能", PrimaryKeyTypeFullName = "System.Guid", ModuleId = module.Id},
-                new CodeEntity(){Name = "EntityInfo", Display = "实体", PrimaryKeyTypeFullName = "System.Guid", ModuleId = module.Id},
+                new CodeEntity(){Name = "Module", Display = "模块", Order = 1, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
+                new CodeEntity(){Name = "Function", Display = "功能", Order = 2, PrimaryKeyTypeFullName = "System.Guid", ModuleId = module.Id},
+                new CodeEntity(){Name = "EntityInfo", Display = "实体", Order = 3, PrimaryKeyTypeFullName = "System.Guid", ModuleId = module.Id},
             });
 
             module = repository.GetFirst(m => m.Name == "Infos");
             entities.AddRange(new List<CodeEntity>()
             {
-                new CodeEntity(){Name = "Article", Display = "文章", PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
-                new CodeEntity(){Name = "Message", Display = "站内信", PrimaryKeyTypeFullName = "System.Guid", ModuleId = module.Id}
+                new CodeEntity(){Name = "Article", Display = "文章", Order = 1, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
+                new CodeEntity(){Name = "Message", Display = "站内信", Order = 2, PrimaryKeyTypeFullName = "System.Guid", ModuleId = module.Id}
             });
 
             return entities.ToArray();

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Extensions;
 using OSharp.Json;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Services
@@ -43,11 +45,11 @@ namespace OSharp.CodeGeneration.Services
             projects = json.FromJsonString<CodeProject[]>();
             foreach (CodeProject project in projects)
             {
-                foreach (CodeModule module in project.Modules)
+                foreach (CodeModule module in project.Modules.OrderBy(m => m.Order))
                 {
-                    foreach (CodeEntity entity in module.Entities)
+                    foreach (CodeEntity entity in module.Entities.OrderBy(m => m.Order))
                     {
-                        foreach (CodeProperty property in entity.Properties)
+                        foreach (CodeProperty property in entity.Properties.OrderBy(m => m.Order))
                         {
                             property.Entity = entity;
                         }
@@ -61,24 +63,25 @@ namespace OSharp.CodeGeneration.Services
 
             return projects;
         }
-
+        
         /// <summary>
         /// 添加项目信息信息
         /// </summary>
-        /// <param name="projects">要添加的项目信息</param>
+        /// <param name="dtos">要添加的项目信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> CreateCodeProjects(params CodeProject[] projects)
+        public async Task<OperationResult> CreateCodeProjects(params CodeProjectInputDto[] dtos)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeProject project in projects)
+            foreach (var dto in dtos)
             {
-                project.Validate();
-                if (await CheckCodeProjectExists(m => m.Name == project.Name))
+                dto.Validate();
+                if (await CheckCodeProjectExists(m => m.Name == dto.Name))
                 {
-                    return new OperationResult(OperationResultType.Error, $"名称为“{project.Name}”的项目信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"名称为“{dto.Name}”的项目信息已存在");
                 }
 
+                CodeProject project = dto.MapTo<CodeProject>();
                 int count = await ProjectRepository.InsertAsync(project);
                 if (count > 0)
                 {
@@ -95,24 +98,27 @@ namespace OSharp.CodeGeneration.Services
         /// <summary>
         /// 更新项目信息信息
         /// </summary>
-        /// <param name="projects">包含更新信息的项目信息</param>
+        /// <param name="dtos">包含更新信息的项目信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeProjects(params CodeProject[] projects)
+        public async Task<OperationResult> UpdateCodeProjects(params CodeProjectInputDto[] dtos)
         {
+
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeProject project in projects)
+            foreach (var dto in dtos)
             {
-                project.Validate();
-                if (await CheckCodeProjectExists(m => m.Name == project.Name, project.Id))
+                dto.Validate();
+                if (await CheckCodeProjectExists(m => m.Name == dto.Name, dto.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"名称为“{project.Name}”的项目信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"名称为“{dto.Name}”的项目信息已存在");
                 }
 
-                int count = await ProjectRepository.UpdateAsync(project);
+                CodeProject existing = await ProjectRepository.GetAsync(dto.Id);
+                existing = dto.MapTo(existing);
+                int count = await ProjectRepository.UpdateAsync(existing);
                 if (count > 0)
                 {
-                    names.Add(project.Name);
+                    names.Add(dto.Name);
                 }
             }
 
@@ -157,5 +163,6 @@ namespace OSharp.CodeGeneration.Services
                 ? new OperationResult(OperationResultType.Success, $"项目“{names.ExpandAndToString()}”删除成功")
                 : OperationResult.NoChanged;
         }
+
     }
 }

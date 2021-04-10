@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
@@ -39,78 +40,55 @@ namespace OSharp.CodeGeneration.Services
         {
             return ModuleRepository.CheckExistsAsync(predicate, id);
         }
-
-        /// <summary>
-        /// 添加代码模块信息信息
-        /// </summary>
-        /// <param name="modules">要添加的代码模块信息</param>
-        /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> CreateCodeModules(params CodeModule[] modules)
-        {
-            List<string> names = new List<string>();
-            UnitOfWork.EnableTransaction();
-            foreach (CodeModule module in modules)
-            {
-                module.Validate();
-                CodeProject project = await ProjectRepository.GetAsync(module.ProjectId);
-                if (project == null)
-                {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{module.ProjectId}”的项目信息不存在");
-                }
-
-                if (await CheckCodeModuleExists(m => m.Name == module.Name && m.ProjectId == module.ProjectId))
-                {
-                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
-                }
-
-                int count = await ModuleRepository.InsertAsync(module);
-                if (count > 0)
-                {
-                    names.Add(module.Name);
-                }
-            }
-
-            await UnitOfWork.CommitAsync();
-            return names.Count > 0
-                ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”创建成功")
-                : OperationResult.NoChanged;
-        }
-
+        
         /// <summary>
         /// 更新代码模块信息信息
         /// </summary>
-        /// <param name="modules">包含更新信息的代码模块信息</param>
+        /// <param name="dtos">包含更新信息的代码模块信息DTO信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeModules(params CodeModule[] modules)
+        public async Task<OperationResult> UpdateCodeModules(params CodeModuleInputDto[] dtos)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (CodeModule module in modules)
+            foreach (var dto in dtos)
             {
-                module.Validate();
-                CodeProject project = await ProjectRepository.GetAsync(module.ProjectId);
+                dto.Validate();
+                CodeProject project = await ProjectRepository.GetAsync(dto.ProjectId);
                 if (project == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{module.ProjectId}”的项目信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{dto.ProjectId}”的项目信息不存在");
                 }
 
-                if (await CheckCodeModuleExists(m => m.Name == module.Name && m.ProjectId == module.ProjectId, module.Id))
+                if (await CheckCodeModuleExists(m => m.Name == dto.Name && m.ProjectId == dto.ProjectId, dto.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{dto.Name}”的模块信息已存在");
                 }
 
-                CodeModule existing = await ModuleRepository.GetAsync(module.Id);
-                existing = module.MapTo(existing);
-                int count = await ModuleRepository.UpdateAsync(existing);
+                if (dto.Order == 0)
+                {
+                    dto.Order = ModuleRepository.Query(m => m.ProjectId == dto.ProjectId).Count() + 1;
+                }
+                int count;
+                if (dto.Id == default)
+                {
+                    CodeModule module = dto.MapTo<CodeModule>();
+                    count = await ModuleRepository.InsertAsync(module);
+                }
+                else
+                {
+                    CodeModule module = await ModuleRepository.GetAsync(dto.Id);
+                    module = dto.MapTo(module);
+                    count = await ModuleRepository.UpdateAsync(module);
+                }
                 if (count > 0)
                 {
-                    names.Add(module.Name);
+                    names.Add(dto.Name);
                 }
             }
 
             await UnitOfWork.CommitAsync();
             return names.Count > 0
-                ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”更新成功")
+                ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”保存成功")
                 : OperationResult.NoChanged;
         }
 
@@ -149,5 +127,6 @@ namespace OSharp.CodeGeneration.Services
                 ? new OperationResult(OperationResultType.Success, $"模块“{names.ExpandAndToString()}”删除成功")
                 : OperationResult.NoChanged;
         }
+
     }
 }

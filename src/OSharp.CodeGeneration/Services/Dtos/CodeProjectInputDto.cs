@@ -1,35 +1,27 @@
 // -----------------------------------------------------------------------
-//  <copyright file="CodeProject.cs" company="OSharp开源团队">
-//      Copyright (c) 2014-2020 OSharp. All rights reserved.
+//  <copyright file="CodeProjectInputDto.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2021 OSharp. All rights reserved.
 //  </copyright>
 //  <site>http://www.osharp.org</site>
 //  <last-editor>郭明锋</last-editor>
-//  <last-date>2020-05-04 23:06</last-date>
+//  <last-date>2021-04-10 21:35</last-date>
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-using OSharp.Data;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Entity;
 using OSharp.Mapping;
 
 
-namespace OSharp.CodeGeneration.Services.Entities
+namespace OSharp.CodeGeneration.Services.Dtos
 {
-    /// <summary>
-    /// 实体类：代码项目信息
-    /// </summary>
-    [Description("代码项目信息")]
-    [TableNamePrefix("CodeGen")]
-    public class CodeProject : EntityBase<Guid>, ICreatedTime
+    [MapTo(typeof(CodeProject))]
+    public class CodeProjectInputDto : IInputDto<Guid>
     {
-        public CodeProject()
-        {
-            Id = SequentialGuid.Create(DatabaseType.Sqlite);
-        }
+        /// <summary>获取或设置 主键，唯一标识</summary>
+        public Guid Id { get; set; }
 
         /// <summary>
         /// 获取或设置 项目名称
@@ -66,18 +58,5 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// </summary>
         [StringLength(500)]
         public string Copyright { get; set; }
-
-        /// <summary>获取或设置 创建时间</summary>
-        public DateTime CreatedTime { get; set; }
-
-        /// <summary>
-        /// 获取或设置 模块信息集合
-        /// </summary>
-        public virtual ICollection<CodeModule> Modules { get; set; } = new List<CodeModule>();
-
-        /// <summary>
-        /// 获取或设置 项目模板集合
-        /// </summary>
-        public virtual ICollection<CodeProjectTemplate> ProjectTemplates { get; set; } = new List<CodeProjectTemplate>();
     }
 }

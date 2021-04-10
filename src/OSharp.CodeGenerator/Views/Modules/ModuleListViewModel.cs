@@ -9,16 +9,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Windows.Controls;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using Notifications.Wpf.Core;
+
 using OSharp.CodeGeneration.Services;
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
-using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Projects;
+using OSharp.Data;
 using OSharp.Exceptions;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
@@ -42,23 +46,21 @@ namespace OSharp.CodeGenerator.Views.Modules
 
         public IObservableCollection<ModuleViewModel> Modules { get; } = new BindableCollection<ModuleViewModel>();
 
-        public string EditTitle { get; set; }
+        public bool IsShow { get; set; } = true;
 
-        public bool IsShowEdit { get; set; }
-
-        public ModuleViewModel EditingModel { get; set; }
-
-        public void Init()
+        public async void Init()
         {
             if (Project == null)
             {
                 throw new OsharpException("当前项目为空，请先通过菜单“项目-项目管理”加载项目");
             }
+            
             List<CodeModule> entities = new List<CodeModule>();
-            _provider.ExecuteScopedWork(provider =>
+            await _provider.ExecuteScopedWorkAsync(provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 entities = contract.CodeModules.Where(m => m.ProjectId == Project.Id).OrderBy(m => m.Order).ToList();
+                return Task.CompletedTask;
             });
             Modules.Clear();
             foreach (CodeModule entity in entities)
@@ -68,6 +70,7 @@ namespace OSharp.CodeGenerator.Views.Modules
                 model.Project = Project;
                 Modules.Add(model);
             }
+
             Helper.Output($"模块列表刷新成功，共{Modules.Count}个模块");
         }
 
@@ -79,28 +82,47 @@ namespace OSharp.CodeGenerator.Views.Modules
             }
             ModuleViewModel model = IoC.Get<ModuleViewModel>();
             model.Project = Project;
-            EditingModel = model;
-            EditTitle = $"新增模块，项目：{Project.Name}";
-            IsShowEdit = true;
+            Modules.Add(model);
         }
 
-        public void Select(SelectionChangedEventArgs e)
+        public bool CanSave => Modules.All(m => !m.HasErrors);
+
+        public async void Save()
         {
-            if (e.AddedItems.Count == 0)
+            if (!CanSave)
             {
+                Helper.Notify("模块信息验证失败", NotificationType.Warning);
                 return;
             }
 
-            ModuleViewModel module = e.AddedItems[0] as ModuleViewModel;
-            if (module == null)
+            for (int i = 0; i < Modules.Count; i++)
+            {
+                Modules[i].Order = i + 1;
+            }
+
+            CodeModuleInputDto[] dtos = Modules.Select(m => m.MapTo<CodeModuleInputDto>()).ToArray();
+            OperationResult result = null;
+            await _provider.ExecuteScopedWorkAsync(async provider =>
+            {
+                IDataContract contract = provider.GetRequiredService<IDataContract>();
+                result = await contract.UpdateCodeModules(dtos);
+            });
+            Helper.Notify(result);
+            if (!result.Succeeded)
             {
                 return;
             }
+            Init();
+        }
 
-            EntityListViewModel list = IoC.Get<EntityListViewModel>();
-            list.Module = module;
-            list.Init();
-            Helper.Output($"切换到“{module.Name} [{module.Display}]”模块");
+        /// <summary>
+        /// Called whenever the error state of any properties changes. Calls NotifyOfPropertyChange("HasErrors") by default
+        /// </summary>
+        /// <param name="changedProperties">List of property names which have changed validation state</param>
+        protected override void OnValidationStateChanged(IEnumerable<string> changedProperties)
+        {
+            base.OnValidationStateChanged(changedProperties);
+            NotifyOfPropertyChange(() => CanSave);
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Collections;
 using OSharp.Data;
@@ -39,44 +40,45 @@ namespace OSharp.CodeGeneration.Services
         {
             return ForeignRepository.CheckExistsAsync(predicate, id);
         }
-
+        
         /// <summary>
         /// 更新实体外键信息信息
         /// </summary>
-        /// <param name="foreigns">包含更新信息的实体外键信息</param>
+        /// <param name="dtos">包含更新信息的实体外键信息</param>
         /// <returns>业务操作结果</returns>
-        public async Task<OperationResult> UpdateCodeForeigns(params CodeForeign[] foreigns)
+        public async Task<OperationResult> UpdateCodeForeigns(params CodeForeignInputDto[] dtos)
         {
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
-            foreach (var foreign in foreigns)
+            foreach (var dto in dtos)
             {
-                foreign.Validate();
-                CodeEntity entity = await EntityRepository.GetAsync(foreign.EntityId);
+                dto.Validate();
+                CodeEntity entity = await EntityRepository.GetAsync(dto.EntityId);
                 if (entity == null)
                 {
-                    return new OperationResult(OperationResultType.Error, $"编号为“{foreign.EntityId}”的实体信息不存在");
+                    return new OperationResult(OperationResultType.Error, $"编号为“{dto.EntityId}”的实体信息不存在");
                 }
-                if (await CheckCodeForeignExists(m => m.SelfNavigation == foreign.SelfNavigation && m.EntityId == foreign.EntityId, entity.Id))
+                if (await CheckCodeForeignExists(m => m.SelfNavigation == dto.SelfNavigation && m.EntityId == dto.EntityId, entity.Id))
                 {
-                    return new OperationResult(OperationResultType.Error, $"实体“{entity.Name}”中名称为“{foreign.SelfNavigation}”的外键信息已存在");
+                    return new OperationResult(OperationResultType.Error, $"实体“{entity.Name}”中名称为“{dto.SelfNavigation}”的外键信息已存在");
                 }
 
                 int count;
-                if (foreign.Id == default)
+                if (dto.Id == default)
                 {
+                    CodeForeign foreign = dto.MapTo<CodeForeign>();
                     count = await ForeignRepository.InsertAsync(foreign);
                 }
                 else
                 {
-                    CodeForeign existing = await ForeignRepository.GetAsync(foreign.Id);
-                    existing = foreign.MapTo(existing);
-                    count = await ForeignRepository.UpdateAsync(existing);
+                    CodeForeign foreign = await ForeignRepository.GetAsync(dto.Id);
+                    foreign = dto.MapTo(foreign);
+                    count = await ForeignRepository.UpdateAsync(foreign);
                 }
 
                 if (count > 0)
                 {
-                    names.Add($"{entity.Name}-{foreign.SelfNavigation}");
+                    names.Add($"{entity.Name}-{dto.SelfNavigation}");
                 }
             }
 
