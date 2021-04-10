@@ -38,7 +38,6 @@
       <Button.ContextMenu>
         <ContextMenu x:Name="MenuProject" FontSize="12" Padding="5 0 0 0">
           <MenuItem Header="项目管理(_P)" s:View.ActionTarget="{Binding}" Command="{s:Action Project}" Icon="{icons:Octicons Kind=Project}"/>
-          <MenuItem Header="项目模块管理(_M)" s:View.ActionTarget="{Binding}" Command="{s:Action Module}" Icon="{icons:Material Kind=ViewModule}"/>
           <MenuItem Header="项目模板管理(_T)" s:View.ActionTarget="{Binding}" Command="{s:Action Template}" Icon="{icons:Material Kind=AlphaTBox}"/>
         </ContextMenu>
       </Button.ContextMenu>

@@ -47,7 +47,7 @@ namespace OSharp.CodeGenerator.Views.Properties
         public IObservableCollection<PropertyViewModel> Properties { get; set; } = new BindableCollection<PropertyViewModel>();
 
         public bool IsShow { get; set; }
-
+        
         public async void Init()
         {
             if (Entity == null)
@@ -70,7 +70,7 @@ namespace OSharp.CodeGenerator.Views.Properties
                 model.Entity = Entity;
                 Properties.Add(model);
             }
-
+            
             Helper.Output($"实体“{Entity.Display}”的属性列表刷新成功，共{Properties.Count}个属性");
         }
 

@@ -80,6 +80,8 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public int Order { get; set; }
 
+        public bool IsLocked { get; set; }
+
         public DateTime CreatedTime { get; set; }
         
         public void Up()
