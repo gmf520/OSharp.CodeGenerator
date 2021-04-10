@@ -63,6 +63,10 @@ namespace OSharp.CodeGeneration.Services
                     return new OperationResult(OperationResultType.Error, $"模块“{module.Name}”中名称为“{entity.Name}”的实体信息已存在");
                 }
 
+                if (entity.Order == 0)
+                {
+                    entity.Order = EntityRepository.Query(m => m.ModuleId == module.Id).Count() + 1;
+                }
                 int count;
                 if (entity.Id == default)
                 {

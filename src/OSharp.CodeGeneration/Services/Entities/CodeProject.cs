@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 
 using OSharp.Data;
 using OSharp.Entity;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Services.Entities

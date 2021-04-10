@@ -63,6 +63,10 @@ namespace OSharp.CodeGeneration.Services
                     return new OperationResult(OperationResultType.Error, $"实体“{entity.Name}”中名称为“{property.Name}”的属性信息已存在");
                 }
 
+                if (property.Order == 0)
+                {
+                    property.Order = PropertyRepository.Query(m => m.EntityId == entity.Id).Count() + 1;
+                }
                 int count;
                 if (property.Id == default)
                 {

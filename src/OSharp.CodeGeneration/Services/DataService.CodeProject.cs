@@ -9,6 +9,7 @@ using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Extensions;
 using OSharp.Json;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Services
@@ -109,7 +110,9 @@ namespace OSharp.CodeGeneration.Services
                     return new OperationResult(OperationResultType.Error, $"名称为“{project.Name}”的项目信息已存在");
                 }
 
-                int count = await ProjectRepository.UpdateAsync(project);
+                CodeProject existing = await ProjectRepository.GetAsync(project.Id);
+                existing = project.MapTo(existing);
+                int count = await ProjectRepository.UpdateAsync(existing);
                 if (count > 0)
                 {
                     names.Add(project.Name);

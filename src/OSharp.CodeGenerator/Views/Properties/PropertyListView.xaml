@@ -59,8 +59,30 @@
         <DataGridCheckBoxColumn Header="排序" Width="50" Binding="{Binding Sortable}"/>
         <DataGridCheckBoxColumn Header="过滤" Width="50" Binding="{Binding Filterable}"/>
         <DataGridCheckBoxColumn Header="必填" Width="50" Binding="{Binding IsRequired}"/>
-        <mah:DataGridNumericUpDownColumn Header="最小长度" Width="80" Binding="{Binding MinLength}" Minimum="0"/>
-        <mah:DataGridNumericUpDownColumn Header="最大长度" Width="85" Binding="{Binding MaxLength}" Minimum="1"/>
+        <DataGridTemplateColumn Header="最小长度" Width="80">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding MinLength}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate>
+              <mah:NumericUpDown Value="{Binding MinLength}" Minimum="0"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Header="最大长度" Width="85">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding MaxLength}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+          <DataGridTemplateColumn.CellEditingTemplate>
+            <DataTemplate>
+              <mah:NumericUpDown Value="{Binding MaxLength}" Minimum="1"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellEditingTemplate>
+        </DataGridTemplateColumn>
         <DataGridCheckBoxColumn Header="可空类型" Width="70" Binding="{Binding IsNullable}"/>
         <DataGridCheckBoxColumn Header="外键" Width="50" Binding="{Binding IsForeignKey}"/>
         <DataGridCheckBoxColumn Header="导航" Width="50" Binding="{Binding IsNavigation}"/>
@@ -88,9 +110,10 @@
             </DataTemplate>
           </DataGridTemplateColumn.CellEditingTemplate>
         </DataGridTemplateColumn>
-        <DataGridCheckBoxColumn Header="输入DTO" Width="70" Binding="{Binding IsInputDto}"/>
-        <DataGridCheckBoxColumn Header="输出DTO" Width="70" Binding="{Binding IsOutputDto}"/>
+        <DataGridCheckBoxColumn Header="输入DTO" Width="72" Binding="{Binding IsInputDto}"/>
+        <DataGridCheckBoxColumn Header="输出DTO" Width="72" Binding="{Binding IsOutputDto}"/>
         <DataGridTextColumn Header="默认值" Width="60" Binding="{Binding DefaultValue}"/>
+        <DataGridTextColumn Header="创建时间" Width="120" Binding="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}"/>
         <DataGridTemplateColumn Header="操作" Width="85">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>

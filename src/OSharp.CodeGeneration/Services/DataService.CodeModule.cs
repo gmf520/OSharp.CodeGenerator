@@ -63,6 +63,10 @@ namespace OSharp.CodeGeneration.Services
                     return new OperationResult(OperationResultType.Error, $"项目“{project.Name}”中名称为“{module.Name}”的模块信息已存在");
                 }
 
+                if (module.Order == 0)
+                {
+                    module.Order = ModuleRepository.Query(m => m.ProjectId == module.ProjectId).Count() + 1;
+                }
                 int count;
                 if (module.Id == default)
                 {

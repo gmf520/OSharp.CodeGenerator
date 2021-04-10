@@ -40,9 +40,9 @@
     <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
                 SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False" MinWidth="1000">
       <DataGrid.Columns>
-        <DataGridTextColumn Header="代码名称" Binding="{Binding Name, ValidatesOnDataErrors=True}" MinWidth="100"/>
-        <DataGridTextColumn Header="显示名称" Binding="{Binding Display, ValidatesOnDataErrors=True}" MinWidth="100"/>
-        <DataGridTemplateColumn Header="主键类型" MinWidth="120">
+        <DataGridTextColumn Header="代码名称" Binding="{Binding Name, ValidatesOnDataErrors=True}" MinWidth="90"/>
+        <DataGridTextColumn Header="显示名称" Binding="{Binding Display, ValidatesOnDataErrors=True}" MinWidth="90"/>
+        <DataGridTemplateColumn Header="主键类型" MinWidth="90">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <TextBlock Text="{Binding PrimaryKeyTypeFullName, NotifyOnValidationError=True}"/>
@@ -64,6 +64,7 @@
         <DataGridCheckBoxColumn Header="创建时间" Width="70" Binding="{Binding HasCreatedTime}"/>
         <DataGridCheckBoxColumn Header="创建审计" Width="70" Binding="{Binding HasCreationAudited}"/>
         <DataGridCheckBoxColumn Header="更新审计" Width="70" Binding="{Binding HasUpdateAudited}"/>
+        <DataGridTextColumn Header="创建时间" Width="120" Binding="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}" IsReadOnly="True"/>
         <DataGridTemplateColumn Header="操作" Width="110">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>

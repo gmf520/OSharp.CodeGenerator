@@ -39,12 +39,12 @@ namespace OSharp.CodeGeneration.Services.Seeds
             CodeEntity entity = repository.GetFirst(m => m.Name == "User");
             List<CodeProperty> properties = new List<CodeProperty>()
             {
-                new CodeProperty(){Name = "UserName", Display = "用户名", TypeName = "System.String", IsRequired = true, MaxLength = 200, EntityId = entity.Id},
-                new CodeProperty(){Name = "NickName", Display = "用户昵称", TypeName = "System.String", IsRequired = true, MaxLength = 200, EntityId = entity.Id},
-                new CodeProperty(){Name = "Email", Display = "邮箱", TypeName = "System.String", MaxLength = 200, EntityId = entity.Id},
-                new CodeProperty(){Name = "EmailConfirmed", Display = "邮箱确认", TypeName = "System.Boolean", EntityId = entity.Id},
-                new CodeProperty(){Name = "PhoneNumber", Display = "手机号", TypeName = "System.String", MaxLength = 50, EntityId = entity.Id},
-                new CodeProperty(){Name = "PhoneNumberConfirmed", Display = "手机号确认", TypeName = "System.Boolean", EntityId = entity.Id},
+                new CodeProperty(){Name = "UserName", Display = "用户名", TypeName = "System.String", Order = 1, IsRequired = true, MaxLength = 200, EntityId = entity.Id},
+                new CodeProperty(){Name = "NickName", Display = "用户昵称", TypeName = "System.String", Order = 2, IsRequired = true, MaxLength = 200, EntityId = entity.Id},
+                new CodeProperty(){Name = "Email", Display = "邮箱", TypeName = "System.String", Order = 3, MaxLength = 200, EntityId = entity.Id},
+                new CodeProperty(){Name = "EmailConfirmed", Display = "邮箱确认", TypeName = "System.Boolean", Order = 4, EntityId = entity.Id},
+                new CodeProperty(){Name = "PhoneNumber", Display = "手机号", TypeName = "System.String", Order = 5, MaxLength = 50, EntityId = entity.Id},
+                new CodeProperty(){Name = "PhoneNumberConfirmed", Display = "手机号确认", TypeName = "System.Boolean", Order = 6, EntityId = entity.Id},
             };
             
             return properties.ToArray();

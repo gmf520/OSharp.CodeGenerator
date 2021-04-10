@@ -7,6 +7,8 @@
 //  <last-date>2020-05-07 1:27</last-date>
 // -----------------------------------------------------------------------
 
+using System;
+
 using FluentValidation;
 
 using OSharp.CodeGeneration.Services.Entities;
@@ -32,6 +34,8 @@ namespace OSharp.CodeGenerator.Views.Properties
         }
 
         public EntityViewModel Entity { get; set; }
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -74,6 +78,8 @@ namespace OSharp.CodeGenerator.Views.Properties
         public string DefaultValue { get; set; }
 
         public int Order { get; set; }
+
+        public DateTime CreatedTime { get; set; }
 
         public CodeProperty ToProperty()
         {

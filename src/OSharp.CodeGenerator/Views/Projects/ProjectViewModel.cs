@@ -34,8 +34,8 @@ using Stylet;
 
 namespace OSharp.CodeGenerator.Views.Projects
 {
-    [MapTo(typeof(CodeProject))]
     [MapFrom(typeof(CodeProject))]
+    [MapTo(typeof(CodeProject))]
     public class ProjectViewModel : Screen
     {
         private readonly IServiceProvider _serviceProvider;

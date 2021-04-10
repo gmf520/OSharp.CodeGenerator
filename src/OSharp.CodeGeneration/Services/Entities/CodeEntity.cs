@@ -24,7 +24,7 @@ namespace OSharp.CodeGeneration.Services.Entities
     [Description("代码实体信息")]
     [TableNamePrefix("CodeGen")]
     [MapTo(typeof(CodeEntity))]
-    public class CodeEntity : EntityBase<Guid>, ILockable
+    public class CodeEntity : EntityBase<Guid>, ILockable, ICreatedTime
     {
         /// <summary>
         /// 获取或设置 类型名称

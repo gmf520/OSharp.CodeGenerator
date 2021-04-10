@@ -8,16 +8,11 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Windows;
-
-using AutoMapper;
 
 using FluentValidation;
 
 using Microsoft.Extensions.DependencyInjection;
-
-using Notifications.Wpf.Core;
 
 using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Entities;
@@ -54,6 +49,10 @@ namespace OSharp.CodeGenerator.Views.Modules
         public string Display { get; set; }
 
         public int Order { get; set; }
+
+        public bool IsLocked { get; set; }
+
+        public DateTime CreatedTime { get; set; }
 
         public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
 

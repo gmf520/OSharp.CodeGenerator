@@ -74,6 +74,8 @@ namespace OSharp.CodeGenerator.Views.Entities
 
         public int Order { get; set; }
 
+        public DateTime CreatedTime { get; set; }
+
         public CodeEntity ToEntity()
         {
             CodeEntity entity = this.MapTo<CodeEntity>();
