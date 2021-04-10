@@ -10,6 +10,7 @@
 using FluentValidation;
 
 using OSharp.CodeGeneration.Services.Entities;
+using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.Mapping;
 
@@ -54,6 +55,8 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public bool IsNullable { get; set; }
 
+        public bool IsReadonly { get; set; }
+
         public bool IsVirtual { get; set; }
 
         public bool IsForeignKey { get; set; }
@@ -76,6 +79,21 @@ namespace OSharp.CodeGenerator.Views.Properties
         {
             CodeProperty property = this.MapTo<CodeProperty>();
             return property;
+        }
+
+        public void Up()
+        {
+            Helper.Output($"“{Name}” - Up");
+        }
+
+        public void Down()
+        {
+            Helper.Output($"“{Name}” - Down");
+        }
+
+        public void Delete()
+        {
+            Helper.Output($"“{Name}” - Delete");
         }
     }
 

@@ -8,8 +8,12 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Windows;
+using System.Windows.Controls;
 
 using FluentValidation;
+
+using MahApps.Metro.Controls;
 
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
@@ -39,7 +43,7 @@ namespace OSharp.CodeGenerator.Views.Entities
         }
 
         public ModuleViewModel Module { get; set; }
-        
+
         public Guid Id { get; set; }
 
         public string Name { get; set; }
@@ -76,14 +80,24 @@ namespace OSharp.CodeGenerator.Views.Entities
             return entity;
         }
 
-        public void Expanded()
+        public void Expanded(RoutedEventArgs args)
         {
-            Helper.Output($"“{Name}” - Expanded");
+            Expander expander = args.Source as Expander;
+            DataGrid grid = expander.TryFindParent<DataGrid>();
+            if (expander != null)
+            {
+                grid?.SetDetailsVisibilityForItem(this, Visibility.Hidden);
+            }
         }
 
-        public void Collapsed()
+        public void Collapsed(RoutedEventArgs args)
         {
-            Helper.Output($"“{Name}” - Collapsed");
+            Expander expander = args.Source as Expander;
+            DataGrid grid = expander.TryFindParent<DataGrid>();
+            if (expander != null)
+            {
+                grid?.SetDetailsVisibilityForItem(this, Visibility.Collapsed);
+            }
         }
 
         public void ForeignKey()
@@ -100,6 +114,7 @@ namespace OSharp.CodeGenerator.Views.Entities
         {
             Helper.Output($"“{Name}” - Down");
         }
+
         public void Delete()
         {
             Helper.Output($"“{Name}” - Delete");

@@ -7,6 +7,7 @@
   xmlns:s="https://github.com/canton7/Stylet"
   xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Entities"
+  xmlns:viewsProperty="clr-namespace:OSharp.CodeGenerator.Views.Properties"
   mc:Ignorable="d"
   d:DesignHeight="700" d:DesignWidth="1280"
   d:DataContext="{d:DesignInstance local:EntityListViewModel}">
@@ -36,14 +37,14 @@
         </Button>
       </StackPanel>
     </GroupBox.Header>
-    <StackPanel>
+    <Grid>
       <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
                 SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False">
         <DataGrid.Columns>
-          <DataGridTemplateColumn Header="" Width="30" IsReadOnly="True">
+          <DataGridTemplateColumn Header="" Width="35" IsReadOnly="True">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
-                <Expander Expanded="{s:Action Method=Expanded}" Collapsed="{s:Action Method=Collapsed}" s:View.ActionTarget="{Binding}" IsExpanded="False" Margin="0 0"/>
+                <Expander Expanded="{s:Action Method=Expanded}" Collapsed="{s:Action Method=Collapsed}" s:View.ActionTarget="{Binding}" IsExpanded="False" Margin="2 0"/>
               </DataTemplate>
             </DataGridTemplateColumn.CellTemplate>
           </DataGridTemplateColumn>
@@ -94,7 +95,12 @@
             </DataGridTemplateColumn.CellTemplate>
           </DataGridTemplateColumn>
         </DataGrid.Columns>
+        <DataGrid.RowDetailsTemplate>
+          <DataTemplate>
+            <viewsProperty:PropertyListView DataContext="{Binding}" Margin="5"/>
+          </DataTemplate>
+        </DataGrid.RowDetailsTemplate>
       </DataGrid>
-    </StackPanel>
+    </Grid>
   </GroupBox>
 </UserControl>
