@@ -7,8 +7,11 @@
 //  <last-date>2021-04-08 21:39</last-date>
 // -----------------------------------------------------------------------
 
+using System.IO;
+
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Extensions;
+using OSharp.IO;
 
 
 namespace OSharp.CodeGeneration.Generates
@@ -38,5 +41,17 @@ namespace OSharp.CodeGeneration.Generates
         /// 获取或设置 代码输出文件
         /// </summary>
         public string FileName { get; set; }
+
+        /// <summary>
+        /// 保存代码文件
+        /// </summary>
+        public void SaveToFile(string rootPath)
+        {
+            string fileName = FileName.Replace("/", "\\");
+            fileName = Path.Combine(rootPath, "src\\", fileName);
+            string dir = Path.GetDirectoryName(fileName);
+            DirectoryHelper.CreateIfNotExists(dir);
+            File.WriteAllText(fileName, SourceCode);
+        }
     }
 }

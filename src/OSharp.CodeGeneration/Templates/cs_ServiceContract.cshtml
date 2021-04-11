@@ -60,7 +60,6 @@ namespace @(module.Namespace)
         /// &lt;param name="id"&gt;更新的@(entity.Display)信息编号&lt;/param&gt;
         /// &lt;returns&gt;@(entity.Display)信息是否存在&lt;/returns&gt;
         Task&lt;bool&gt; Check@(entity.Name)Exists(Expression&lt;Func&lt;@(entity.Name), bool&gt;&gt; predicate, @keyType id = default(@(keyType)));
-
     @if (entity.Addable) {
         <text>
         /// &lt;summary&gt;

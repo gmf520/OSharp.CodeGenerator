@@ -8,6 +8,8 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.IO;
+using System.Linq;
 using System.Windows;
 
 using MahApps.Metro.IconPacks;
@@ -16,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Notifications.Wpf.Core;
 
+using OSharp.CodeGeneration.Generates;
 using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
@@ -51,7 +54,8 @@ namespace OSharp.CodeGenerator.Views
         {
             if (Project == null)
             {
-                throw new OsharpException("当前项目为空，请先通过菜单“项目-项目管理”加载项目");
+                Helper.Notify("当前项目为空，请先通过菜单“项目-项目管理”加载项目", NotificationType.Error);
+                return;
             }
 
             CodeProject[] projects = null;
@@ -62,7 +66,8 @@ namespace OSharp.CodeGenerator.Views
             });
             if (projects == null)
             {
-                throw new OsharpException($"名称为“{Project.Name}”的项目信息不存在");
+                Helper.Notify($"名称为“{Project.Name}”的项目信息不存在", NotificationType.Error);
+                return;
             }
 
             MenuItems.Clear();
@@ -104,8 +109,35 @@ namespace OSharp.CodeGenerator.Views
             }
         }
 
-        public void StartRun()
+        public async void StartRun()
         {
+            if (Project == null)
+            {
+                Helper.Notify("当前项目为空，无法生成代码，请先通过菜单“项目-项目管理”加载项目", NotificationType.Error);
+                return;
+            }
+            CodeProject project = null;
+            CodeTemplate[] templates = new CodeTemplate[0];
+            _provider.ExecuteScopedWork(provider =>
+            {
+                IDataContract contract = provider.GetRequiredService<IDataContract>();
+                project = contract.GetCodeProject(m => m.Name == Project.Name).FirstOrDefault();
+                templates = contract.CodeTemplates.ToArray();
+            });
+            if (project == null)
+            {
+                Helper.Notify($"名称为“{Project.Name}”的项目信息不存在", NotificationType.Error);
+                return;
+            }
+
+            ICodeGenerator generator = _provider.GetRequiredService<ICodeGenerator>();
+            CodeFile[] codeFiles = await generator.GenerateCodes(templates, project);
+            string rootPath = Directory.GetCurrentDirectory();
+            foreach (CodeFile codeFile in codeFiles)
+            {
+                codeFile.SaveToFile(rootPath);
+            }
+            
             Helper.Notify("StartRun", NotificationType.Information);
         }
 

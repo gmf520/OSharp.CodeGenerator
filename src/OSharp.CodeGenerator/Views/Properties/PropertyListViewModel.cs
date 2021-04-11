@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,7 +51,8 @@ namespace OSharp.CodeGenerator.Views.Properties
         {
             if (Entity == null)
             {
-                throw new OsharpException("当前实体为空，请选择一个实体");
+                Helper.Notify("当前实体为空，请在左侧菜单选择一个“实体”节点", NotificationType.Error);
+                return;
             }
             
             List<CodeProperty> properties = new List<CodeProperty>();
@@ -76,6 +76,12 @@ namespace OSharp.CodeGenerator.Views.Properties
 
         public void New()
         {
+            if (Entity == null)
+            {
+                Helper.Notify("当前实体为空，请在左侧菜单选择一个“实体”节点", NotificationType.Error);
+                return;
+            }
+
             PropertyViewModel property = _provider.GetRequiredService<PropertyViewModel>();
             property.Entity = Entity;
             Properties.Add(property);

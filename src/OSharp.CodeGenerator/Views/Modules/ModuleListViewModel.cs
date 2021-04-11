@@ -51,7 +51,8 @@ namespace OSharp.CodeGenerator.Views.Modules
         {
             if (Project == null)
             {
-                throw new OsharpException("当前项目为空，请先通过菜单“项目-项目管理”加载项目");
+                Helper.Notify("当前项目为空，请在左侧菜单选择“项目”节点", NotificationType.Error);
+                return;
             }
             
             List<CodeModule> entities = new List<CodeModule>();
@@ -77,7 +78,8 @@ namespace OSharp.CodeGenerator.Views.Modules
         {
             if (Project == null)
             {
-                throw new OsharpException("当前项目为空，请先通过菜单“项目-项目管理”加载项目");
+                Helper.Notify("当前项目为空，请在左侧菜单选择“项目”节点", NotificationType.Error);
+                return;
             }
             ModuleViewModel model = IoC.Get<ModuleViewModel>();
             model.Project = Project;

@@ -21,7 +21,7 @@
 //    手动更改此文件可能导致应用程序出现意外的行为。
 //    如果重新生成代码，对此文件的任何修改都会丢失。
 //    如果需要扩展此类：可遵守如下规则进行扩展：
-//      1.横向扩展：如需添加额外的属性，可新建文件“@(entity.Name)OutputDto.cs”的分部类“public partial class @(entity.Name)OutputDto”}添加属性
+//      1.横向扩展：如需添加额外的属性，可新建文件“@(entity.Name)OutputDto.cs”的分部类“public partial class @(entity.Name)OutputDto”添加属性
 // </auto-generated>
 //
 // <copyright file="@(entity.Name)OutputDto.generated.cs" company="@entity.Module.Project.Company">
@@ -66,7 +66,7 @@ namespace @(entity.Module.Namespace).Dtos
         public @(entity.Name)OutputDto(@(entity.Name) entity)
         {
             Id = entity.Id;
-            @(GetCtorString(entity.Properties.Where(m => m.IsOutputDto && !m.IsNavigation).ToArray()));
+            @(GetCtorString(entity.Properties.Where(m => m.IsOutputDto && !m.IsNavigation).ToArray()))
         }
 
         /// &lt;summary&gt;
@@ -143,6 +143,11 @@ namespace @(entity.Module.Namespace).Dtos
       {
         list.Add(string.Format("{0} = entity.{0}", prop.Name));
       }
-      return list.ExpandAndToString(";\r\n            ");
+      string str = list.ExpandAndToString(";\r\n            ");
+      if (props.Length > 0)
+      {
+          str += ";";
+      }
+      return str;
     }
 }

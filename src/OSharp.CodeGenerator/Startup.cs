@@ -12,6 +12,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.AutoMapper;
+using OSharp.CodeGeneration.Generates;
 using OSharp.CodeGeneration.Services;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views;
@@ -29,7 +30,8 @@ namespace OSharp.CodeGenerator
                 .AddPack<Log4NetPack>()
                 .AddPack<AutoMapperPack>()
                 .AddPack<SqliteDefaultDbContextMigrationPack>()
-                .AddPack<DataPack>();
+                .AddPack<DataPack>()
+                .AddPack<GeneratePack>();
         }
 
         public void Configure(IServiceProvider provider)

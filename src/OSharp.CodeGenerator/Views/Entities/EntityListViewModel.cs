@@ -9,7 +9,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,7 +51,8 @@ namespace OSharp.CodeGenerator.Views.Entities
         {
             if (Module == null)
             {
-                throw new OsharpException($"当前模块为空，请点击模块列表选择一行");
+                Helper.Notify("当前模块为空，请在左侧菜单选择一个“模块”节点", NotificationType.Error);
+                return;
             }
             
             List<CodeEntity> entities = new List<CodeEntity>();
@@ -76,6 +76,11 @@ namespace OSharp.CodeGenerator.Views.Entities
 
         public void New()
         {
+            if (Module == null)
+            {
+                Helper.Notify("当前模块为空，请在左侧菜单选择一个“模块”节点", NotificationType.Error);
+                return;
+            }
             EntityViewModel entity = _provider.GetRequiredService<EntityViewModel>();
             entity.Module = Module;
             Entities.Add(entity);
