@@ -61,6 +61,61 @@ namespace @(entity.Module.Namespace).Entities
 
 </text>
 }
+@if (entity.HasLocked)
+{
+<text>        /// <summary>
+        /// 获取或设置 是否锁定
+        /// </summary>
+        [DisplayName("是否锁定")]
+        public bool IsLocked { get; set; }
+
+</text>
+}
+@if (entity.HasSoftDeleted)
+{
+<text>        /// <summary>
+        /// 获取或设置 数据逻辑删除时间，为null表示正常数据，有值表示已逻辑删除，同时删除时间每次不同也能保证索引唯一性
+        /// </summary>
+        [DisplayName("删除时间")]
+        public DateTime? DeletedTime { get; set; }
+
+</text>
+}
+@if (entity.HasCreatedTime || entity.HasCreationAudited)
+{
+<text>        /// <summary>
+        /// 获取或设置 创建时间
+        /// </summary>
+        [DisplayName("创建时间")]
+        public DateTime CreatedTime { get; set; }
+
+</text>
+}
+@if (entity.HasCreationAudited)
+{
+<text>        /// <summary>
+        /// 获取或设置 创建者编号
+        /// </summary>
+        [DisplayName("创建者编号")]
+        public @(keyType)? CreatorId { get; set; }
+
+</text>
+}
+@if (entity.HasUpdateAudited) {
+<text>        /// <summary>
+        /// 获取或设置 更新者编号
+        /// </summary>
+        [DisplayName("更新者编号")]
+        public @(keyType)? LastUpdaterId { get; set; }
+
+        /// <summary>
+        /// 获取或设置 最后更新时间
+        /// </summary>
+        [DisplayName("更新时间")]
+        public DateTime? LastUpdatedTime { get; set; }
+
+</text>
+}
     }
 }
 
@@ -74,8 +129,8 @@ namespace @(entity.Module.Namespace).Entities
       list.Add(string.Format("EntityBase<{0}>", keyType));
       list.AddIf("ILockable", entity.HasLocked);
       list.AddIf("ISoftDeletable", entity.HasSoftDeleted);
+      list.AddIf("ICreatedTime", entity.HasCreatedTime);
       list.AddIf("ICreationAudited<int>", entity.HasCreationAudited);
-      list.AddIf("ICreatedTime", !entity.HasCreationAudited && entity.HasCreatedTime);
       list.AddIf("IUpdateAudited<int>", entity.HasUpdateAudited);
 
       return list.ExpandAndToString(", ");

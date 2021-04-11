@@ -66,7 +66,7 @@ namespace @(entity.Module.Namespace).Dtos
         public @(entity.Name)OutputDto(@(entity.Name) entity)
         {
             Id = entity.Id;
-            @(GetCtorString(entity.Properties.Where(m => m.IsOutputDto && !m.IsNavigation).ToArray()))
+            @(GetCtorString(entity, entity.Properties.Where(m => m.IsOutputDto && !m.IsNavigation).ToArray()))
         }
 
         /// &lt;summary&gt;
@@ -85,8 +85,53 @@ namespace @(entity.Module.Namespace).Dtos
 
 </text>
 }
-@if(entity.IsDataAuth)
-{ 
+@if (entity.HasLocked)
+{
+<text>        /// <summary>
+        /// 获取或设置 是否锁定
+        /// </summary>
+        [DisplayName("是否锁定")]
+        public bool IsLocked { get; set; }
+
+</text>
+}
+@if (entity.HasCreatedTime || entity.HasCreationAudited)
+{
+<text>        /// <summary>
+        /// 获取或设置 创建时间
+        /// </summary>
+        [DisplayName("创建时间")]
+        public DateTime CreatedTime { get; set; }
+
+</text>
+}
+@if (entity.HasCreationAudited)
+{
+<text>        /// <summary>
+        /// 获取或设置 创建者编号
+        /// </summary>
+        [DisplayName("创建者编号")]
+        public @(keyType)? CreatorId { get; set; }
+
+</text>
+}
+@if (entity.HasUpdateAudited) {
+<text>        /// <summary>
+        /// 获取或设置 更新者编号
+        /// </summary>
+        [DisplayName("更新者编号")]
+        public @(keyType)? LastUpdaterId { get; set; }
+
+        /// <summary>
+        /// 获取或设置 最后更新时间
+        /// </summary>
+        [DisplayName("更新时间")]
+        public DateTime? LastUpdatedTime { get; set; }
+
+</text>
+}
+@if (entity.IsDataAuth)
+{
 <text>        /// <summary>
         /// 获取或设置 是否可更新的数据权限状态
         /// </summary>
@@ -107,10 +152,12 @@ namespace @(entity.Module.Namespace).Dtos
     {
       List<string>list = new List<string>();
       list.Add("IOutputDto");
-      if (entity.IsDataAuth)
-      {
-        list.Add("IDataAuthEnabled");
-      }
+      list.AddIf("ILockable", entity.HasLocked);
+      list.AddIf("ICreatedTime", entity.HasCreatedTime);
+      list.AddIf("IDataAuthEnabled", entity.IsDataAuth);
+      list.AddIf("ICreationAudited<int>", entity.HasCreationAudited);
+      list.AddIf("IUpdateAudited<int>", entity.HasUpdateAudited);
+
       return list.ExpandAndToString(", ");
     }
 
@@ -124,7 +171,7 @@ namespace @(entity.Module.Namespace).Dtos
         Type tmpType = Type.GetType(prop.TypeName);
         if (prop.IsNullable && tmpType != null && tmpType.IsValueType)
         {
-          propType += "?";
+            propType += "?";
         }
         list.Add(propType);
       }
@@ -136,17 +183,22 @@ namespace @(entity.Module.Namespace).Dtos
       return list.ExpandAndToString("");
     }
 
-    private static string GetCtorString(CodeProperty[] props)
+    private static string GetCtorString(CodeEntity entity, CodeProperty[] props)
     {
       List<string>list = new List<string>();
       foreach (CodeProperty prop in props)
       {
         list.Add(string.Format("{0} = entity.{0}", prop.Name));
       }
+      list.AddIf("IsLocked = entity.IsLocked", entity.HasLocked);
+      list.AddIf("CreatedTime = entity.CreatedTime", entity.HasCreatedTime);
+      list.AddIf("CreatorId = entity.CreatorId", entity.HasCreationAudited);
+      list.AddIf("LastUpdaterId = entity.LastUpdaterId", entity.HasUpdateAudited);
+      list.AddIf("LastUpdatedTime = entity.LastUpdatedTime", entity.HasUpdateAudited);
       string str = list.ExpandAndToString(";\r\n            ");
-      if (props.Length > 0)
+      if (list.Count > 0)
       {
-          str += ";";
+        str += ";";
       }
       return str;
     }

@@ -15,7 +15,7 @@ trim_trailing_whitespace = true
 #是否在文件的最后插入一个空行
 insert_final_newline = true
 
-[*.{xaml,json,csproj}]
+[*.{xaml,json,csproj,cshtml}]
 indent_size = 2
 
 [*.md]

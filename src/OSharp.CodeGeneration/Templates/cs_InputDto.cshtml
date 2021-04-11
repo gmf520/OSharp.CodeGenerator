@@ -45,7 +45,7 @@ namespace @(entity.Module.Namespace).Dtos
     /// &lt;/summary&gt;
     [MapTo(typeof(@(entity.Name)))]
     [Description("@(entity.Display)信息")]
-    public partial class @(entity.Name)InputDto : IInputDto&lt;@(keyType)&gt;
+    public partial class @(entity.Name)InputDto : @(GetInterfaces(entity, keyType))
     {
         /// &lt;summary&gt;
         /// 获取或设置 编号
@@ -63,10 +63,28 @@ namespace @(entity.Module.Namespace).Dtos
 
 </text>
 }
+@if (entity.HasLocked)
+{
+<text>        /// <summary>
+        /// 获取或设置 是否锁定
+        /// </summary>
+        [DisplayName("是否锁定")]
+        public bool IsLocked { get; set; }
+
+</text>
+}
     }
 }
 @functions
 {
+    private static string GetInterfaces(CodeEntity entity, string keyType)
+    {
+      List<string> list = new List<string>();
+      list.Add($"IInputDto<{keyType}>");
+      list.AddIf("ILockable", entity.HasLocked);
+
+      return list.ExpandAndToString(", ");
+    }
 
     private static string GetAttributes(CodeProperty prop)
     {
