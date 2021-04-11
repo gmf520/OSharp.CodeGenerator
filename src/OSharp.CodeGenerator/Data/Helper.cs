@@ -8,6 +8,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Threading.Tasks;
 
 using Notifications.Wpf.Core;
 
@@ -32,7 +33,15 @@ namespace OSharp.CodeGenerator.Data
         /// <summary>
         /// 消息提示
         /// </summary>
-        public static void Notify(OperationResult result)
+        public static async void Notify(OperationResult result)
+        {
+            await NotifyAsync(result);
+        }
+
+        /// <summary>
+        /// 消息提示
+        /// </summary>
+        public static Task NotifyAsync(OperationResult result)
         {
             NotificationType type;
             switch (result.ResultType)
@@ -47,16 +56,24 @@ namespace OSharp.CodeGenerator.Data
                     type = NotificationType.Error;
                     break;
             }
-            Notify(result.Message, type);
+            return NotifyAsync(result.Message, type);
         }
 
         /// <summary>
         /// 消息提示
         /// </summary>
-        public static void Notify(string message, NotificationType type, string title = "消息提示")
+        public static async void Notify(string message, NotificationType type, string title = "消息提示")
+        {
+            await NotifyAsync(message, type, title);
+        }
+        
+        /// <summary>
+        /// 消息提示
+        /// </summary>
+        public static Task NotifyAsync(string message, NotificationType type, string title = "消息提示")
         {
             MainViewModel main = IoC.Get<MainViewModel>();
-            main.Notify(message, type, title);
+            return main.Notify(message, type, title);
         }
     }
 }

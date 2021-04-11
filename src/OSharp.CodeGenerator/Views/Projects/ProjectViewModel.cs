@@ -107,7 +107,7 @@ namespace OSharp.CodeGenerator.Views.Projects
             MainViewModel main = IoC.Get<MainViewModel>();
             if (!await ValidateAsync())
             {
-                main.Notify("项目信息验证失败", NotificationType.Warning);
+                await main.Notify("项目信息验证失败", NotificationType.Warning);
                 return;
             }
 

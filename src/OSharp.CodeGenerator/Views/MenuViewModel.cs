@@ -14,6 +14,8 @@ using MahApps.Metro.IconPacks;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using Notifications.Wpf.Core;
+
 using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
@@ -101,7 +103,12 @@ namespace OSharp.CodeGenerator.Views
                     break;
             }
         }
-        
+
+        public void StartRun()
+        {
+            Helper.Notify("StartRun", NotificationType.Information);
+        }
+
         private MenuItem ToMenu(CodeProject project)
         {
             MenuItem projectMenu = _provider.GetRequiredService<MenuItem>();

@@ -87,7 +87,7 @@ namespace OSharp.CodeGenerator.Views.Properties
         {
             if (!CanSave)
             {
-                Helper.Notify("属性信息验证失败", NotificationType.Warning);
+                await Helper.NotifyAsync("属性信息验证失败", NotificationType.Warning);
                 return;
             }
 
@@ -103,7 +103,7 @@ namespace OSharp.CodeGenerator.Views.Properties
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 result = await contract.UpdateCodeProperties(dtos);
             });
-            Helper.Notify(result);
+            await Helper.NotifyAsync(result);
             if (!result.Succeeded)
             {
                 return;

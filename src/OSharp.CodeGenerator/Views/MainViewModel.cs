@@ -7,6 +7,8 @@
 //  <last-date>2020-05-03 14:53</last-date>
 // -----------------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 using Notifications.Wpf.Core;
 using Notifications.Wpf.Core.Controls;
 
@@ -49,7 +51,7 @@ namespace OSharp.CodeGenerator.Views
 
         public PropertyListViewModel PropertyList { get; set; } = IoC.Get<PropertyListViewModel>();
 
-        public async void Notify(string message, NotificationType type = NotificationType.Information, string title = "消息提示")
+        public async Task Notify(string message, NotificationType type = NotificationType.Information, string title = "消息提示")
         {
             NotificationContent content = new NotificationContent()
             {
@@ -59,5 +61,6 @@ namespace OSharp.CodeGenerator.Views
             };
             await _notificationManager.ShowAsync(content, "MainNotifyArea");
         }
+
     }
 }
