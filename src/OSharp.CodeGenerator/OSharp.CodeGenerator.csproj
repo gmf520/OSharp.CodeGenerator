@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
+  <Import Project="../../build/public.props" />
+  <Import Project="../../build/version.props" />
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>

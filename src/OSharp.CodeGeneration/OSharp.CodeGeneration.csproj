@@ -1,5 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../../build/public.props" />
+  <Import Project="../../build/version.props" />
+
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
@@ -38,9 +41,4 @@
     <None Remove="Templates\ng_AlainRouting.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>OSharp.CodeConsoles</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 </Project>

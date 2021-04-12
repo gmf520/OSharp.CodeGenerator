@@ -5,7 +5,7 @@
     <Authors>LiuliuSoft</Authors>
     <Company>柳柳软件(liuliusoft)</Company>
     <Copyright>Copyright (c) 2014-2021 LIULIUSOFT. All rights reserved.</Copyright>
-    <PackageLicenseExpression>GPL-2.0</PackageLicenseExpression>
+    <PackageLicenseExpression>GPL3.0</PackageLicenseExpression>
     <PackageProjectUrl>https://gitee.com/i66soft/osharp.codegenerator</PackageProjectUrl>
     <PackageReleaseNotes>https://gitee.com/i66soft/osharp.codegenerator/releases</PackageReleaseNotes>
     <PackageIcon>icon.png</PackageIcon>
