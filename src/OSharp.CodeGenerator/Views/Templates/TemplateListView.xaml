@@ -17,21 +17,21 @@
       <GroupBox.Header>
         <StackPanel Orientation="Horizontal">
           <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
-          <icons:PackIconMaterial Kind="FormatListCheckbox" Width="14" Height="14"/> 模板列表
+          <icons:PackIconMaterial Kind="FormatListCheckbox" Width="14" Height="14"/> 全局模板列表
           </TextBlock>
-          <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新模块列表">
+          <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新全局模板列表">
             <StackPanel Orientation="Horizontal">
               <icons:PackIconMaterial Kind="Refresh" Width="14" Height="14"/>
               <TextBlock Text="刷新" FontSize="12" Margin="2 0"/>
             </StackPanel>
           </Button>
-          <Button Command="{s:Action Method=New}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="新增一个模块">
+          <Button Command="{s:Action Method=New}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="新增一个全局模板">
             <StackPanel Orientation="Horizontal">
               <icons:PackIconMaterial Kind="Plus" Width="14" Height="14"/>
               <TextBlock Text="新增" FontSize="12" Margin="2 0"/>
             </StackPanel>
           </Button>
-          <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存实体列表">
+          <Button Command="{s:Action Method=Save}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="5 0 0 0" Padding="2 2" ToolTip="保存全局模板列表">
             <StackPanel Orientation="Horizontal">
               <icons:PackIconMaterial Kind="ContentSaveOutline" Width="14" Height="14"/>
               <TextBlock Text="保存" FontSize="12" Margin="2 0"/>

@@ -33,10 +33,7 @@ namespace OSharp.CodeGenerator.Views.Modules
     public class ModuleViewModel : Screen
     {
         private readonly IServiceProvider _provider;
-
-        /// <summary>
-        /// 初始化一个<see cref="ModuleViewModel"/>类型的新实例
-        /// </summary>
+        
         public ModuleViewModel(IModelValidator<ModuleViewModel> validator, IServiceProvider provider)
             : base(validator)
         {

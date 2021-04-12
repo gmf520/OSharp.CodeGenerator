@@ -105,7 +105,10 @@ namespace OSharp.CodeGeneration.Services
         /// <returns>业务操作结果</returns>
         public async Task<OperationResult> DeleteCodeProjectTemplates(params Guid[] ids)
         {
-            throw new NotImplementedException();
+            UnitOfWork.EnableTransaction();
+            OperationResult result = await ProjectTemplateRepository.DeleteAsync(ids);
+            await UnitOfWork.CommitAsync();
+            return result;
         }
     }
 }

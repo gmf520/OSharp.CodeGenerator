@@ -70,15 +70,12 @@ namespace OSharp.CodeGenerator.Views
             ProjectListViewModel model = IoC.Get<ProjectListViewModel>();
             model.Show();
         }
-
-        public void Module()
-        {
-            
-        }
-
+        
         public void Template()
         {
-            
+            ProjectTemplateListViewModel model = IoC.Get<ProjectTemplateListViewModel>();
+            model.IsShow = true;
+            model.Init();
         }
 
         #endregion
@@ -87,9 +84,9 @@ namespace OSharp.CodeGenerator.Views
 
         public void GlobalTemplate()
         {
-            TemplateListViewModel templateList = IoC.Get<TemplateListViewModel>();
-            templateList.IsShow = true;
-            templateList.Init();
+            TemplateListViewModel model = IoC.Get<TemplateListViewModel>();
+            model.IsShow = true;
+            model.Init();
         }
 
         #endregion

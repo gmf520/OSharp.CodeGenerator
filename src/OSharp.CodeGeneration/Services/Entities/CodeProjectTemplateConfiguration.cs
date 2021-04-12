@@ -9,6 +9,7 @@
 
 using System;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 using OSharp.Entity;
@@ -22,8 +23,10 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// <param name="builder">实体类型创建器</param>
         public override void Configure(EntityTypeBuilder<CodeProjectTemplate> builder)
         {
-            builder.HasOne(m => m.Project).WithMany(n => n.ProjectTemplates).HasForeignKey(m => m.ProjectId).IsRequired();
-            builder.HasOne(m => m.Template).WithMany(n => n.ProjectTemplates).HasForeignKey(m => m.TemplateId).IsRequired();
+            builder.HasOne(m => m.Project).WithMany(n => n.ProjectTemplates).HasForeignKey(m => m.ProjectId).IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(m => m.Template).WithMany(n => n.ProjectTemplates).HasForeignKey(m => m.TemplateId).IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

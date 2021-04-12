@@ -73,6 +73,9 @@ namespace OSharp.CodeGenerator.Views.Projects
             MenuViewModel menu = IoC.Get<MenuViewModel>();
             menu.Project = this;
             menu.Init();
+            ProjectTemplateListViewModel projectTemplateList = IoC.Get<ProjectTemplateListViewModel>();
+            projectTemplateList.Project = this;
+            projectTemplateList.Title = $"模块“{Name}[{NamespacePrefix}]”模块管理";
             main.ProjectList.IsShow = false;
             main.StatusBar.Message = $"项目“{Name}”加载成功";
         }
