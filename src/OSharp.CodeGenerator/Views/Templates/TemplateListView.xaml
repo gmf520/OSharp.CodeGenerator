@@ -42,7 +42,7 @@
       <DataGrid ItemsSource="{Binding Templates}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
               SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserAddRows="False" CanUserDeleteRows="False">
         <DataGrid.Columns>
-          <DataGridTextColumn Header="模板名称" Binding="{Binding Name}" Width="160"/>
+          <DataGridTextColumn Header="模板名称" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="160"/>
           <DataGridComboBoxColumn Header="元数据" SelectedValueBinding="{Binding MetadataType}" TextBinding="{Binding MetadataType}" ItemsSource="{Binding MetadataTypes, Source={StaticResource Locator}}" Width="80"/>
           <DataGridTemplateColumn Header="源代码文件" Width="200">
             <DataGridTemplateColumn.CellTemplate>
@@ -52,7 +52,7 @@
             </DataGridTemplateColumn.CellTemplate>
             <DataGridTemplateColumn.CellEditingTemplate>
               <DataTemplate>
-                <ComboBox SelectedValue="{Binding TemplateFile}" Text="{Binding TemplateFile}" IsEditable="True" ItemsSource="{Binding TemplateFiles, Source={StaticResource Locator}}"/>
+                <ComboBox SelectedValue="{Binding TemplateFile}" Text="{Binding TemplateFile, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" ItemsSource="{Binding TemplateFiles, Source={StaticResource Locator}}"/>
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
@@ -64,7 +64,7 @@
             </DataGridTemplateColumn.CellTemplate>
             <DataGridTemplateColumn.CellEditingTemplate>
               <DataTemplate>
-                <TextBox Text="{Binding OutputFileFormat}" mah:TextBoxHelper.SelectAllOnFocus="True" mah:TextBoxHelper.ClearTextButton="True"/>
+                <TextBox Text="{Binding OutputFileFormat, UpdateSourceTrigger=PropertyChanged}" mah:TextBoxHelper.SelectAllOnFocus="True" mah:TextBoxHelper.ClearTextButton="True"/>
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>

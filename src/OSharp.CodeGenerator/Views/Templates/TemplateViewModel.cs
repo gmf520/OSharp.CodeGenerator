@@ -98,7 +98,9 @@ namespace OSharp.CodeGenerator.Views.Templates
     {
         public TemplateViewModelValidator()
         {
-            
+            RuleFor(m => m.Name).NotEmpty().WithMessage("模块名称不能为空");
+            RuleFor(m => m.TemplateFile).NotEmpty().WithMessage("源代码文件不能为空");
+            RuleFor(m => m.OutputFileFormat).NotEmpty().WithMessage("输出文件格式不能为空");
         }
     }
 }
