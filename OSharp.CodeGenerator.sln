@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CE0E16CA-6943-43F6-A041-D12D11C1405D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		build\build.ps1 = build\build.ps1
+		build\public.props = build\public.props
+		build\version.props = build\version.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{87C5555B-87C3-46FE-9BF0-ACA575890EC6}"
@@ -14,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSharp.CodeGenerator", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSharp.CodeGeneration", "src\OSharp.CodeGeneration\OSharp.CodeGeneration.csproj", "{B05EB364-E7CA-4EB5-93EA-3FD33BCAAFAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSharp.CodeConsoles", "src\OSharp.CodeConsoles\OSharp.CodeConsoles.csproj", "{13784656-5A4F-4083-919C-F64471F8CFBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSharp.CodeConsoles", "src\OSharp.CodeConsoles\OSharp.CodeConsoles.csproj", "{13784656-5A4F-4083-919C-F64471F8CFBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

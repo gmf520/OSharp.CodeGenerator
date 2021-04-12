@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>LiuliuSoft</Authors>
+    <Company>柳柳软件(liuliusoft)</Company>
+    <Copyright>Copyright (c) 2014-2021 LIULIUSOFT. All rights reserved.</Copyright>
+    <PackageLicenseExpression>GPL-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://gitee.com/i66soft/osharp.codegenerator</PackageProjectUrl>
+    <PackageReleaseNotes>https://gitee.com/i66soft/osharp.codegenerator/releases</PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://gitee.com/i66soft/osharp.codegenerator</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>osharp osharpns</PackageTags>
+    <NeutralLanguage>zh-CHS</NeutralLanguage>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)OSharp.Keys.snk</AssemblyOriginatorKeyFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\build\icon.png" Pack="true" Visible="false" PackagePath=""/>
+  </ItemGroup>
+</Project>

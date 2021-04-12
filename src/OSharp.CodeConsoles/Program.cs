@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -106,7 +107,7 @@ namespace OSharp.CodeConsoles
             startup.Configure(_provider);
         }
 
-        private static async void Method01()
+        private static void Method01()
         {
             
         }
@@ -166,12 +167,13 @@ namespace OSharp.CodeConsoles
             string input = Console.ReadLine();
             CodeProject project = null;
             CodeTemplate template = null;
-            await _provider.ExecuteScopedWorkAsync(async provider =>
+            await _provider.ExecuteScopedWorkAsync(provider =>
             {
-                IDataContract contract = provider.GetService<IDataContract>();
+                IDataContract contract = provider.GetRequiredService<IDataContract>();
                 CodeProject[] projects = contract.GetCodeProject(m => true);
                 project = projects[0];
                 template = contract.CodeTemplates.FirstOrDefault(m => m.Name == input);
+                return Task.CompletedTask;
             });
 
             if (template == null)
