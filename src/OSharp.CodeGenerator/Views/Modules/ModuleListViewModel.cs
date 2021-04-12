@@ -22,7 +22,6 @@ using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.Data;
-using OSharp.Exceptions;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 

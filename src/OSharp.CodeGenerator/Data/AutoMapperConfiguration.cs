@@ -12,6 +12,7 @@ using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Properties;
+using OSharp.CodeGenerator.Views.Templates;
 
 
 namespace OSharp.CodeGenerator.Data
@@ -27,6 +28,7 @@ namespace OSharp.CodeGenerator.Data
             CreateMap<CodeEntity, EntityViewModel>().ForMember(vm => vm.Module, opt => opt.Ignore());
             
             CreateMap<CodeProperty, PropertyViewModel>().ForMember(vm => vm.Entity, opt => opt.Ignore());
+            
         }
     }
 }

@@ -8,10 +8,14 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Windows;
 
+using OSharp.CodeGenerator.Views.Helps;
 using OSharp.CodeGenerator.Views.Projects;
+using OSharp.CodeGenerator.Views.Templates;
 using OSharp.Wpf.Stylet;
+using OSharp.Wpf.Utilities;
 
 using Stylet;
 
@@ -66,15 +70,12 @@ namespace OSharp.CodeGenerator.Views
             ProjectListViewModel model = IoC.Get<ProjectListViewModel>();
             model.Show();
         }
-
-        public void Module()
-        {
-            
-        }
-
+        
         public void Template()
         {
-            
+            ProjectTemplateListViewModel model = IoC.Get<ProjectTemplateListViewModel>();
+            model.IsShow = true;
+            model.Init();
         }
 
         #endregion
@@ -83,7 +84,9 @@ namespace OSharp.CodeGenerator.Views
 
         public void GlobalTemplate()
         {
-            
+            TemplateListViewModel model = IoC.Get<TemplateListViewModel>();
+            model.IsShow = true;
+            model.Init();
         }
 
         #endregion
@@ -92,12 +95,20 @@ namespace OSharp.CodeGenerator.Views
 
         public void Github()
         {
-            
+            const string url = "https://github.com/dotnetcore/osharp";
+            PublicUtils.OpenUrl2(url);
+        }
+
+        public void Gitee()
+        {
+            const string url = "https://gitee.com/i66soft/OSharp.CodeGenerator";
+            PublicUtils.OpenUrl2(url);
         }
 
         public void About()
         {
-            
+            AboutViewModel about = IoC.Get<AboutViewModel>();
+            about.IsShow = true;
         }
 
         #endregion

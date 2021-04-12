@@ -65,6 +65,7 @@
       <Button.ContextMenu>
         <ContextMenu x:Name="MenuHelp" FontSize="12" Padding="5 0 0 0">
           <MenuItem Header="OSharp on Github(_G)" s:View.ActionTarget="{Binding}" Command="{s:Action Github}" Icon="{icons:Material Kind=Github}"/>
+          <MenuItem Header="CodeSource on Gitee(_G)" s:View.ActionTarget="{Binding}" Command="{s:Action Gitee}" Icon="{icons:Material Kind=Gitlab}"/>
           <MenuItem Header="关于(_A)" s:View.ActionTarget="{Binding}" Command="{s:Action About}" Icon="{icons:Material Kind=InformationOutline}"/>
         </ContextMenu>
       </Button.ContextMenu>

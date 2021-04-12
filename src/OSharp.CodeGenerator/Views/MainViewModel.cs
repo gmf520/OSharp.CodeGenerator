@@ -13,9 +13,11 @@ using Notifications.Wpf.Core;
 using Notifications.Wpf.Core.Controls;
 
 using OSharp.CodeGenerator.Views.Entities;
+using OSharp.CodeGenerator.Views.Helps;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.CodeGenerator.Views.Properties;
+using OSharp.CodeGenerator.Views.Templates;
 using OSharp.Wpf.Stylet;
 
 using Stylet;
@@ -50,6 +52,12 @@ namespace OSharp.CodeGenerator.Views
         public EntityListViewModel EntityList { get; set; } = IoC.Get<EntityListViewModel>();
 
         public PropertyListViewModel PropertyList { get; set; } = IoC.Get<PropertyListViewModel>();
+
+        public TemplateListViewModel TemplateList { get; set; } = IoC.Get<TemplateListViewModel>();
+
+        public ProjectTemplateListViewModel ProjectTemplateList { get; set; } = IoC.Get<ProjectTemplateListViewModel>();
+
+        public AboutViewModel About { get; set; } = IoC.Get<AboutViewModel>();
 
         public async Task Notify(string message, NotificationType type = NotificationType.Information, string title = "消息提示")
         {

@@ -11,11 +11,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 using OSharp.CodeGeneration.Generates;
+using OSharp.CodeGeneration.Services.Entities;
 using OSharp.Entity;
+using OSharp.Mapping;
 
 
 namespace OSharp.CodeGeneration.Services.Dtos
 {
+    [MapTo(typeof(CodeTemplate))]
     public class CodeTemplateInputDto : IInputDto<Guid>
     {
         /// <summary>获取或设置 主键，唯一标识</summary>

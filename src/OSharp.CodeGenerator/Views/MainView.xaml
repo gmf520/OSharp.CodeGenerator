@@ -10,6 +10,8 @@
   xmlns:viewsModules="clr-namespace:OSharp.CodeGenerator.Views.Modules"
   xmlns:viewsEntities="clr-namespace:OSharp.CodeGenerator.Views.Entities"
   xmlns:viewsProperties="clr-namespace:OSharp.CodeGenerator.Views.Properties"
+  xmlns:viewsTemplates="clr-namespace:OSharp.CodeGenerator.Views.Templates"
+  xmlns:viewsHelps="clr-namespace:OSharp.CodeGenerator.Views.Helps"
   xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
   xmlns:mahwin="http://metro.mahapps.com/winfx/xaml/simplechildwindow"
   xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -43,6 +45,9 @@
       </Grid>
       <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
       <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>
+      <viewsProjects:ProjectTemplateListView Grid.Row="0" DataContext="{Binding ProjectTemplateList}"/>
+      <viewsTemplates:TemplateListView Grid.Row="0" DataContext="{Binding TemplateList}"/>
+      <viewsHelps:AboutView Grid.Row="0" DataContext="{Binding About}"/>
       <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="BottomRight" MaxItems="3"/>
       <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}" Background="DimGray"/>
     </Grid>

@@ -224,6 +224,36 @@ namespace OSharp.CodeGeneration.Services
 
         #endregion
 
+        #region 项目模板信息业务
+
+        /// <summary>
+        /// 获取 项目模板信息查询数据集
+        /// </summary>
+        IQueryable<CodeProjectTemplate> CodeProjectTemplates { get; }
+
+        /// <summary>
+        /// 检查项目模板信息信息是否存在
+        /// </summary>
+        /// <param name="predicate">检查谓语表达式</param>
+        /// <param name="id">更新的项目模板信息编号</param>
+        /// <returns>项目模板信息是否存在</returns>
+        Task<bool> CheckCodeProjectTemplateExists(Expression<Func<CodeProjectTemplate, bool>> predicate, Guid id = default);
+        
+        /// <summary>
+        /// 更新项目模板信息信息
+        /// </summary>
+        /// <param name="dtos">包含更新信息的项目模板信息DTO信息</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> UpdateCodeProjectTemplates(params CodeProjectTemplateInputDto[] dtos);
+
+        /// <summary>
+        /// 删除项目模板信息信息
+        /// </summary>
+        /// <param name="ids">要删除的项目模板信息编号</param>
+        /// <returns>业务操作结果</returns>
+        Task<OperationResult> DeleteCodeProjectTemplates(params Guid[] ids);
+
+        #endregion
 
     }
 }

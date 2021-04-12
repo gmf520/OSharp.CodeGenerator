@@ -82,6 +82,11 @@ namespace OSharp.CodeGeneration.Services
                 }
 
                 CodeProject project = dto.MapTo<CodeProject>();
+                CodeTemplate[] templates = TemplateRepository.Query(m => m.IsSystem).OrderBy(m => m.Order).ToArray();
+                foreach (CodeTemplate template in templates)
+                {
+                    project.ProjectTemplates.Add(new CodeProjectTemplate() { ProjectId = project.Id, TemplateId = template.Id });
+                }
                 int count = await ProjectRepository.InsertAsync(project);
                 if (count > 0)
                 {
