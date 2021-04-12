@@ -30,5 +30,8 @@ namespace OSharp.CodeGeneration.Services
         protected IRepository<CodeTemplate, Guid> TemplateRepository => _serviceProvider.GetService<IRepository<CodeTemplate, Guid>>();
 
         protected IRepository<CodeForeign, Guid> ForeignRepository => _serviceProvider.GetService<IRepository<CodeForeign, Guid>>();
+
+        protected IRepository<CodeProjectTemplate, Guid> ProjectTemplateRepository =>
+            _serviceProvider.GetService<IRepository<CodeProjectTemplate, Guid>>();
     }
 }

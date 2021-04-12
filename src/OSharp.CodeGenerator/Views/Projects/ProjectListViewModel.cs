@@ -50,16 +50,15 @@ namespace OSharp.CodeGenerator.Views.Projects
             IsShow = true;
         }
 
-        public async void Init()
+        public void Init()
         {
             List<CodeProject> projects = new List<CodeProject>();
-            await _provider.ExecuteScopedWork(provider =>
+            _provider.ExecuteScopedWork(provider =>
             {
-                Projects.Clear();
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 projects = contract.CodeProjects.ToList();
-                return Task.CompletedTask;
             });
+            Projects.Clear();
             foreach (CodeProject project in projects)
             {
                 ProjectViewModel model = _provider.GetRequiredService<ProjectViewModel>();
@@ -76,5 +75,5 @@ namespace OSharp.CodeGenerator.Views.Projects
             model.IsShowEdit = true;
         }
     }
-    
+
 }

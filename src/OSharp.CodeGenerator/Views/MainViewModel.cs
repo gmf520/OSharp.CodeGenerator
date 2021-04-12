@@ -17,6 +17,7 @@ using OSharp.CodeGenerator.Views.Helps;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.CodeGenerator.Views.Properties;
+using OSharp.CodeGenerator.Views.Templates;
 using OSharp.Wpf.Stylet;
 
 using Stylet;
@@ -51,6 +52,8 @@ namespace OSharp.CodeGenerator.Views
         public EntityListViewModel EntityList { get; set; } = IoC.Get<EntityListViewModel>();
 
         public PropertyListViewModel PropertyList { get; set; } = IoC.Get<PropertyListViewModel>();
+
+        public TemplateListViewModel TemplateList { get; set; } = IoC.Get<TemplateListViewModel>();
 
         public AboutViewModel About { get; set; } = IoC.Get<AboutViewModel>();
 

@@ -13,6 +13,7 @@ using System.Windows;
 
 using OSharp.CodeGenerator.Views.Helps;
 using OSharp.CodeGenerator.Views.Projects;
+using OSharp.CodeGenerator.Views.Templates;
 using OSharp.Wpf.Stylet;
 using OSharp.Wpf.Utilities;
 
@@ -86,7 +87,9 @@ namespace OSharp.CodeGenerator.Views
 
         public void GlobalTemplate()
         {
-            
+            TemplateListViewModel templateList = IoC.Get<TemplateListViewModel>();
+            templateList.IsShow = true;
+            templateList.Init();
         }
 
         #endregion
