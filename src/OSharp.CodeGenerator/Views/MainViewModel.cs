@@ -13,6 +13,7 @@ using Notifications.Wpf.Core;
 using Notifications.Wpf.Core.Controls;
 
 using OSharp.CodeGenerator.Views.Entities;
+using OSharp.CodeGenerator.Views.Helps;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.CodeGenerator.Views.Properties;
@@ -50,6 +51,8 @@ namespace OSharp.CodeGenerator.Views
         public EntityListViewModel EntityList { get; set; } = IoC.Get<EntityListViewModel>();
 
         public PropertyListViewModel PropertyList { get; set; } = IoC.Get<PropertyListViewModel>();
+
+        public AboutViewModel About { get; set; } = IoC.Get<AboutViewModel>();
 
         public async Task Notify(string message, NotificationType type = NotificationType.Information, string title = "消息提示")
         {
