@@ -7,6 +7,7 @@
 //  <last-date>2021-04-08 21:39</last-date>
 // -----------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.IO;
 
 using OSharp.CodeGeneration.Services.Entities;
@@ -19,6 +20,7 @@ namespace OSharp.CodeGeneration.Generates
     /// <summary>
     /// 表示代码文件信息
     /// </summary>
+    [DebuggerDisplay("{FileName}")]
     public class CodeFile
     {
         private string _sourceCode;

@@ -31,8 +31,8 @@ namespace OSharp.CodeGenerator
         /// <summary>Hook called after the IoC container has been set up</summary>
         protected override void Configure()
         {
-            _startup.Configure(ServiceProvider);
             IoC.Initialize(ServiceProvider);
+            _startup.Configure(ServiceProvider);
             MainViewModel main = IoC.Get<MainViewModel>();
             Output.StatusBar = msg => main.StatusBar.Message = msg;
         }

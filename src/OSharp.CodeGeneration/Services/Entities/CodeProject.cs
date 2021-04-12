@@ -71,6 +71,12 @@ namespace OSharp.CodeGeneration.Services.Entities
         public DateTime CreatedTime { get; set; }
 
         /// <summary>
+        /// 获取或设置 根目录
+        /// </summary>
+        [StringLength(200)]
+        public string RootPath { get; set; }
+
+        /// <summary>
         /// 获取或设置 模块信息集合
         /// </summary>
         public virtual ICollection<CodeModule> Modules { get; set; } = new List<CodeModule>();

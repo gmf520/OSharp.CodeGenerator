@@ -63,28 +63,32 @@
               <StackPanel>
                 <WrapPanel Width="650">
                   <TextBlock Margin="5 5 20 5" Width="300">
-                  <Run Text="命名空间前缀：" FontWeight="Bold"/>
-                  <Run Text="{Binding NamespacePrefix}"/>
+                    <Run Text="命名空间前缀：" FontWeight="Bold"/>
+                    <Run Text="{Binding NamespacePrefix}"/>
                   </TextBlock>
                   <TextBlock Margin="5 5 20 5" Width="300">
-                  <Run Text="公司：" FontWeight="Bold"/>
-                  <Run Text="{Binding Company}"/>
+                    <Run Text="公司：" FontWeight="Bold"/>
+                    <Run Text="{Binding Company}"/>
                   </TextBlock>
                   <TextBlock Margin="5 5 20 5" Width="300">
-                  <Run Text="站点URL：" FontWeight="Bold"/>
-                  <Run Text="{Binding SiteUrl}"/>
+                    <Run Text="站点URL：" FontWeight="Bold"/>
+                    <Run Text="{Binding SiteUrl}"/>
                   </TextBlock>
                   <TextBlock Margin="5 5 20 5" Width="300">
-                  <Run Text="版权信息：" FontWeight="Bold"/>
-                  <Run Text="{Binding Copyright}"/>
+                    <Run Text="版权信息：" FontWeight="Bold"/>
+                    <Run Text="{Binding Copyright}"/>
                   </TextBlock>
                   <TextBlock Margin="5 5 20 5" Width="300">
-                  <Run Text="创建者：" FontWeight="Bold"/>
-                  <Run Text="{Binding Creator}"/>
+                    <Run Text="创建者：" FontWeight="Bold"/>
+                    <Run Text="{Binding Creator}"/>
                   </TextBlock>
                   <TextBlock Margin="5 5 20 5" Width="300">
-                  <Run Text="创建时间：" FontWeight="Bold"/>
-                  <Run Text="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}"/>
+                    <Run Text="创建时间：" FontWeight="Bold"/>
+                    <Run Text="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}"/>
+                  </TextBlock>
+                  <TextBlock Margin="5 5 20 5" Width="300">
+                    <Run Text="输出目录：" FontWeight="Bold"/>
+                    <Run Text="{Binding RootPath}"/>
                   </TextBlock>
                 </WrapPanel>
               </StackPanel>

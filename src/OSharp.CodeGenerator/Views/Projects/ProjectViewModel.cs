@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
+using System.Windows.Forms;
 
 using FluentValidation;
 
@@ -28,6 +29,9 @@ using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 
 using Stylet;
+
+using MessageBox = System.Windows.MessageBox;
+using Screen = Stylet.Screen;
 
 
 namespace OSharp.CodeGenerator.Views.Projects
@@ -59,7 +63,9 @@ namespace OSharp.CodeGenerator.Views.Projects
         public string Copyright { get; set; }
 
         public DateTime CreatedTime { get; set; }
-        
+
+        public string RootPath { get; set; }
+
         public void Load()
         {
             MainViewModel main = IoC.Get<MainViewModel>();
@@ -98,6 +104,21 @@ namespace OSharp.CodeGenerator.Views.Projects
             }
             MainViewModel main = IoC.Get<MainViewModel>();
             main.ProjectList.Init();
+        }
+
+        public void Browser()
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog()
+            {
+                Description = "项目根目录",
+                UseDescriptionForTitle = true,
+                RootFolder = Environment.SpecialFolder.MyDocuments
+            };
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                RootPath = dialog.SelectedPath;
+            }
         }
 
         public bool CanEditSave => !HasErrors;

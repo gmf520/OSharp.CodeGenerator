@@ -58,6 +58,7 @@ namespace OSharp.CodeGenerator
             {
                 HandleException(msg, args.Exception);
                 args.Handled = true;
+                Current.Shutdown();
             }
             catch (Exception ex)
             {

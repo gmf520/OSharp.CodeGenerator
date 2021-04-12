@@ -102,7 +102,6 @@ namespace OSharp.CodeGeneration.Services
         /// <returns>业务操作结果</returns>
         public async Task<OperationResult> UpdateCodeProjects(params CodeProjectInputDto[] dtos)
         {
-
             List<string> names = new List<string>();
             UnitOfWork.EnableTransaction();
             foreach (var dto in dtos)

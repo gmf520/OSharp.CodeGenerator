@@ -14,7 +14,7 @@
   d:DataContext="{d:DesignInstance local:ProjectListViewModel}">
   <mahwin:ChildWindow IsOpen="{Binding IsShowEdit}" Title="{Binding EditTitle}" AllowMove="True" ShowCloseButton="True">
     <StackPanel DataContext="{Binding EditingModel}">
-      <StackPanel Margin="20 10 0 0">
+      <StackPanel Margin="20 10 20 0">
         <StackPanel Orientation="Horizontal" Margin="0">
           <TextBlock Text="项目名称：" Width="80" TextAlignment="Right" Margin="0 8 10 0"/>
           <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" mah:TextBoxHelper.Watermark="项目名称需符合标识符命名规则" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.SelectAllOnFocus="True" Width="300"/>
@@ -41,8 +41,13 @@
           <TextBlock Text="版权信息：" Width="80" TextAlignment="Right" Margin="0 8 10 0"/>
           <TextBox Text="{Binding Copyright}" mah:TextBoxHelper.Watermark="项目的版权信息声明" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.SelectAllOnFocus="True" Width="300"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0">
+          <TextBlock Text="输出目录：" Width="80" TextAlignment="Right" Margin="0 8 10 0"/>
+          <TextBox Text="{Binding RootPath}" mah:TextBoxHelper.Watermark="代码输出目录" mah:TextBoxHelper.ClearTextButton="True" Width="250"/>
+          <Button Command="{s:Action Browser}" s:View.ActionTarget="{Binding}" Content="浏览"/>
+        </StackPanel>
       </StackPanel>
-      <StackPanel Orientation="Horizontal" Margin="270 0 0 10">
+      <StackPanel Orientation="Horizontal" Margin="270 20 0 10">
         <Button Command="{s:Action Method=EditSave}" s:View.ActionTarget="{Binding}" IsDefault="True">
           <StackPanel Orientation="Horizontal">
             <icons:Material Kind="ContentSave"/>

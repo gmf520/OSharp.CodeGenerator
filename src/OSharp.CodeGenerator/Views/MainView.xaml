@@ -43,7 +43,7 @@
       </Grid>
       <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
       <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>
-      <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="TopRight" MaxItems="3"/>
+      <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="BottomRight" MaxItems="3"/>
       <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}" Background="DimGray"/>
     </Grid>
 

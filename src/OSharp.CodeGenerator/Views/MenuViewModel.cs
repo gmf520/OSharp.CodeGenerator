@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Forms;
 
 using MahApps.Metro.IconPacks;
 
@@ -27,9 +28,12 @@ using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.CodeGenerator.Views.Properties;
 using OSharp.Exceptions;
+using OSharp.IO;
 using OSharp.Wpf.Stylet;
 
 using Stylet;
+
+using Screen = Stylet.Screen;
 
 
 namespace OSharp.CodeGenerator.Views
@@ -132,13 +136,40 @@ namespace OSharp.CodeGenerator.Views
 
             ICodeGenerator generator = _provider.GetRequiredService<ICodeGenerator>();
             CodeFile[] codeFiles = await generator.GenerateCodes(templates, project);
-            string rootPath = Directory.GetCurrentDirectory();
+
+            string rootPath = null;
+            if (string.IsNullOrEmpty(Project.RootPath))
+            {
+                FolderBrowserDialog dialog = new FolderBrowserDialog()
+                {
+                    UseDescriptionForTitle = true,
+                    Description = $"项目“{Project.Name}({Project.NamespacePrefix})”生成了{codeFiles.Length}个代码文件，请选择保存文件夹：",
+                    RootFolder = Environment.SpecialFolder.MyDocuments,
+                    ShowNewFolderButton = true
+                };
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    rootPath = dialog.SelectedPath;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                rootPath = Project.RootPath;
+                DirectoryHelper.CreateIfNotExists(rootPath);
+            }
+
             foreach (CodeFile codeFile in codeFiles)
             {
+                Helper.Output($"正在保存代码文件：{codeFile.FileName}");
                 codeFile.SaveToFile(rootPath);
             }
-            
-            Helper.Notify("StartRun", NotificationType.Information);
+            Helper.Output($"项目“{Project.Name}”代码生成成功，输出{codeFiles.Length}个文件");
+            Helper.Notify($"{codeFiles.Length}个代码文件已输出到：{rootPath}", NotificationType.Success);
         }
 
         private MenuItem ToMenu(CodeProject project)

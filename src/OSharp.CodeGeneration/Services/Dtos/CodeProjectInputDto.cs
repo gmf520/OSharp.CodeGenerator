@@ -58,5 +58,11 @@ namespace OSharp.CodeGeneration.Services.Dtos
         /// </summary>
         [StringLength(500)]
         public string Copyright { get; set; }
+
+        /// <summary>
+        /// 获取或设置 根目录
+        /// </summary>
+        [StringLength(200)]
+        public string RootPath { get; set; }
     }
 }
