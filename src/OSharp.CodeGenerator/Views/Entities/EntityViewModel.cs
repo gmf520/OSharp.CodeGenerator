@@ -8,19 +8,15 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Windows;
-using System.Windows.Controls;
 
 using FluentValidation;
-
-using MahApps.Metro.Controls;
 
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
-using OSharp.CodeGenerator.Views.Properties;
 using OSharp.Mapping;
+using OSharp.Wpf.Stylet;
 
 using Stylet;
 
@@ -32,10 +28,7 @@ namespace OSharp.CodeGenerator.Views.Entities
     public class EntityViewModel : Screen
     {
         private readonly IServiceProvider _provider;
-
-        /// <summary>
-        /// 初始化一个<see cref="EntityViewModel"/>类型的新实例
-        /// </summary>
+        
         public EntityViewModel(IModelValidator<EntityViewModel> validator, IServiceProvider provider)
             : base(validator)
         {
@@ -79,7 +72,11 @@ namespace OSharp.CodeGenerator.Views.Entities
         
         public void ForeignKey()
         {
-            Helper.Output($"“{Name}” - ForeignKey");
+            ForeignListViewModel list = IoC.Get<ForeignListViewModel>();
+            list.Entity = this;
+            list.Title = $"实体“{Display}[{Name}]”的外键管理";
+            list.Init();
+            list.IsShow = true;
         }
 
         public void Up()

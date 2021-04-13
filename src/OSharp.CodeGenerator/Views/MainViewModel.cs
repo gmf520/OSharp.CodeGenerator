@@ -51,6 +51,8 @@ namespace OSharp.CodeGenerator.Views
 
         public EntityListViewModel EntityList { get; set; } = IoC.Get<EntityListViewModel>();
 
+        public ForeignListViewModel ForeignList { get; set; } = IoC.Get<ForeignListViewModel>();
+
         public PropertyListViewModel PropertyList { get; set; } = IoC.Get<PropertyListViewModel>();
 
         public TemplateListViewModel TemplateList { get; set; } = IoC.Get<TemplateListViewModel>();
