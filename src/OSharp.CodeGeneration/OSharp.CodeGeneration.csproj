@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="MiniRazor" Version="2.1.2" />
-    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.412" />
-    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.412" />
+    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.413" />
+    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.413" />
     <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
   </ItemGroup>
 
