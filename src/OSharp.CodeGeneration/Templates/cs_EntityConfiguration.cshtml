@@ -59,7 +59,8 @@ namespace @(entity.Module.Project.NamespacePrefix).EntityConfiguration.@entity.M
         {
 @foreach (var foreign in entity.Foreigns)
 {
-            <text>@GetForeign(foreign, entity)</text>
+<text>            @GetForeign(foreign, entity)
+</text>
 }
 
             EntityConfigurationAppend(builder);
