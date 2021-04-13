@@ -65,6 +65,10 @@ namespace OSharp.CodeGenerator.Views.Entities
             }
         }
 
+        public IObservableCollection<string> OtherEntities { get; } = new BindableCollection<string>();
+
+        public IObservableCollection<string> OtherNavigations { get; } = new BindableCollection<string>();
+
         public ForeignRelation[] ForeignRelations { get; } = { ForeignRelation.ManyToOne, ForeignRelation.OneToMany, ForeignRelation.OneToOne, ForeignRelation.OwnsOne, ForeignRelation.OwnsMany };
 
         public DeleteBehavior?[] DeleteBehaviors { get; } = { null, DeleteBehavior.ClientSetNull, DeleteBehavior.Restrict, DeleteBehavior.SetNull, DeleteBehavior.Cascade };

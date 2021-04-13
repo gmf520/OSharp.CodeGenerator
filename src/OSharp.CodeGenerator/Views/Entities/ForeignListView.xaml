@@ -81,12 +81,11 @@
             </DataGridTemplateColumn.CellTemplate>
             <DataGridTemplateColumn.CellEditingTemplate>
               <DataTemplate>
-                <ComboBox Text="{Binding OtherEntity}" ItemsSource="{Binding ElementName=ForeignGrid, Path=DataContext.OtherEntities}"
-                          IsEditable="True" SelectionChanged="{s:Action OtherEntityChanged}" s:View.ActionTarget="{Binding}" />
+                <ComboBox Text="{Binding OtherEntity}" ItemsSource="{Binding Entities, Source={StaticResource Locator}}" IsEditable="True" />
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
-          <DataGridTemplateColumn Header="对方导航属性" Width="120" />
+          <DataGridTextColumn Header="对方导航属性" Binding="{Binding OtherNavigation}" Width="120"/>
           <DataGridTemplateColumn Header="外键关系" Width="80">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>

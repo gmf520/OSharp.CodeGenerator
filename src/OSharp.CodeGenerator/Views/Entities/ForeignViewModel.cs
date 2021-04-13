@@ -9,6 +9,7 @@
 
 using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,10 @@ using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
+using OSharp.CodeGenerator.Views.Templates;
+using OSharp.Data;
 using OSharp.Mapping;
+using OSharp.Wpf.Stylet;
 
 using Stylet;
 
@@ -50,7 +54,7 @@ namespace OSharp.CodeGenerator.Views.Entities
 
         public DeleteBehavior? DeleteBehavior { get; set; }
 
-        public bool IsRequired { get; set; }
+        public bool IsRequired { get; set; } = true;
 
         public Guid EntityId { get; set; }
         
@@ -90,9 +94,26 @@ namespace OSharp.CodeGenerator.Views.Entities
             });
         }
 
-        public void Delete()
+        public async void Delete()
         {
-            Helper.Output($"“{SelfNavigation}” - Delete");
+            if (MessageBox.Show($"是否删除实体外键“{SelfNavigation??SelfForeignKey}”？", "请确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            OperationResult result = null;
+            await _provider.ExecuteScopedWorkAsync(async provider =>
+            {
+                IDataContract contract = provider.GetRequiredService<IDataContract>();
+                result = await contract.DeleteCodeForeigns(Id);
+            });
+            Helper.Notify(result);
+            if (!result.Succeeded)
+            {
+                return;
+            }
+
+            ForeignListViewModel list = IoC.Get<ForeignListViewModel>();
+            list.Init();
         }
     }
 }
