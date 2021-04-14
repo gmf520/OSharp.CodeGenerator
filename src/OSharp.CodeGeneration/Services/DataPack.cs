@@ -1,3 +1,12 @@
+// -----------------------------------------------------------------------
+//  <copyright file="DataPack.cs" company="OSharp开源团队">
+//      Copyright (c) 2014-2021 OSharp. All rights reserved.
+//  </copyright>
+//  <site>http://www.osharp.org</site>
+//  <last-editor>郭明锋</last-editor>
+//  <last-date>2021-04-14 12:53</last-date>
+// -----------------------------------------------------------------------
+
 using Microsoft.Extensions.DependencyInjection;
 
 using OSharp.CodeGeneration.Services.Seeds;
