@@ -44,7 +44,7 @@
     List<string>list = new List<string>();
     foreach (var entity in module.Entities.Where(m=>m.Listable))
     {
-      list.Add(string.Format("{{ path: '{0}', component: {1}Component, canActivate: [ACLGuard], data: {{ title: '{2}管理', reuse: true, guard: 'Root.Admin.{3}.{1}.Read' }} }},\r\n", entity.Name.UpperToLowerAndSplit(), entity.Name, entity.Display, module.Name));
+      list.Add($"{{ path: '{entity.Name.UpperToLowerAndSplit()}', component: {entity.Name}Component, canActivate: [ACLGuard], data: {{ title: '{entity.Display}管理', reuse: true, guard: 'Root.Admin.{module.Name}.{entity.Name}.Read' }} }},\r\n");
     }
     return list.ExpandAndToString("");
   }
@@ -53,10 +53,10 @@
   {
     List<string>list = new List<string>();
     list.Add("{\r\n");
-    list.Add(string.Format("  \"text\": \"{0}模块\",\r\n", module.Display));
+    list.Add($"  \"text\": \"{module.Display}模块\",\r\n");
     list.Add(              "  \"group\": \"true\",\r\n");
     list.Add(              "  \"icon\": \"anticon-border\",\r\n");
-    list.Add(string.Format("  \"acl\": \"Root.Admin.{0}\",\r\n", module.Name));
+    list.Add($"  \"acl\": \"Root.Admin.{module.Name}\",\r\n");
     string children = "  \"children\": [";
     List<string>childList = new List<string>();
     foreach (var entity in module.Entities.Where(m => m.Listable))
@@ -77,9 +77,9 @@
   {
     List<string>list = new List<string>();
     list.Add("{\r\n");
-    list.Add(string.Format("    \"text\": \"{0}管理\",\r\n", entity.Display));
-    list.Add(string.Format("    \"link\": \"/{0}/{1}\",\r\n", entity.Module.Name.UpperToLowerAndSplit(), entity.Name.UpperToLowerAndSplit()));
-    list.Add(string.Format("    \"acl\": \"Root.Admin.{0}.{1}\"\r\n", entity.Module.Name, entity.Name));
+    list.Add($"    \"text\": \"{entity.Display}管理\",\r\n");
+    list.Add($"    \"link\": \"/{entity.Module.Name.UpperToLowerAndSplit()}/{entity.Name.UpperToLowerAndSplit()}\",\r\n");
+    list.Add($"    \"acl\": \"Root.Admin.{entity.Module.Name}.{entity.Name}\"\r\n");
     list.Add("  }");
     return list.ExpandAndToString("");
   }
