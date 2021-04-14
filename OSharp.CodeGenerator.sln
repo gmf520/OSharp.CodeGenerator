@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CE0E16CA
 		.editorconfig = .editorconfig
 		build\build.ps1 = build\build.ps1
 		build\public.props = build\public.props
+		README.md = README.md
 		build\version.props = build\version.props
 	EndProjectSection
 EndProject
