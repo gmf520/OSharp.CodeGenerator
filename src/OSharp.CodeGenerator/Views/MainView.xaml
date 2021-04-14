@@ -43,12 +43,24 @@
         <viewsEntities:EntityListView DataContext="{Binding EntityList}" Visibility="{Binding IsShow, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" Margin="0 4 4 4"/>
         <viewsProperties:PropertyListView DataContext="{Binding PropertyList}" Visibility="{Binding IsShow, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Column="1" Margin="0 4 4 4"/>
       </Grid>
-      <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
-      <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>
-      <viewsProjects:ProjectTemplateListView Grid.Row="0" DataContext="{Binding ProjectTemplateList}"/>
-      <viewsEntities:ForeignListView Grid.Row="0" DataContext="{Binding ForeignList}"/>
-      <viewsTemplates:TemplateListView Grid.Row="0" DataContext="{Binding TemplateList}"/>
-      <viewsHelps:AboutView Grid.Row="0" DataContext="{Binding About}"/>
+      <mahwin:ChildWindow Grid.Row="0" DataContext="{Binding ProjectList}" Title="项目管理" IsOpen="{Binding IsShow}" AllowMove="True" ShowCloseButton="True">
+        <viewsProjects:ProjectListView Margin="5"/>
+      </mahwin:ChildWindow>
+      <mahwin:ChildWindow Grid.Row="0" DataContext="{Binding ProjectList}" Title="{Binding EditTitle}" IsOpen="{Binding IsShowEdit}" AllowMove="True" ShowCloseButton="True">
+        <viewsProjects:ProjectEditView Margin="5"/>
+      </mahwin:ChildWindow>
+      <mahwin:ChildWindow Grid.Row="0" DataContext="{Binding ProjectTemplateList}" Title="{Binding Title}" IsOpen="{Binding IsShow}" AllowMove="True" ShowCloseButton="True">
+        <viewsProjects:ProjectTemplateListView Margin="5"/>
+      </mahwin:ChildWindow>
+      <mahwin:ChildWindow Grid.Row="0" DataContext="{Binding ForeignList}" Title="{Binding Title}" IsOpen="{Binding IsShow}" AllowMove="True" ShowCloseButton="True">
+        <viewsEntities:ForeignListView Margin="5"/>
+      </mahwin:ChildWindow>
+      <mahwin:ChildWindow Grid.Row="0" DataContext="{Binding TemplateList}" Title="全局模板管理" IsOpen="{Binding IsShow}" AllowMove="True" ShowCloseButton="True">
+        <viewsTemplates:TemplateListView Margin="5"/>
+      </mahwin:ChildWindow>
+      <mahwin:ChildWindow Grid.Row="0" DataContext="{Binding About}" Title="关于" IsOpen="{Binding IsShow}" AllowMove="True" ShowCloseButton="True">
+        <viewsHelps:AboutView Margin="5"/>
+      </mahwin:ChildWindow>
       <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="BottomRight" MaxItems="3"/>
       <views:StatusBarView Grid.Row="1" DataContext="{Binding StatusBar}" Background="DimGray"/>
     </Grid>

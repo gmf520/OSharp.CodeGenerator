@@ -10,15 +10,13 @@
   xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
   xmlns:local="clr-namespace:OSharp.CodeGenerator.Views.Helps"
   mc:Ignorable="d"
-  d:DesignHeight="270" d:DesignWidth="480"
+  d:DesignHeight="300" d:DesignWidth="600"
   d:DataContext="{d:DesignInstance local:AboutViewModel}">
-  <mahwin:ChildWindow Title="关于" IsOpen="{Binding IsShow}" AllowMove="True" ShowCloseButton="True" CloseOnOverlay="True">
-    <StackPanel Background="White" Width="600" Height="300">
-      <Image Source="/Resources/osharp128.png" Width="128" Height="128" Margin="0 30"/>
-      <TextBlock Text="OSharp代码生成器" FontSize="24" TextAlignment="Center"/>
-      <TextBlock FontSize="18" TextAlignment="Center" Margin="10">
-        版本号：<Run Text="{Binding Version, Mode=OneWay}"/>
-      </TextBlock>
-    </StackPanel>
-  </mahwin:ChildWindow>
+  <StackPanel Background="White" Width="600" Height="300">
+    <Image Source="/Resources/osharp128.png" Width="128" Height="128" Margin="0 30"/>
+    <TextBlock Text="OSharp代码生成器" FontSize="24" TextAlignment="Center"/>
+    <TextBlock FontSize="18" TextAlignment="Center" Margin="10">
+      版本号：<Run Text="{Binding Version, Mode=OneWay}"/>
+    </TextBlock>
+  </StackPanel>
 </UserControl>
