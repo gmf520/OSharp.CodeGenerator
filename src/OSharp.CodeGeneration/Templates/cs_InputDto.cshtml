@@ -89,7 +89,7 @@ namespace @(entity.Module.Namespace).Dtos
     private static string GetAttributes(CodeProperty prop)
     {
       List<string>list = new List<string>();
-      list.Add(string.Format("DisplayName(\"{0}\")", prop.Display));
+      list.Add($"DisplayName(\"{prop.Display}\")");
       if (prop.TypeName == "System.String")
       {
         if (prop.IsRequired.HasValue && prop.IsRequired.Value)
@@ -98,8 +98,8 @@ namespace @(entity.Module.Namespace).Dtos
         }
         if (prop.MaxLength > 0)
         {
-          string min = prop.MinLength > -1 ? string.Format(", MinimumLength = {0}", prop.MinLength.Value) : "";
-          list.Add(string.Format("StringLength({0}{1})", prop.MaxLength.Value, min));
+          string min = prop.MinLength > -1 ? $", MinimumLength = {prop.MinLength.Value}" : "";
+          list.Add($"StringLength({prop.MaxLength.Value}{min})");
         }
       }
       return list.ExpandAndToString(", ");
@@ -112,7 +112,7 @@ namespace @(entity.Module.Namespace).Dtos
       string propType = TypeHelper.ToSingleTypeName(prop.TypeName);
       //可空的值类型，添加?符号
       Type tmpType = Type.GetType(prop.TypeName);
-      if (prop.IsNullable && tmpType != null && tmpType.IsValueType)
+      if (prop.IsNullable && tmpType is {IsValueType: true })
       {
         propType += "?";
       }

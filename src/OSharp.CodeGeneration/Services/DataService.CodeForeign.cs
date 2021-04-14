@@ -58,7 +58,7 @@ namespace OSharp.CodeGeneration.Services
                 {
                     return new OperationResult(OperationResultType.Error, $"编号为“{dto.EntityId}”的实体信息不存在");
                 }
-                if (await CheckCodeForeignExists(m => m.SelfNavigation == dto.SelfNavigation && m.EntityId == dto.EntityId, entity.Id))
+                if (await CheckCodeForeignExists(m => m.SelfNavigation == dto.SelfNavigation && m.EntityId == dto.EntityId, dto.Id))
                 {
                     return new OperationResult(OperationResultType.Error, $"实体“{entity.Name}”中名称为“{dto.SelfNavigation}”的外键信息已存在");
                 }

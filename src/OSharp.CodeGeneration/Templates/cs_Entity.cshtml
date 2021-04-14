@@ -162,7 +162,7 @@ namespace @(entity.Module.Namespace).Entities
 
     static string GetProperty(CodeProperty prop)
     {
-      string propName = "{0}.{1}.{2}".FormatWith(prop.Entity.Module.Name, prop.Entity.Name, prop.Name);
+      string propName = $"{prop.Entity.Module.Name}.{prop.Entity.Name}.{prop.Name}";
       List<string>list = new List<string>();
 
       //导航属性，添加virtual
@@ -170,20 +170,19 @@ namespace @(entity.Module.Namespace).Entities
       {
         list.Add("virtual");
       }
-
       //属性类型
       string propType = TypeHelper.ToSingleTypeName(prop.TypeName);
       if (propType == "ICollection<>")
       {
         if (prop.RelateEntity.IsNullOrEmpty())
         {
-          throw new OsharpException("属性“{0}”类型为“ICollection<>”的导航属性，关联实体不能为空".FormatWith(propName));
+          throw new OsharpException($"属性“{propName}”类型为“ICollection<>”的导航属性，关联实体不能为空");
         }
-        propType = string.Format("ICollection<{0}>".FormatWith(TypeHelper.ToSingleTypeName(prop.RelateEntity)));
+        propType = string.Format($"ICollection<{TypeHelper.ToSingleTypeName(prop.RelateEntity)}>");
       }
       //可空的值类型，添加?符号
       Type tmpType = Type.GetType(prop.TypeName);
-      if (prop.IsNullable && tmpType != null && tmpType.IsValueType)
+      if (prop.IsNullable && tmpType is {IsValueType: true })
       {
         propType += "?";
       }

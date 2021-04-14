@@ -118,8 +118,8 @@ export class @(entity.Name)Component extends STComponentBase implements OnInit {
     static string GetColumnProps(CodeProperty prop)
     {
       List<string>list = new List<string>();
-      list.Add("title: '{0}'".FormatWith(prop.Display));
-      list.Add("index: '{0}'".FormatWith(prop.Name));
+      list.Add($"title: '{prop.Display}'");
+      list.Add($"index: '{prop.Name}'");
       list.AddIf("readOnly: true", prop.IsReadonly);
       list.AddIf("sort: true", prop.Sortable);
       list.AddIf("editable: true", prop.Updatable);
@@ -163,7 +163,7 @@ export class @(entity.Name)Component extends STComponentBase implements OnInit {
       list.Add("'*': { spanLabelFixed: 100, grid: { span: 12 } }");
       foreach (CodeProperty prop in props.Where(m => m.TypeName == "System.String"))
       {
-        list.Add(string.Format("${0}: {{ grid: {{ span: 24 }} }}", prop.Name));
+        list.Add($"${prop.Name}: {{ grid: {{ span: 24 }} }}");
       }
 
       return list.ExpandAndToString(",\r\n      ");

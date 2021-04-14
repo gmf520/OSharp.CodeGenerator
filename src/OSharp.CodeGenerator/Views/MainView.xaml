@@ -46,6 +46,7 @@
       <viewsProjects:ProjectListView Grid.Row="0" DataContext="{Binding ProjectList}"/>
       <viewsProjects:ProjectEditView Grid.Row="0" DataContext="{Binding ProjectList}"/>
       <viewsProjects:ProjectTemplateListView Grid.Row="0" DataContext="{Binding ProjectTemplateList}"/>
+      <viewsEntities:ForeignListView Grid.Row="0" DataContext="{Binding ForeignList}"/>
       <viewsTemplates:TemplateListView Grid.Row="0" DataContext="{Binding TemplateList}"/>
       <viewsHelps:AboutView Grid.Row="0" DataContext="{Binding About}"/>
       <notify:NotificationArea Grid.Row="0" x:Name="MainNotifyArea" Position="BottomRight" MaxItems="3"/>

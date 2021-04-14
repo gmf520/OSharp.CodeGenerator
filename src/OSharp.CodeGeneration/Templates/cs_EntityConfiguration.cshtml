@@ -59,7 +59,8 @@ namespace @(entity.Module.Project.NamespacePrefix).EntityConfiguration.@entity.M
         {
 @foreach (var foreign in entity.Foreigns)
 {
-            <text>@GetForeign(foreign, entity)</text>
+<text>            @GetForeign(foreign, entity)
+</text>
 }
 
             EntityConfigurationAppend(builder);
@@ -113,12 +114,12 @@ namespace @(entity.Module.Project.NamespacePrefix).EntityConfiguration.@entity.M
 
       if (!string.IsNullOrEmpty(foreign.OtherEntity))
       {
-        line += string.Format("<{0}>", TypeHelper.ToSingleTypeName(foreign.OtherEntity));
+        line += $"<{TypeHelper.ToSingleTypeName(foreign.OtherEntity)}>";
       }
       line += "(";
       if (!string.IsNullOrEmpty(foreign.SelfNavigation))
       {
-        line += string.Format("m => m.{0}", foreign.SelfNavigation);
+        line += $"m => m.{foreign.SelfNavigation}";
       }
       line += ")";
       switch (foreign.ForeignRelation)
@@ -143,7 +144,7 @@ namespace @(entity.Module.Project.NamespacePrefix).EntityConfiguration.@entity.M
       {
         if (!string.IsNullOrEmpty(foreign.OtherNavigation))
         {
-          line += string.Format("n => n.{0})", foreign.OtherNavigation);
+          line += $"n => n.{foreign.OtherNavigation})";
         }
         else
         {
@@ -154,9 +155,9 @@ namespace @(entity.Module.Project.NamespacePrefix).EntityConfiguration.@entity.M
           line += ".HasForeignKey";
           if (foreign.ForeignRelation == ForeignRelation.OneToOne)
           {
-            line += string.Format("<{0}>", TypeHelper.ToSingleTypeName(entity.Name));
+            line += $"<{TypeHelper.ToSingleTypeName(entity.Name)}>";
           }
-          line += string.Format("(m => m.{0})", foreign.SelfForeignKey);
+          line += $"(m => m.{foreign.SelfForeignKey})";
         }
         if (foreign.IsRequired)
         {
@@ -164,7 +165,7 @@ namespace @(entity.Module.Project.NamespacePrefix).EntityConfiguration.@entity.M
         }
         if (foreign.DeleteBehavior != null)
         {
-          line += string.Format(".OnDelete(DeleteBehavior.{0})", foreign.DeleteBehavior.Value.ToString());
+          line += $".OnDelete(DeleteBehavior.{foreign.DeleteBehavior.Value})";
         }
       }
       return line;

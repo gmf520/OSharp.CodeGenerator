@@ -1,4 +1,4 @@
-function GetVersion()
+ï»¿function GetVersion()
 {
     $file = "version.props"
     $xml = New-Object -TypeName XML
@@ -16,25 +16,30 @@ function GetVersion()
 }
 
 $rootPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
-Write-Host ("µ±Ç°Ä¿Â¼£º{0}" -f $rootPath)
+Write-Host ("å½“å‰ç›®å½•ï¼š{0}" -f $rootPath)
 $version = GetVersion
-Write-Host ("µ±Ç°°æ±¾£º{0}" -f $version)
+Write-Host ("å½“å‰ç‰ˆæœ¬ï¼š{0}" -f $version)
 
 $output = ".\output"
 if(Test-Path $output)
 {
     Remove-Item ("{0}\*.*" -f $output)
-    Write-Host ("Çå¿Õ {0} ÎÄ¼ş¼Ğ" -f $output)
+    Write-Host ("æ¸…ç©º {0} æ–‡ä»¶å¤¹" -f $output)
 }
 else
 {
     New-Item -Path . -Name $nupkgs -ItemType "directory" -Force
-    Write-Host ("´´½¨ {0} ÎÄ¼ş¼Ğ" -f $output)
+    Write-Host ("åˆ›å»º {0} æ–‡ä»¶å¤¹" -f $output)
 }
 
-$props = @("OSharp.CodeGenerator")
-foreach($prop in $props)
+$proj = "OSharp.CodeGenerator"
+$path = ("../src/{0}/{0}.csproj" -f $proj)
+dotnet publish $path -c Release --force --output $output
+Rename-Item $output $proj
+$output = ("./{0}-{1}.zip" -f $proj,$version)
+if(Test-Path $output)
 {
-    $path = ("../src/{0}/{0}.csproj" -f $prop)
-    dotnet publish $path -c Release --force --output $output
+    Remove-Item $output
 }
+Compress-Archive -Path $proj -DestinationPath $output
+Rename-Item $proj "output"

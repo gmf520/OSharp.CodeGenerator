@@ -51,8 +51,7 @@ namespace OSharp.CodeGenerator.Views
 
         public ForeignRelation[] ForeignRelations { get; } = { ForeignRelation.ManyToOne, ForeignRelation.OneToMany, ForeignRelation.OneToOne, ForeignRelation.OwnsOne, ForeignRelation.OwnsMany };
 
-        public DeleteBehavior?[] DeleteBehaviors { get; } =
-            { null, DeleteBehavior.ClientSetNull, DeleteBehavior.Restrict, DeleteBehavior.SetNull, DeleteBehavior.Cascade };
+        public DeleteBehavior?[] DeleteBehaviors { get; } = { null, DeleteBehavior.ClientSetNull, DeleteBehavior.Restrict, DeleteBehavior.SetNull, DeleteBehavior.Cascade };
 
         public MetadataType[] MetadataTypes { get; } = { MetadataType.Entity, MetadataType.Module, MetadataType.Project };
 

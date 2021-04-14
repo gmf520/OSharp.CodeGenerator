@@ -16,8 +16,8 @@
     <GroupBox Margin="5" Width="500">
       <GroupBox.Header>
         <StackPanel Orientation="Horizontal">
-          <TextBlock Foreground="{StaticResource MahApps.Brushes.Badged.Foreground}" FontSize="14">
-          <icons:PackIconMaterial Kind="FormatListCheckbox" Width="14" Height="14"/> 项目模板列表
+          <TextBlock Foreground="White" FontSize="14">
+            <icons:PackIconMaterial Kind="FormatListCheckbox" Width="14" Height="14"/> 项目模板列表
           </TextBlock>
           <Button Command="{s:Action Method=Init}" s:View.ActionTarget="{Binding}" Style="{StaticResource IconButtonW}" Margin="20 0 0 0" Padding="2 2" ToolTip="刷新项目模块列表">
             <StackPanel Orientation="Horizontal">
