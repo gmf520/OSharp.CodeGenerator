@@ -8,14 +8,23 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Windows;
 
 using FluentValidation;
 
+using Microsoft.Extensions.DependencyInjection;
+
+using Notifications.Wpf.Core;
+
+using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Entities;
+using OSharp.Collections;
+using OSharp.Data;
 using OSharp.Mapping;
+using OSharp.Wpf.Stylet;
 
 using Stylet;
 
@@ -26,11 +35,14 @@ namespace OSharp.CodeGenerator.Views.Properties
     [MapFrom(typeof(CodeProperty))]
     public class PropertyViewModel : Screen
     {
+        private readonly IServiceProvider _provider;
+
         /// <summary>
         /// 初始化一个<see cref="PropertyViewModel"/>类型的新实例
         /// </summary>
-        public PropertyViewModel(IModelValidator<PropertyViewModel> validator) : base(validator)
+        public PropertyViewModel(IModelValidator<PropertyViewModel> validator, IServiceProvider provider) : base(validator)
         {
+            _provider = provider;
             Validate();
         }
 
@@ -86,17 +98,48 @@ namespace OSharp.CodeGenerator.Views.Properties
         
         public void Up()
         {
-            Helper.Output($"“{Name}” - Up");
+            var list = IoC.Get<PropertyListViewModel>().Properties;
+            if (list.SwapUp(this))
+            {
+                Helper.Output($"实体属性“{GetName()}”上移成功");
+            }
         }
 
         public void Down()
         {
-            Helper.Output($"“{Name}” - Down");
+            var list = IoC.Get<PropertyListViewModel>().Properties;
+            if (list.SwapDown(this))
+            {
+                Helper.Output($"实体属性“{GetName()}”下移成功");
+            }
         }
 
-        public void Delete()
+        public async void Delete()
         {
-            Helper.Output($"“{Name}” - Delete");
+            if (MessageBox.Show($"是否删除实体属性“{GetName()}”?", "是否确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+
+            OperationResult result = null;
+            await _provider.ExecuteScopedWorkAsync(async provider =>
+            {
+                IDataContract contract = provider.GetDataContract();
+                result = await contract.DeleteCodeProperties(Id);
+            });
+            Helper.Notify(result);
+            if (!result.Succeeded)
+            {
+                return;
+            }
+
+            PropertyListViewModel list = IoC.Get<PropertyListViewModel>();
+            list.Init();
+        }
+
+        private string GetName()
+        {
+            return $"{Display}[{Name}]";
         }
     }
 

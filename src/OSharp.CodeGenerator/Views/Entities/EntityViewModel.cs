@@ -8,13 +8,19 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Windows;
 
 using FluentValidation;
 
+using Microsoft.Extensions.DependencyInjection;
+
+using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
 using OSharp.CodeGenerator.Views.Modules;
+using OSharp.Collections;
+using OSharp.Data;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 
@@ -28,7 +34,7 @@ namespace OSharp.CodeGenerator.Views.Entities
     public class EntityViewModel : Screen
     {
         private readonly IServiceProvider _provider;
-        
+
         public EntityViewModel(IModelValidator<EntityViewModel> validator, IServiceProvider provider)
             : base(validator)
         {
@@ -69,30 +75,62 @@ namespace OSharp.CodeGenerator.Views.Entities
         public int Order { get; set; }
 
         public DateTime CreatedTime { get; set; }
-        
+
         public void ForeignKey()
         {
             ForeignListViewModel list = IoC.Get<ForeignListViewModel>();
             list.Entity = this;
-            list.Title = $"实体“{Display}[{Name}]”的外键管理";
+            list.Title = $"实体“{GetName()}”的外键管理";
             list.Init();
             list.IsShow = true;
         }
 
         public void Up()
         {
-            Helper.Output($"“{Name}” - Up");
+
+            var entities = IoC.Get<EntityListViewModel>().Entities;
+            if (entities.SwapUp(this))
+            {
+                Helper.Output($"实体“{GetName()}”上移成功");
+            }
         }
 
         public void Down()
         {
-            Helper.Output($"“{Name}” - Down");
+            var entities = IoC.Get<EntityListViewModel>().Entities;
+            if (entities.SwapDown(this))
+            {
+                Helper.Output($"实体“{GetName()}”下移成功");
+            }
         }
 
-        public void Delete()
+        public async void Delete()
         {
-            Helper.Output($"“{Name}” - Delete");
+            if (MessageBox.Show($"是否删除实体“{GetName()}”?", "是否确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+
+            OperationResult result = null;
+            await _provider.ExecuteScopedWorkAsync(async provider =>
+            {
+                IDataContract contract = provider.GetDataContract();
+                result = await contract.DeleteCodeEntities(Id);
+            });
+            Helper.Notify(result);
+            if (!result.Succeeded)
+            {
+                return;
+            }
+
+            EntityListViewModel list = IoC.Get<EntityListViewModel>();
+            list.Init();
         }
+        private string GetName()
+        {
+            return $"{Display}[{Name}]";
+        }
+
     }
 
 

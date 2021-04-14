@@ -21,6 +21,7 @@ using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
+using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
@@ -62,6 +63,24 @@ namespace OSharp.CodeGenerator.Views.Templates
         public bool IsLocked { get; set; }
 
         public DateTime CreatedTime { get; set; }
+
+        public void Up()
+        {
+            var list = IoC.Get<TemplateListViewModel>().Templates;
+            if (list.SwapUp(this))
+            {
+                Helper.Output($"模板“{Name}”上移成功");
+            }
+        }
+
+        public void Down()
+        {
+            var list = IoC.Get<TemplateListViewModel>().Templates;
+            if (list.SwapDown(this))
+            {
+                Helper.Output($"模板“{Name}”下移成功");
+            }
+        }
 
         public async void Delete()
         {

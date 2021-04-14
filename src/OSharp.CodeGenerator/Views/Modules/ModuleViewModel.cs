@@ -18,7 +18,9 @@ using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
+using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Projects;
+using OSharp.Collections;
 using OSharp.Data;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
@@ -56,10 +58,28 @@ namespace OSharp.CodeGenerator.Views.Modules
         public string Namespace => $"{(Project == null ? "" : Project.NamespacePrefix + ".")}{Name}";
 
         public ProjectViewModel Project { get; set; }
-        
+
+        public void Up()
+        {
+            var entities = IoC.Get<ModuleListViewModel>().Modules;
+            if (entities.SwapUp(this))
+            {
+                Helper.Output($"模块“{GetName()}”上移成功");
+            }
+        }
+
+        public void Down()
+        {
+            var entities = IoC.Get<ModuleListViewModel>().Modules;
+            if (entities.SwapDown(this))
+            {
+                Helper.Output($"模块“{GetName()}”下移成功");
+            }
+        }
+
         public async void Delete()
         {
-            if (MessageBox.Show($"是否删除模块“{Name}[{Display}]”?", "请确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
+            if (MessageBox.Show($"是否删除模块“{GetName()}”?", "请确认", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.Cancel)
             {
                 return;
             }
@@ -78,6 +98,11 @@ namespace OSharp.CodeGenerator.Views.Modules
             
             ModuleListViewModel list = IoC.Get<ModuleListViewModel>();
             list.Init();
+        }
+
+        private string GetName()
+        {
+            return $"{Display}[{Name}]";
         }
     }
 

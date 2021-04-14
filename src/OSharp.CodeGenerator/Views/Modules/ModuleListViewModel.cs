@@ -91,7 +91,7 @@ namespace OSharp.CodeGenerator.Views.Modules
         {
             if (!CanSave)
             {
-                await Helper.NotifyAsync("模块信息验证失败", NotificationType.Warning);
+                Helper.Notify("模块信息验证失败", NotificationType.Warning);
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace OSharp.CodeGenerator.Views.Modules
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 result = await contract.UpdateCodeModules(dtos);
             });
-            await Helper.NotifyAsync(result);
+            Helper.Notify(result);
             if (!result.Succeeded)
             {
                 return;

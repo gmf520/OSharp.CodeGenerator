@@ -19,7 +19,6 @@ using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Data;
-using OSharp.CodeGenerator.Views.Templates;
 using OSharp.Data;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;

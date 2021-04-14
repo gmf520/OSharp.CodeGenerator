@@ -25,6 +25,8 @@ using OSharp.Entity;
 using OSharp.Mapping;
 using OSharp.Wpf.Stylet;
 
+using PropertyChanged;
+
 using Stylet;
 
 
@@ -101,6 +103,7 @@ namespace OSharp.CodeGenerator.Views.Templates
         /// Called whenever the error state of any properties changes. Calls NotifyOfPropertyChange("HasErrors") by default
         /// </summary>
         /// <param name="changedProperties">List of property names which have changed validation state</param>
+        [SuppressPropertyChangedWarnings]
         protected override void OnValidationStateChanged(IEnumerable<string> changedProperties)
         {
             base.OnValidationStateChanged(changedProperties);

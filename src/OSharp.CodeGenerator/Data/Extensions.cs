@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.DependencyInjection;
+
+using OSharp.CodeGeneration.Services;
 using OSharp.CodeGeneration.Services.Entities;
 using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Modules;
@@ -46,6 +49,11 @@ namespace OSharp.CodeGenerator.Data
             model = property.MapTo(model);
             model.Entity = entityModel;
             return model;
+        }
+
+        public static IDataContract GetDataContract(this IServiceProvider provider)
+        {
+            return provider.GetRequiredService<IDataContract>();
         }
     }
 }
