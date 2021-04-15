@@ -46,12 +46,12 @@
       </StackPanel>
     </GroupBox.Header>
     <Grid>
-      <DataGrid ItemsSource="{Binding Properties}" AutoGenerateColumns="False" GridLinesVisibility="All" CanUserSortColumns="False"
+      <DataGrid ItemsSource="{Binding Properties}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
                 SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserDeleteRows="False">
         <DataGrid.Columns>
           <DataGridTextColumn Header="代码名称" Binding="{Binding Name, ValidatesOnDataErrors=True}" MinWidth="100"/>
           <DataGridTextColumn Header="显示名称" Binding="{Binding Display, ValidatesOnDataErrors=True}" MinWidth="100"/>
-          <DataGridTemplateColumn Header="属性类型命名" MinWidth="120">
+          <DataGridTemplateColumn Header="属性类型全名" MinWidth="120">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding TypeName}" ToolTip="{Binding TypeName}"/>
@@ -63,12 +63,12 @@
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
-          <DataGridCheckBoxColumn Header="只读" Width="50" Binding="{Binding Readonly}"/>
-          <DataGridCheckBoxColumn Header="编辑" Width="50" Binding="{Binding Updatable}"/>
-          <DataGridCheckBoxColumn Header="排序" Width="50" Binding="{Binding Sortable}"/>
-          <DataGridCheckBoxColumn Header="过滤" Width="50" Binding="{Binding Filterable}"/>
-          <DataGridCheckBoxColumn Header="必填" Width="50" Binding="{Binding IsRequired}"/>
-          <DataGridTemplateColumn Header="最小长度" Width="80">
+          <DataGridCheckBoxColumn Header="只读" MinWidth="50" Width="50" Binding="{Binding Readonly}"/>
+          <DataGridCheckBoxColumn Header="编辑" MinWidth="50" Width="50" Binding="{Binding Updatable}"/>
+          <DataGridCheckBoxColumn Header="排序" MinWidth="50" Width="50" Binding="{Binding Sortable}"/>
+          <DataGridCheckBoxColumn Header="过滤" MinWidth="50" Width="50" Binding="{Binding Filterable}"/>
+          <DataGridCheckBoxColumn Header="必填" MinWidth="50" Width="50" Binding="{Binding IsRequired}"/>
+          <DataGridTemplateColumn Header="最小长度" MinWidth="80" Width="80">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding MinLength}"/>
@@ -80,7 +80,7 @@
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
-          <DataGridTemplateColumn Header="最大长度" Width="85">
+          <DataGridTemplateColumn Header="最大长度" MinWidth="85" Width="85">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding MaxLength}"/>
@@ -92,10 +92,10 @@
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
-          <DataGridCheckBoxColumn Header="可空类型" Width="70" Binding="{Binding IsNullable}"/>
-          <DataGridCheckBoxColumn Header="外键" Width="50" Binding="{Binding IsForeignKey}"/>
-          <DataGridCheckBoxColumn Header="导航" Width="50" Binding="{Binding IsNavigation}"/>
-          <DataGridTemplateColumn Header="关联实体" Width="150">
+          <DataGridCheckBoxColumn Header="可空类型" MinWidth="70" Width="70" Binding="{Binding IsNullable}"/>
+          <DataGridCheckBoxColumn Header="外键" MinWidth="50" Width="50" Binding="{Binding IsForeignKey}"/>
+          <DataGridCheckBoxColumn Header="导航" MinWidth="50" Width="50" Binding="{Binding IsNavigation}"/>
+          <DataGridTemplateColumn Header="关联实体" MinWidth="120">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding RelateEntity}" ToolTip="{Binding RelateEntity}"/>
@@ -107,7 +107,7 @@
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
-          <DataGridTemplateColumn Header="数权标" Width="70">
+          <DataGridTemplateColumn Header="数权标" MinWidth="70" Width="70">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <TextBlock Text="{Binding DataAuthFlag}" ToolTip="数据权限标识，比如@当前用户"/>
@@ -119,12 +119,12 @@
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
-          <DataGridCheckBoxColumn Header="输入DTO" Width="72" Binding="{Binding IsInputDto}"/>
-          <DataGridCheckBoxColumn Header="输出DTO" Width="72" Binding="{Binding IsOutputDto}"/>
-          <DataGridTextColumn Header="默认值" Width="60" Binding="{Binding DefaultValue}"/>
-          <DataGridCheckBoxColumn Header="锁定" Width="50" Binding="{Binding IsLocked}"/>
-          <DataGridTextColumn Header="创建时间" Width="120" Binding="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}" IsReadOnly="True"/>
-          <DataGridTemplateColumn Header="操作" Width="85">
+          <DataGridCheckBoxColumn Header="输入DTO" MinWidth="72" Width="72" Binding="{Binding IsInputDto}"/>
+          <DataGridCheckBoxColumn Header="输出DTO" MinWidth="72" Width="72" Binding="{Binding IsOutputDto}"/>
+          <DataGridTextColumn Header="默认值" MinWidth="60" Width="60" Binding="{Binding DefaultValue}"/>
+          <DataGridCheckBoxColumn Header="锁定" MinWidth="50" Width="50" Binding="{Binding IsLocked}"/>
+          <DataGridTextColumn Header="创建时间" MinWidth="120" Width="120" Binding="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}" IsReadOnly="True"/>
+          <DataGridTemplateColumn Header="操作" MinWidth="85" Width="85">
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate>
                 <StackPanel Orientation="Horizontal">
