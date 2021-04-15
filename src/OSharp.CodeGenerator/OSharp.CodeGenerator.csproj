@@ -8,6 +8,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <AssemblyName>OSharp.CodeGenerator</AssemblyName>
     <ApplicationIcon>Resources\osharp128-2.ico</ApplicationIcon>
   </PropertyGroup>

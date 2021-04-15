@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="../../build/public.props" />
+  <Import Project="../../build/version.props" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>osharp</ToolCommandName>
+    <PackageId>OSharp.Cli</PackageId>
+    <Description>OSharp命令行工具</Description>
+    <Summary>OSharp命令行工具</Summary>
+    <Version>5.0.5</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
+    <PackageReference Include="OSharpNS.Log4Net" Version="5.0.5-preview.416" />
+  </ItemGroup>
+
+</Project>
