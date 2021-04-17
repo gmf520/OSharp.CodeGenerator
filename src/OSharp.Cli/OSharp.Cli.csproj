@@ -17,7 +17,7 @@
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.1.0" />
     <PackageReference Include="NuGet.Versioning" Version="5.9.1" />
-    <PackageReference Include="OSharpNS.Log4Net" Version="5.0.5-preview.416.1" />
+    <PackageReference Include="OSharpNS.Log4Net" Version="5.0.5-preview.418" />
   </ItemGroup>
 
   <ItemGroup>
