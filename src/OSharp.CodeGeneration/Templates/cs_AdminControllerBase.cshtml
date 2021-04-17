@@ -60,7 +60,7 @@ namespace @(entity.Module.Project.NamespacePrefix).Web.Areas.Admin.Controllers
     /// </summary>
     [ModuleInfo(Position = "@(entity.Module.Name)", PositionName = "@(entity.Module.Display)模块")]
     [Description("管理-@(entity.Display)信息")]
-    public abstract class @(entity.Name)ControllerBase : AdminApiController
+    public abstract class @(entity.Name)ControllerBase : AdminApiControllerBase
     {
         private readonly IServiceProvider _provider;
 
@@ -68,14 +68,10 @@ namespace @(entity.Module.Project.NamespacePrefix).Web.Areas.Admin.Controllers
         /// 初始化一个&lt;see cref="@(entity.Name)Controller"/&gt;类型的新实例
         /// &lt;/summary&gt;
         protected @(entity.Name)ControllerBase(IServiceProvider provider)
+            : base(provider)
         {
             _provider = provider;
         }
-
-        /// <summary>
-        /// 获取或设置 数据过滤服务对象
-        /// </summary>
-        protected IFilterService FilterService => _provider.GetRequiredService&lt;IFilterService&gt;();
 
         /// <summary>
         /// 获取或设置 @(entity.Module.Display)模块业务契约对象

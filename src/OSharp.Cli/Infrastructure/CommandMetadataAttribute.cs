@@ -10,7 +10,7 @@
 using System;
 
 
-namespace OSharp.Cli
+namespace OSharp.Cli.Infrastructure
 {
     /// <summary>
     /// Specify a unique name of a command and when user typped a command

@@ -11,20 +11,21 @@ using System;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using OSharp.Cli.Infrastructure;
 using OSharp.Core.Packs;
 using OSharp.Reflection;
 
 
 namespace OSharp.Cli
 {
-    public class CommandTaskPack : OsharpPack
+    public class OsharpCliPack : OsharpPack
     {
         /// <summary>将模块服务添加到依赖注入服务容器中</summary>
         /// <param name="services">依赖注入服务容器</param>
         /// <returns></returns>
         public override IServiceCollection AddServices(IServiceCollection services)
         {
-            Type[] commandTaskTypes = AssemblyManager.FindTypes(m => m.IsBaseOn<CommandTask>() && !m.IsAbstract);
+            Type[] commandTaskTypes = AssemblyManager.FindTypes(m => m.IsBaseOn<CommandBase>() && !m.IsAbstract);
             foreach (Type type in commandTaskTypes)
             {
                 services.AddTransient(type);

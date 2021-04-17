@@ -10,7 +10,7 @@
 using System;
 
 
-namespace OSharp.Cli
+namespace OSharp.Cli.Infrastructure
 {
     /// <summary>
     /// Specify a property to receive argument of command from the user.

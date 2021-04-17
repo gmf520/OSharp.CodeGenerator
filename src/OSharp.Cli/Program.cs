@@ -6,13 +6,14 @@ using McMaster.Extensions.CommandLineUtils;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using OSharp.Cli.Infrastructure;
 using OSharp.Dependency;
 using OSharp.IO;
 
 
 namespace OSharp.Cli
 {
-    [Command(Name = "osharp", Description = "OSharp Command Line Interface")]
+    [Command(Name = "osharp", Description = "OSHARP CLI （https://osharp.org）")]
     [HelpOption]
     class Program
     {
@@ -36,7 +37,7 @@ namespace OSharp.Cli
         private static IServiceProvider BuildServices()
         {
             IServiceCollection services = new ServiceCollection();
-            services.AddOSharp().AddPack<CommandTaskPack>();
+            services.AddOSharp().AddPack<OsharpCliPack>();
             services.AddSingleton<IConsole>(PhysicalConsole.Singleton);
             IServiceProvider provider = services.BuildServiceProvider();
             provider.UseOsharp();

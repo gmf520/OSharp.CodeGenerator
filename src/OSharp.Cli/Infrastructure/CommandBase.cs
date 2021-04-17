@@ -7,18 +7,18 @@
 //  <last-date>2021-04-16 1:30</last-date>
 // -----------------------------------------------------------------------
 
-namespace OSharp.Cli
+namespace OSharp.Cli.Infrastructure
 {
     /// <summary>
-    /// Provide a base class for all tasks that can run command from command line.
+    /// 为可以从命令行运行命令的所有任务提供一个基类。
     /// </summary>
-    public abstract class CommandTask
+    public abstract class CommandBase
     {
         /// <summary>
-        /// Run command when derived class override this method.
+        /// 当派生类覆盖此方法时，运行命令。
         /// </summary>
         /// <returns>
-        /// Return value of the whole application.
+        /// 整个应用程序的返回值。
         /// </returns>
         public virtual int Run()
         {
