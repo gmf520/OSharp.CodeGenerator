@@ -50,7 +50,9 @@ namespace OSharp.CodeGeneration.Services.Seeds
                 new CodeTemplate(){Name = "ng_Alain模块路由", MetadataType = MetadataType.Module, TemplateFile = "内置", Order = 13, IsSystem = true, IsOnce = true, OutputFileFormat = "ui/ng-alain/src/app/routes/{Module.Name:Lower}/{Module.Name:Lower}.routing.ts"},
                 new CodeTemplate(){Name = "ng_Alain模块组件", MetadataType = MetadataType.Entity, TemplateFile = "内置", Order = 14, IsSystem = true, IsOnce = true, OutputFileFormat = "ui/ng-alain/src/app/routes/{Module.Name:Lower}/{Entity.Name:Lower}/{Entity.Name:Lower}.component.ts"},
                 new CodeTemplate(){Name = "ng_Alain模块组件Html", MetadataType = MetadataType.Entity, TemplateFile = "内置", Order = 15, IsSystem = true, IsOnce = true, OutputFileFormat = "ui/ng-alain/src/app/routes/{Module.Name:Lower}/{Entity.Name:Lower}/{Entity.Name:Lower}.component.html"},
-                new CodeTemplate(){Name = "ng_Alain其他数据", MetadataType = MetadataType.Project, TemplateFile = "内置", Order = 15, IsSystem = true, OutputFileFormat = "ui/ng-alain/src/assets/osharp/other.generated"},
+                new CodeTemplate(){Name = "ng_Alain其他数据", MetadataType = MetadataType.Project, TemplateFile = "内置", Order = 16, IsSystem = true, OutputFileFormat = "ui/ng-alain/src/assets/osharp/other.generated"},
+                new CodeTemplate(){Name = "vue_Vben国际化多语言英文", MetadataType = MetadataType.Module, TemplateFile = "内置", Order = 17, IsSystem = true, OutputFileFormat = "ui/vue-vben/src/locales/lang/en/routes/{Module.Name:Lower}.ts"},
+                new CodeTemplate(){Name = "vue_Vben国际化多语言简体中文", MetadataType = MetadataType.Module, TemplateFile = "内置", Order = 18, IsSystem = true, OutputFileFormat = "ui/vue-vben/src/locales/lang/zh_CN/routes/{Module.Name:Lower}.ts"},
             };
         }
 

@@ -30,7 +30,7 @@ namespace OSharp.CodeGeneration.Services.Seeds
         { }
 
         /// <summary>获取 种子数据初始化的顺序</summary>
-        public override int Order => 3;
+        public override int Order => 4;
 
         /// <summary>重写以提供要初始化的种子数据</summary>
         /// <returns></returns>
@@ -40,9 +40,23 @@ namespace OSharp.CodeGeneration.Services.Seeds
             CodeModule module = repository.GetFirst(m => m.Name == "Identity");
             List<CodeEntity> entities = new List<CodeEntity>()
             {
-                new CodeEntity(){Name = "User", Display = "用户", Order = 1, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
-                new CodeEntity(){Name = "Role", Display = "角色", Order = 2, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
-                new CodeEntity(){Name = "UserRole", Display = "用户角色", Order = 3, PrimaryKeyTypeFullName = "System.Int32", ModuleId = module.Id},
+                new CodeEntity()
+                {
+                    Name = "User", Display = "用户", Order = 1, PrimaryKeyTypeFullName = "System.Int32", Listable = true, Addable = true,
+                    Updatable = true, Deletable = true, IsDataAuth = true, HasLocked = true, HasSoftDeleted = true, HasCreatedTime = true,
+                    HasCreationAudited = true, HasUpdateAudited = true, ModuleId = module.Id
+                },
+                new CodeEntity()
+                {
+                    Name = "Role", Display = "角色", Order = 2, PrimaryKeyTypeFullName = "System.Int32", Listable = true, Addable = true,
+                    Updatable = true, Deletable = true, IsDataAuth = true, HasLocked = true, HasSoftDeleted = true, HasCreatedTime = true,
+                    ModuleId = module.Id
+                },
+                new CodeEntity()
+                {
+                    Name = "UserRole", Display = "用户角色", Order = 3, PrimaryKeyTypeFullName = "System.Int32",
+                    Listable = true, Updatable = true, ModuleId = module.Id
+                },
             };
 
             module = repository.GetFirst(m => m.Name == "Auth");

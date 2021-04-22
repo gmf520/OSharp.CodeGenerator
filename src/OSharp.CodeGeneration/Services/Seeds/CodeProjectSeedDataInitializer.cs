@@ -8,9 +8,14 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
+using Microsoft.Extensions.DependencyInjection;
+
+using OSharp.CodeGeneration.Services.Dtos;
 using OSharp.CodeGeneration.Services.Entities;
+using OSharp.Data;
 using OSharp.Entity;
 
 
@@ -26,7 +31,7 @@ namespace OSharp.CodeGeneration.Services.Seeds
         { }
 
         /// <summary>获取 种子数据初始化的顺序</summary>
-        public override int Order => 1;
+        public override int Order => 2;
 
         /// <summary>重写以提供要初始化的种子数据</summary>
         /// <returns></returns>
@@ -47,6 +52,21 @@ namespace OSharp.CodeGeneration.Services.Seeds
         protected override Expression<Func<CodeProject, bool>> ExistingExpression(CodeProject entity)
         {
             return m => m.Name == entity.Name;
+        }
+
+        /// <summary>将种子数据初始化到数据库</summary>
+        protected override void SyncToDatabase(CodeProject[] entities, IServiceProvider provider)
+        {
+            if (entities == null || entities.Length == 0)
+                return;
+            IDataContract contract = provider.GetRequiredService<IDataContract>();
+            var dtos = entities.Select(m => new CodeProjectInputDto()
+            {
+                Id = m.Id,
+                Name = m.Name, NamespacePrefix = m.NamespacePrefix, Company = m.Company, Creator = m.Creator, Copyright = m.Copyright,
+                RootPath = m.RootPath, SiteUrl = m.SiteUrl
+            }).ToArray();
+            contract.CreateCodeProjects(dtos).GetAwaiter().GetResult();
         }
     }
 }

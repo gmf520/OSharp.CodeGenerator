@@ -29,7 +29,7 @@ namespace OSharp.CodeGeneration.Services.Seeds
         { }
 
         /// <summary>获取 种子数据初始化的顺序</summary>
-        public override int Order => 2;
+        public override int Order => 3;
 
         /// <summary>重写以提供要初始化的种子数据</summary>
         /// <returns></returns>
