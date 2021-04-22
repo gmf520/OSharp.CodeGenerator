@@ -126,7 +126,7 @@ namespace OSharp.CodeGenerator.Views
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
                 project = contract.GetCodeProject(m => m.Name == Project.Name).FirstOrDefault();
-                templates = contract.CodeTemplates.ToArray();
+                templates = contract.CodeProjectTemplates.Where(m => m.ProjectId == project.Id && !m.IsLocked).Select(m => m.Template).ToArray();
             });
             if (project == null)
             {

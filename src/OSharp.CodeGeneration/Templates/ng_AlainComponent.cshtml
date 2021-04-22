@@ -38,7 +38,7 @@ export class @(entity.Name)Component extends STComponentBase implements OnInit {
 
   constructor(injector: Injector) {
     super(injector);
-    this.moduleName = '@(entity.Name.LowerFirstChar())';
+    this.moduleName = '@(entity.Name.ToLowerCase())';
   }
 
   ngOnInit() {

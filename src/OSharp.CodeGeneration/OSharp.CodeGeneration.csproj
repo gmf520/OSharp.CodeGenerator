@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="MiniRazor" Version="2.1.2" />
-    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.418" />
-    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.418" />
+    <PackageReference Include="OSharpNS.AutoMapper" Version="5.0.5-preview.422.1" />
+    <PackageReference Include="OSharpNS.EntityFrameworkCore.Sqlite" Version="5.0.5-preview.422.1" />
     <PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
   </ItemGroup>
 
@@ -39,6 +39,8 @@
     <None Remove="Templates\ng_AlainModule.cshtml" />
     <None Remove="Templates\ng_AlainOther.cshtml" />
     <None Remove="Templates\ng_AlainRouting.cshtml" />
+    <None Remove="Templates\vue_VbenLocalesEn.cshtml" />
+    <None Remove="Templates\vue_VbenLocalesZhCN.cshtml" />
   </ItemGroup>
 
 </Project>

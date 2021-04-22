@@ -64,9 +64,5 @@ namespace OSharp.CodeGeneration.Services.Dtos
 
         /// <summary>获取或设置 是否锁定当前信息</summary>
         public bool IsLocked { get; set; }
-
-        /// <summary>获取或设置 创建时间</summary>
-        public DateTime CreatedTime { get; set; }
-
     }
 }

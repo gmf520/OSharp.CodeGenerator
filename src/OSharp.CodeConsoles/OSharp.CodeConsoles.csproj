@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OSharp.CodeGeneration\OSharp.CodeGeneration.csproj" />
-    <PackageReference Include="OSharpNS.Log4Net" Version="5.0.5-preview.418" />
+    <PackageReference Include="OSharpNS.Log4Net" Version="5.0.5-preview.422.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -112,6 +112,10 @@ namespace OSharp.CodeGeneration.Services.Entities
                     return typeof(ng_AlainComponentHtml);
                 case "ng_Alain其他数据":
                     return typeof(ng_AlainOther);
+                case "vue_Vben国际化多语言英文":
+                    return typeof(vue_VbenLocalesEn);
+                case "vue_Vben国际化多语言简体中文":
+                    return typeof(vue_VbenLocalesZhCN);
                 default:
                     return null;
             }
