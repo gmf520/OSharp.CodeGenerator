@@ -55,9 +55,7 @@ namespace OSharp.CodeGenerator.Views.Properties
         public string Display { get; set; }
 
         public string TypeName { get; set; }
-
-        public bool Readonly { get; set; }
-
+        
         public bool Updatable { get; set; }
 
         public bool Sortable { get; set; }

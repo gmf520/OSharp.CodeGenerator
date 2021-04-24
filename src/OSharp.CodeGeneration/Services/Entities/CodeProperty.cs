@@ -142,5 +142,10 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// </summary>
         public virtual CodeEntity Entity { get; set; }
 
+        public static CodeProperty GetProperty(string name, string display, Type type, bool input, bool output = true, bool filter = true, bool sort = true) => new CodeProperty()
+        {
+            Name = name, Display = display, TypeName = type.FullName, Filterable = filter, Sortable = sort, IsInputDto = input,
+            IsOutputDto = output
+        };
     }
 }

@@ -63,7 +63,7 @@ namespace OSharp.CodeGenerator.Views.Projects
             _provider.ExecuteScopedWork(provider =>
             {
                 IDataContract contract = provider.GetRequiredService<IDataContract>();
-                models = contract.CodeProjectTemplates.Where(m => m.ProjectId == Project.Id).Select(m => new ProjectTemplateViewModel(_provider)
+                models = contract.CodeProjectTemplates.Where(m => m.ProjectId == Project.Id).OrderBy(m => m.Template.Order).Select(m => new ProjectTemplateViewModel(_provider)
                 {
                     Id = m.Id,
                     ProjectId = m.ProjectId,

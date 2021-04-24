@@ -113,9 +113,17 @@ namespace OSharp.CodeGeneration.Services.Entities
                 case "ng_Alain其他数据":
                     return typeof(ng_AlainOther);
                 case "vue_Vben国际化多语言英文":
-                    return typeof(vue_VbenLocalesEn);
+                    return typeof(vue_VbenLocalesLangEn);
                 case "vue_Vben国际化多语言简体中文":
-                    return typeof(vue_VbenLocalesZhCN);
+                    return typeof(vue_VbenLocalesLangZhCN);
+                case "vue_Vben路由器菜单":
+                    return typeof(vue_VbenRouterMenus);
+                case "vue_Vben路由器路由":
+                    return typeof(vue_VbenRouterRoutes);
+                case "vue_Vben视图Store":
+                    return typeof(vue_VbenViewsStore);
+                case "vue_Vben视图Index":
+                    return typeof(vue_VbenViewsIndex);
                 default:
                     return null;
             }
@@ -127,7 +135,7 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string GetCodeFileName(CodeProject project)
         {
             string fileName = OutputFileFormat.Replace("{Project.NamespacePrefix}", project.NamespacePrefix)
-                .Replace("{Project.Name:Lower}", project.Name.UpperToLowerAndSplit())
+                .Replace("{Project.Name:Lower}", project.Name.ToLowerCase())
                 .Replace("{Project.Name}", project.Name);
             return fileName;
         }
@@ -138,7 +146,7 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string GetCodeFileName(CodeModule module)
         {
             string fileName = OutputFileFormat.Replace("{Project.NamespacePrefix}", module.Project.NamespacePrefix)
-                .Replace("{Module.Name:Lower}", module.Name.UpperToLowerAndSplit())
+                .Replace("{Module.Name:Lower}", module.Name.ToLowerCase())
                 .Replace("{Module.Name}", module.Name);
             return fileName;
         }
@@ -149,8 +157,8 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string GetCodeFileName(CodeEntity entity)
         {
             string fileName = OutputFileFormat.Replace("{Project.NamespacePrefix}", entity.Module.Project.NamespacePrefix)
-                .Replace("{Module.Name:Lower}", entity.Module.Name.UpperToLowerAndSplit())
-                .Replace("{Entity.Name:Lower}", entity.Name.UpperToLowerAndSplit())
+                .Replace("{Module.Name:Lower}", entity.Module.Name.ToLowerCase())
+                .Replace("{Entity.Name:Lower}", entity.Name.ToLowerCase())
                 .Replace("{Module.Name}", entity.Module.Name).Replace("{Entity.Name}", entity.Name);
             return fileName;
         }
