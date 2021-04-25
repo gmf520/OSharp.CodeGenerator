@@ -51,6 +51,7 @@
           <DataGridTextColumn Header="代码名称" Binding="{Binding Name}" MinWidth="200"/>
           <DataGridTextColumn Header="显示名称" Binding="{Binding Display}" MinWidth="200"/>
           <DataGridTextColumn Header="命名空间" Binding="{Binding Namespace}" MinWidth="300" IsReadOnly="True"/>
+          <DataGridTextColumn Header="图标" Binding="{Binding Icon}" MinWidth="100"/>
           <DataGridCheckBoxColumn Header="锁定" Binding="{Binding IsLocked}" Width="50"/>
           <DataGridTextColumn Header="创建时间" Binding="{Binding CreatedTime, StringFormat='yyyy/MM/dd HH:mm'}" Width="120" IsReadOnly="True"/>
           <DataGridTemplateColumn Header="操作" Width="85">

@@ -58,9 +58,9 @@ namespace OSharp.CodeGenerator.Views.Properties
         
         public bool Updatable { get; set; }
 
-        public bool Sortable { get; set; }
+        public bool Sortable { get; set; } = true;
 
-        public bool Filterable { get; set; }
+        public bool Filterable { get; set; } = true;
 
         public bool IsRequired { get; set; }
 

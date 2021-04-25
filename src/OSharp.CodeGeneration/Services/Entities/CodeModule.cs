@@ -37,6 +37,12 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string Display { get; set; }
 
         /// <summary>
+        /// 获取或设置 图标
+        /// </summary>
+        [StringLength(200)]
+        public string Icon { get; set; }
+
+        /// <summary>
         /// 获取或设置 排序号
         /// </summary>
         public int Order { get; set; }

@@ -49,6 +49,8 @@ namespace OSharp.CodeGenerator.Views.Modules
 
         public string Display { get; set; }
 
+        public string Icon { get; set; }
+
         public int Order { get; set; }
 
         public bool IsLocked { get; set; }

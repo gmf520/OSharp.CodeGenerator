@@ -45,6 +45,12 @@ namespace OSharp.CodeGeneration.Services.Entities
         public string PrimaryKeyTypeFullName { get; set; }
 
         /// <summary>
+        /// 获取或设置 图标
+        /// </summary>
+        [StringLength(200)]
+        public string Icon { get; set; }
+
+        /// <summary>
         /// 获取或设置 是否可列表
         /// </summary>
         public bool Listable { get; set; }

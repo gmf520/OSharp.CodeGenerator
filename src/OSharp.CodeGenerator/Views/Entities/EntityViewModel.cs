@@ -51,8 +51,10 @@ namespace OSharp.CodeGenerator.Views.Entities
         public string Display { get; set; }
 
         public string PrimaryKeyTypeFullName { get; set; }
+        
+        public string Icon { get; set; }
 
-        public bool Listable { get; set; }
+        public bool Listable { get; set; } = true;
 
         public bool Addable { get; set; }
 

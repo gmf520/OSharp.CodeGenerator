@@ -32,7 +32,7 @@ const @(lowerModule): AppRouteModule = {
   component: LAYOUT,
   redirect: '/@(lowerModule)/@(module.Entities.FirstOrDefault()?.Name.UpperToLowerAndSplit())',
   meta: {
-    icon: 'ion:grid-outline',
+    icon: '@(module.Icon)',
     title: t('routes.@(lowerModule).@(lowerModule)'),
   },
   children: [
@@ -45,6 +45,7 @@ const @(lowerModule): AppRouteModule = {
       name: '@(entity.Name)',
       component: () => import('/@@/views/@(lowerModule)/@(lowerEntity)/index.vue'),
       meta: {
+        icon: '@(entity.Icon)',
         title: t('routes.@(lowerModule).@(lowerEntity)'),
       },
     },
