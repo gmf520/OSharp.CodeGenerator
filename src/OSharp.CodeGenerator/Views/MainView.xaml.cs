@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Windows;
 
+using MahApps.Metro.Controls.Dialogs;
+
 using OSharp.CodeGenerator.Data;
 
 
@@ -14,6 +16,7 @@ namespace OSharp.CodeGenerator.Views
         public MainView()
         {
             InitializeComponent();
+            MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Accented;
             Helper.Main = this;
         }
 

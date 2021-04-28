@@ -131,7 +131,7 @@ namespace OSharp.CodeGenerator.Views.Projects
 
             Init();
         }
-
+        
         /// <summary>
         /// Called whenever the error state of any properties changes. Calls NotifyOfPropertyChange("HasErrors") by default
         /// </summary>

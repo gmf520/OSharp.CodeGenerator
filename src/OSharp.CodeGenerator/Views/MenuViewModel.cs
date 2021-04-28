@@ -113,7 +113,7 @@ namespace OSharp.CodeGenerator.Views
                     break;
             }
         }
-        
+
         public async void Generate()
         {
             if (Project == null)
@@ -135,6 +135,12 @@ namespace OSharp.CodeGenerator.Views
                 return;
             }
 
+            if (templates.Length == 0)
+            {
+                Helper.Notify($"项目“{project.GetName()}”的模板数量为0，请先通过菜单“项目-项目模板管理”添加模板", NotificationType.Error);
+                return;
+            }
+
             CodeFile[] codeFiles;
             var progress = await Helper.Main.ShowProgressAsync("请稍候", "正在生成代码，请稍候");
             await Task.Run(async () =>
@@ -151,14 +157,13 @@ namespace OSharp.CodeGenerator.Views
                     Helper.Notify($"代码生成失败：{ex.Message}", NotificationType.Error);
                     return;
                 }
-                
+
                 SaveToFiles(codeFiles);
             });
         }
 
         private void SaveToFiles(CodeFile[] codeFiles)
         {
-
             string rootPath = null;
             if (string.IsNullOrEmpty(Project.RootPath))
             {

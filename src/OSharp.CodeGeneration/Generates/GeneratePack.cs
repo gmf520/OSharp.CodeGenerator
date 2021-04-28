@@ -25,7 +25,6 @@ namespace OSharp.CodeGeneration.Generates
         public override IServiceCollection AddServices(IServiceCollection services)
         {
             services.AddScoped<ICodeGenerator, RazorCodeGenerator>();
-
             return base.AddServices(services);
         }
     }

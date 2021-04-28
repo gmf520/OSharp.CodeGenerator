@@ -85,5 +85,13 @@ namespace OSharp.CodeGeneration.Services.Entities
         /// 获取或设置 项目模板集合
         /// </summary>
         public virtual ICollection<CodeProjectTemplate> ProjectTemplates { get; set; } = new List<CodeProjectTemplate>();
+
+        /// <summary>
+        /// 获取项目名称
+        /// </summary>
+        public string GetName()
+        {
+            return $"{Name}[{NamespacePrefix}]";
+        }
     }
 }

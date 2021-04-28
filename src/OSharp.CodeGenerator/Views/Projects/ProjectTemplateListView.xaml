@@ -41,7 +41,6 @@
     <DataGrid ItemsSource="{Binding ProjectTemplates}" AutoGenerateColumns="False" GridLinesVisibility="All" ColumnWidth="*" CanUserSortColumns="False"
               SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserAddRows="False" CanUserDeleteRows="False" BeginningEdit="{s:Action BeginningEdit}" s:View.ActionTarget="{Binding}">
       <DataGrid.Columns>
-        <!--<DataGridComboBoxColumn Header="模板" TextBinding="{Binding TemplateName}" SelectedValueBinding="{Binding TemplateId}" ItemsSource="{Binding TemplateSource}"/>-->
         <DataGridTemplateColumn Header="模板">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
@@ -54,7 +53,14 @@
             </DataTemplate>
           </DataGridTemplateColumn.CellEditingTemplate>
         </DataGridTemplateColumn>
-        <DataGridCheckBoxColumn Header="锁定" Binding="{Binding IsLocked}" Width="80"/>
+        <DataGridCheckBoxColumn Binding="{Binding IsLocked}" Width="80">
+          <DataGridCheckBoxColumn.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="锁定 "/>
+              <CheckBox Checked="Locked_CheckAll" Unchecked="Locked_CheckAll"/>
+            </StackPanel>
+          </DataGridCheckBoxColumn.Header>
+        </DataGridCheckBoxColumn>
         <DataGridTemplateColumn Header="操作" Width="50">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
