@@ -10,9 +10,11 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
+using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +29,6 @@ using OSharp.CodeGenerator.Views.Entities;
 using OSharp.CodeGenerator.Views.Modules;
 using OSharp.CodeGenerator.Views.Projects;
 using OSharp.CodeGenerator.Views.Properties;
-using OSharp.Exceptions;
 using OSharp.IO;
 using OSharp.Wpf.Stylet;
 
@@ -112,8 +113,8 @@ namespace OSharp.CodeGenerator.Views
                     break;
             }
         }
-
-        public async void StartRun()
+        
+        public async void Generate()
         {
             if (Project == null)
             {
@@ -134,8 +135,29 @@ namespace OSharp.CodeGenerator.Views
                 return;
             }
 
-            ICodeGenerator generator = _provider.GetRequiredService<ICodeGenerator>();
-            CodeFile[] codeFiles = await generator.GenerateCodes(templates, project);
+            CodeFile[] codeFiles;
+            var progress = await Helper.Main.ShowProgressAsync("请稍候", "正在生成代码，请稍候");
+            await Task.Run(async () =>
+            {
+                try
+                {
+                    ICodeGenerator generator = _provider.GetRequiredService<ICodeGenerator>();
+                    codeFiles = await generator.GenerateCodes(templates, project);
+                    await progress.CloseAsync();
+                }
+                catch (Exception ex)
+                {
+                    await progress.CloseAsync();
+                    Helper.Notify($"代码生成失败：{ex.Message}", NotificationType.Error);
+                    return;
+                }
+                
+                SaveToFiles(codeFiles);
+            });
+        }
+
+        private void SaveToFiles(CodeFile[] codeFiles)
+        {
 
             string rootPath = null;
             if (string.IsNullOrEmpty(Project.RootPath))

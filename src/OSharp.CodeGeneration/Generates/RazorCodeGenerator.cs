@@ -39,7 +39,8 @@ namespace OSharp.CodeGeneration.Generates
             CodeModule[] modules = project.Modules.ToArray();
             CodeEntity[] entities = modules.SelectMany(m => m.Entities).ToArray();
 
-            foreach (CodeTemplate template in templates.Where(m => m.MetadataType == MetadataType.Entity))
+            CodeTemplate[] templates2 = templates.Where(m => m.MetadataType == MetadataType.Entity).ToArray();
+            foreach (CodeTemplate template in templates2)
             {
                 foreach (CodeEntity entity in entities)
                 {
@@ -47,7 +48,8 @@ namespace OSharp.CodeGeneration.Generates
                 }
             }
 
-            foreach (CodeTemplate template in templates.Where(m => m.MetadataType == MetadataType.Module))
+            templates2 = templates.Where(m => m.MetadataType == MetadataType.Module).ToArray();
+            foreach (CodeTemplate template in templates2)
             {
                 foreach (CodeModule module in modules)
                 {
@@ -55,7 +57,8 @@ namespace OSharp.CodeGeneration.Generates
                 }
             }
 
-            foreach (CodeTemplate template in templates.Where(m => m.MetadataType == MetadataType.Project))
+            templates2 = templates.Where(m => m.MetadataType == MetadataType.Project).ToArray();
+            foreach (CodeTemplate template in templates2)
             {
                 codeFiles.Add(await GenerateCode(template, project));
             }

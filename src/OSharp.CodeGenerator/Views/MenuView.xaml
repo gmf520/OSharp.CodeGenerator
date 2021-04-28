@@ -40,7 +40,7 @@
         </TreeView.ItemTemplate>
       </TreeView>
       <StackPanel Grid.Row="1">
-        <Button Command="{s:Action StartRun}" s:View.ActionTarget="{Binding}" Margin="30 10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" BorderThickness="0">
+        <Button Command="{s:Action Generate}" s:View.ActionTarget="{Binding}" Margin="30 10" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" BorderThickness="0">
           <TextBlock FontSize="18">
             <icons:PackIconMaterial Kind="RunFast"/>
             生成代码

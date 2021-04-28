@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 using OSharp.CodeGeneration.Generates;
 using OSharp.CodeGeneration.Templates;
@@ -25,6 +26,7 @@ namespace OSharp.CodeGeneration.Services.Entities
     /// </summary>
     [Description("代码模板")]
     [TableNamePrefix("CodeGen")]
+    [DebuggerDisplay("{Name} - {MetadataType} - {TemplateFile}")]
     public class CodeTemplate : EntityBase<Guid>, ILockable, ICreatedTime
     {
         /// <summary>

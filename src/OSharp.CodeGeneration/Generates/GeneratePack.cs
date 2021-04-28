@@ -1,4 +1,4 @@
-﻿// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
 //  <copyright file="GeneratePack.cs" company="OSharp开源团队">
 //      Copyright (c) 2014-2021 OSharp. All rights reserved.
 //  </copyright>
@@ -25,7 +25,6 @@ namespace OSharp.CodeGeneration.Generates
         public override IServiceCollection AddServices(IServiceCollection services)
         {
             services.AddScoped<ICodeGenerator, RazorCodeGenerator>();
-            services.AddSingleton<GenerateManager>();
 
             return base.AddServices(services);
         }

@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Windows;
 
+using OSharp.CodeGenerator.Data;
+
 
 namespace OSharp.CodeGenerator.Views
 {
@@ -12,6 +14,7 @@ namespace OSharp.CodeGenerator.Views
         public MainView()
         {
             InitializeComponent();
+            Helper.Main = this;
         }
 
         /// <summary>引发 <see cref="E:System.Windows.Window.Closing" /> 事件。</summary>

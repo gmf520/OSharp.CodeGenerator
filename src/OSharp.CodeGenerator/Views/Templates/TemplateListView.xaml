@@ -42,7 +42,7 @@
               SelectionMode="Single" RowDetailsVisibilityMode="Collapsed" CanUserAddRows="False" CanUserDeleteRows="False">
       <DataGrid.Columns>
         <DataGridTextColumn Header="模板名称" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="160"/>
-        <DataGridComboBoxColumn Header="元数据" SelectedValueBinding="{Binding MetadataType}" TextBinding="{Binding MetadataType}" ItemsSource="{Binding MetadataTypes, Source={StaticResource Locator}}" Width="80"/>
+        <DataGridComboBoxColumn Header="元数据" SelectedItemBinding="{Binding MetadataType}" ItemsSource="{Binding MetadataTypes, Source={StaticResource Locator}}" Width="80"/>
         <DataGridTemplateColumn Header="源代码文件" Width="200">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>

@@ -21,6 +21,8 @@ namespace OSharp.CodeGenerator.Data
 {
     public static class Helper
     {
+        public static MainView Main { get; set; }
+
         /// <summary>
         /// 输出信息到状态栏
         /// </summary>

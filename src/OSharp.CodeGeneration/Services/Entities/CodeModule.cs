@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 using OSharp.Entity;
 
@@ -22,6 +23,7 @@ namespace OSharp.CodeGeneration.Services.Entities
     /// </summary>
     [Description("代码模块信息")]
     [TableNamePrefix("CodeGen")]
+    [DebuggerDisplay("{Display}[{Name}]")]
     public class CodeModule : EntityBase<Guid>, ICreatedTime, ILockable
     {
         /// <summary>

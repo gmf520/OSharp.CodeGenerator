@@ -61,7 +61,7 @@ namespace OSharp.CodeGenerator.Views.Templates
         public bool IsSystem { get; set; }
 
         public bool IsLocked { get; set; }
-
+        
         public DateTime CreatedTime { get; set; }
 
         public void Up()
